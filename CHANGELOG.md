@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2026-10-22
+
+The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. Coming from 2.x, read the breaking changes under [3.0.0-alpha.0](#300-alpha0---2026-10-21): the package is renamed to `@88khp/vajra-ui`, and `Pressable` is built on React Native `Pressable`.
+
+### Changed
+
+- The core peer dependency is now `@88khp/vajra-ui-core@3.0.0`.
+
+### Fixed
+
+- The package no longer ships compiled tests. `tsconfig.build.json` excludes `*.test.ts` and `*.test.tsx`, and `build` clears `dist` first, so files from earlier builds are not published either. 3.0.0-alpha.1 shipped 94 test files.
+
+### Performance
+
+- The runtime code is the same as 3.0.0-alpha.1: every built file is byte-identical. Against other React Native styling libraries, in one run with every library rendering the same card, 3.0.0 is level with twrnc on variant switches and within 7% of hand-written `StyleSheet`, 15% faster than styled-components, 2.2–2.6× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 13–30% behind styled-components, twrnc and `StyleSheet`. Against 3.0.0-alpha.0 it is 9–11% faster on every update scenario. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md).
+
+### Benchmarks
+
+- Tamagui is now also measured compiled, by its own compiler through `@tamagui/metro-plugin`, next to its runtime-only path.
+- The styling benchmark installs Vajra from npm instead of vendored tarballs.
+
+### Docs
+
+- The docs site's Performance page leads with the comparison against other styling libraries, and the home page, navbar and README link to it. The token-layer numbers are re-measured on 3.0.
+
 ## [3.0.0-alpha.1] - 2026-10-22
 
 ### Changed
