@@ -70,6 +70,11 @@ const config: Config = {
           label: 'Docs',
         },
         {
+          to: '/docs/performance',
+          label: 'Benchmarks',
+          position: 'left',
+        },
+        {
           href: 'https://github.com/88khp/vajra-ui',
           label: 'GitHub',
           position: 'right',
@@ -96,7 +101,7 @@ const config: Config = {
               to: '/docs/theming',
             },
             {
-              label: 'Performance',
+              label: 'Performance & benchmarks',
               to: '/docs/performance',
             },
             {
