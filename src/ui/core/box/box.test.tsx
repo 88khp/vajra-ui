@@ -82,4 +82,37 @@ describe('Box', () => {
 
     expect(style.backgroundColor).toBe(defaultVajraTheme.dark.colors.primary);
   });
+
+  it('shares one style object between Boxes with the same tokens', () => {
+    render(
+      <VajraProvider>
+        <Box testID="first" bg="primary" p="s-4" />
+        <Box testID="second" bg="primary" p="s-4" />
+      </VajraProvider>,
+    );
+
+    expect(screen.getByTestId('second').props.style).toBe(screen.getByTestId('first').props.style);
+  });
+
+  it('resolves the same tokens again when the theme changes', () => {
+    const { rerender } = render(
+      <VajraProvider colorScheme="light">
+        <Box testID="box" bg="primary" />
+      </VajraProvider>,
+    );
+
+    expect(flattenStyle(screen.getByTestId('box').props.style).backgroundColor).toBe(
+      defaultVajraTheme.light.colors.primary,
+    );
+
+    rerender(
+      <VajraProvider colorScheme="dark">
+        <Box testID="box" bg="primary" />
+      </VajraProvider>,
+    );
+
+    expect(flattenStyle(screen.getByTestId('box').props.style).backgroundColor).toBe(
+      defaultVajraTheme.dark.colors.primary,
+    );
+  });
 });
