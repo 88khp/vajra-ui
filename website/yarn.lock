@@ -12,10 +12,10 @@
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
 
-"@88khp/vajra-ui-core@3.0.0-alpha.0":
-  version "3.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.0.tgz#0c53bcaa64e1ee8068d43699dc55540ae480ca84"
-  integrity sha512-AZ+AqVhAFqK3Yl/KmzDHbECP/MnivUlEKfdF52yPudQX9VE3wVRpk+C11YDTPDZ+8EBNT/L9XVa+nxNc1RTRiQ==
+"@88khp/vajra-ui-core@3.0.0":
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0.tgz#9d086ee2e57fa68c3ac2cfe94c4833a5226917f1"
+  integrity sha512-VSf2HJzyr4+4Ur530IKNa95utIgZ5Kg4CBQsLsztt0guP9ssT/gPhrwC/PyTzny+Hii16iTBDz7sUqteV9jx4w==
 
 "@algolia/abtesting@1.22.0":
   version "1.22.0"
