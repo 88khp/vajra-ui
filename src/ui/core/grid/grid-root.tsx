@@ -1,4 +1,4 @@
-import React, { memo, useState } from 'react';
+import React, { useState } from 'react';
 import { LayoutChangeEvent } from 'react-native';
 
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
@@ -7,7 +7,8 @@ import { Box } from '../box';
 import { GridContext } from './grid-context';
 import { TUiGridRootProps } from './grid-types';
 
-export const GridRoot = memo<TUiGridRootProps>(({ onLayout, p, px, pl, pr, ...rest }) => {
+// Not memoized: it takes children, so a props comparison would never skip a render.
+export const GridRoot = ({ onLayout, p, px, pl, pr, ...rest }: TUiGridRootProps) => {
   const [width, setWidth] = useState<number | null>(null);
   const { spacing } = useVajraTheme();
   const padding = resolveSpacing({ p, px, pl, pr }, spacing);
@@ -33,6 +34,6 @@ export const GridRoot = memo<TUiGridRootProps>(({ onLayout, p, px, pl, pr, ...re
       />
     </GridContext.Provider>
   );
-});
+};
 
 GridRoot.displayName = 'Grid.Root';

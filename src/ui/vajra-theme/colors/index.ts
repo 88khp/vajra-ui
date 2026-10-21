@@ -23,7 +23,7 @@ export const darkColorTokens = {
 };
 
 // Augment this interface in your app to add custom color tokens:
-// declare module '@devraj-labs/vajra-ui' {
+// declare module '@88khp/vajra-ui' {
 //   interface IVajraCustomColors {
 //     brandGold: string;
 //     surfaceAccent: string;

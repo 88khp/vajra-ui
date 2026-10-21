@@ -1,9 +1,9 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import { Box } from '../box';
 import { TUiRowProps } from './row-types';
 
-const Row = memo<TUiRowProps>(props => <Box direction="row" {...props} />);
+const Row = (props: TUiRowProps) => <Box direction="row" {...props} />;
 
 Row.displayName = 'Row';
 

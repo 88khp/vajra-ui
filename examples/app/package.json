@@ -13,7 +13,7 @@
     "@devraj-labs/rn-font-jakaratasans": "^1.0.0",
     "@devraj-labs/rn-font-manrope": "^1.0.0",
     "@devraj-labs/rn-font-newsreader": "^1.0.0",
-    "@devraj-labs/vajra-ui-core": "2.2.0",
+    "@88khp/vajra-ui-core": "3.0.0-alpha.0",
     "@react-navigation/native-stack": "^7.14.10",
     "lucide-react-native": "^0.577.0",
     "react": "19.2.3",

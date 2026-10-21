@@ -1,55 +1,24 @@
-import React, { memo } from 'react';
+import React from 'react';
+import { View, ViewProps, ViewStyle } from 'react-native';
 
-import { Box as CoreBox } from '@devraj-labs/vajra-ui-core';
+import { BOX_STYLE_SPEC, composeStyle, splitStyleProps } from '@88khp/vajra-ui-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
-import { resolveSpacing } from '../../utils/spacing-props';
+import { BOX_TOKEN_SPEC, resolveTokenProps } from '../../utils/token-props';
 import { TUiBoxProps } from './box-types';
 
-const BoxComponent: React.FC<TUiBoxProps> = ({
-  bg,
-  borderColor,
-  rounded,
-  roundedT,
-  roundedB,
-  roundedL,
-  roundedR,
-  m,
-  mx,
-  my,
-  mt,
-  mb,
-  ml,
-  mr,
-  p,
-  px,
-  py,
-  pt,
-  pb,
-  pl,
-  pr,
-  gap,
-  ...rest
-}) => {
-  const { colors, rounded: r, spacing: spacingTokens } = useVajraTheme();
-  const spacing = resolveSpacing(
-    { m, mx, my, mt, mb, ml, mr, p, px, py, pt, pb, pl, pr, gap },
-    spacingTokens,
+// Renders View directly with core's style builder instead of going through
+// CoreBox, so a Box is one component layer over View.
+//
+// Not memoized: Box takes children, which are new elements on every parent
+// render, so a props comparison would never skip a render.
+export const Box = (props: TUiBoxProps) => {
+  const theme = useVajraTheme();
+  const [boxStyle, rest] = splitStyleProps<ViewProps, ViewStyle>(
+    resolveTokenProps(props, BOX_TOKEN_SPEC, theme),
+    BOX_STYLE_SPEC,
   );
 
-  return (
-    <CoreBox
-      bg={bg !== undefined ? colors[bg] : undefined}
-      borderColor={borderColor !== undefined ? colors[borderColor] : undefined}
-      rounded={rounded !== undefined ? r[rounded] : undefined}
-      roundedT={roundedT !== undefined ? r[roundedT] : undefined}
-      roundedB={roundedB !== undefined ? r[roundedB] : undefined}
-      roundedL={roundedL !== undefined ? r[roundedL] : undefined}
-      roundedR={roundedR !== undefined ? r[roundedR] : undefined}
-      {...spacing}
-      {...rest}
-    />
-  );
+  return <View {...rest} style={composeStyle(boxStyle, props.style)} />;
 };
 
-export const Box = memo(BoxComponent);
 Box.displayName = 'Box';

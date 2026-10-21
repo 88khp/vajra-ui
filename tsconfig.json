@@ -11,8 +11,6 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "paths": {
-      "@devraj-labs/vajra-ui-core": ["./node_modules/@devraj-labs/vajra-ui-core/src/index.ts"],
-      "@devraj-labs/vajra-ui-core/*": ["./node_modules/@devraj-labs/vajra-ui-core/src/*"],
       "react-native": ["./examples/app/node_modules/react-native"],
       "react-native/*": ["./examples/app/node_modules/react-native/*"]
     }

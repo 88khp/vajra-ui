@@ -1,6 +1,6 @@
 /**
  * Benchmarks the render cost of vajra-ui's Box (styled, wraps
- * @devraj-labs/vajra-ui-core's Box) against the headless CoreBox it wraps and
+ * @88khp/vajra-ui-core's Box) against the headless CoreBox it wraps and
  * a raw React Native View, at scale.
  *
  * Run with: npx jest --config jest.config.js --testMatch '<rootDir>/scripts/*.bench.tsx' --verbose
@@ -11,7 +11,7 @@ import React from 'react';
 import TestRenderer, { act } from 'react-test-renderer';
 import { View } from 'react-native';
 
-import { Box as CoreBox } from '@devraj-labs/vajra-ui-core';
+import { Box as CoreBox } from '@88khp/vajra-ui-core';
 import { Box } from '../src/ui/core/box/box';
 import { VajraProvider } from '../src/ui/vajra-theme';
 

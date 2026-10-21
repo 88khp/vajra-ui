@@ -1,12 +1,8 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import { Box } from '../box';
 import { TUiAbsoluteViewProps } from './absolute-view-types';
 
-export const AbsoluteView = memo<TUiAbsoluteViewProps>(({ children, ...rest }) => (
-  <Box style={{ position: 'absolute' }} {...rest}>
-    {children}
-  </Box>
-));
+export const AbsoluteView = (props: TUiAbsoluteViewProps) => <Box position="absolute" {...props} />;
 
 AbsoluteView.displayName = 'AbsoluteView';

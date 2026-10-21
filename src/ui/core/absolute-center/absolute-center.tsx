@@ -1,17 +1,21 @@
-import React, { memo } from 'react';
+import React from 'react';
 
 import { Box } from '../box';
 import { TUiAbsoluteCenterProps } from './absolute-center-types';
 
-export const AbsoluteCenter = memo<TUiAbsoluteCenterProps>(({ children, ...rest }) => (
+// The fill is built from Box props rather than an inline style object, so it
+// is part of the cached style and can be overridden by passing top/left/etc.
+export const AbsoluteCenter = (props: TUiAbsoluteCenterProps) => (
   <Box
-    style={{ bottom: 0, left: 0, position: 'absolute', right: 0, top: 0 }}
+    position="absolute"
+    top={0}
+    bottom={0}
+    left={0}
+    right={0}
     align="center"
     justify="center"
-    {...rest}
-  >
-    {children}
-  </Box>
-));
+    {...props}
+  />
+);
 
 AbsoluteCenter.displayName = 'AbsoluteCenter';

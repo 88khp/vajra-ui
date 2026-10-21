@@ -89,8 +89,8 @@ module.exports = {
           {
             paths: [
               {
-                name: '@devraj-labs/vajra-ui-core',
-                message: 'components/* must not import @devraj-labs/vajra-ui-core directly — go through src/ui/core instead.',
+                name: '@88khp/vajra-ui-core',
+                message: 'components/* must not import @88khp/vajra-ui-core directly — go through src/ui/core instead.',
               },
             ],
           },

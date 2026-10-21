@@ -14,7 +14,7 @@ export const roundedTokens = {
 } as const;
 
 // Augment this interface in your app to add custom rounded tokens with autocomplete:
-// declare module '@devraj-labs/vajra-ui' {
+// declare module '@88khp/vajra-ui' {
 //   interface IVajraRoundedTokens {
 //     'r-12': number;
 //     'r-16': number;

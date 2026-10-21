@@ -10,7 +10,7 @@ export const fontSizeTokens = {
 } as const;
 
 // Augment this interface in your app to add custom font size tokens:
-// declare module '@devraj-labs/vajra-ui' {
+// declare module '@88khp/vajra-ui' {
 //   interface IVajraFontSizeTokens {
 //     'f-2.5': number;
 //   }

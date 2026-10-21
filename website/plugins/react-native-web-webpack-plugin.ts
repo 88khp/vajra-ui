@@ -4,7 +4,7 @@ import type { Plugin } from '@docusaurus/types';
 
 /**
  * Aliases react-native -> react-native-web so vajra-ui components (which
- * import from react-native all the way down through @devraj-labs/vajra-ui-core)
+ * import from react-native all the way down through @88khp/vajra-ui-core)
  * can render in the browser for the live component playground.
  */
 export default function reactNativeWebPlugin(): Plugin {
@@ -35,15 +35,15 @@ export default function reactNativeWebPlugin(): Plugin {
               __dirname,
               '../node_modules/react-native-safe-area-context',
             ),
-            // vajra-ui's own node_modules also has @devraj-labs/vajra-ui-core
+            // vajra-ui's own node_modules also has @88khp/vajra-ui-core
             // installed (it's vajra-ui's peer dependency too) — resolution
             // from files under the symlink walks up and finds THAT copy
             // first, shadowing website's own (possibly locally-linked, see
             // scripts/link-vajra-ui.sh) copy. Force everything to the one
             // physical install website itself depends on.
-            '@devraj-labs/vajra-ui-core$': path.resolve(
+            '@88khp/vajra-ui-core$': path.resolve(
               __dirname,
-              '../node_modules/@devraj-labs/vajra-ui-core',
+              '../node_modules/@88khp/vajra-ui-core',
             ),
           },
           // .web.js/.web.tsx first so packages that ship a browser-safe
@@ -69,7 +69,7 @@ export default function reactNativeWebPlugin(): Plugin {
               // — webpack's default rules skip node_modules, so JSX there
               // never gets transformed. Run it through babel here instead.
               test: /\.jsx?$/,
-              include: [/node_modules\/vajra-ui/, /node_modules\/@devraj-labs\/vajra-ui-core/],
+              include: [/node_modules\/vajra-ui/, /node_modules\/@88khp\/vajra-ui-core/],
               use: {
                 loader: require.resolve('babel-loader'),
                 options: {

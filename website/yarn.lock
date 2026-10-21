@@ -12,6 +12,11 @@
     section-matter "^1.0.0"
     strip-bom-string "^1.0.0"
 
+"@88khp/vajra-ui-core@3.0.0-alpha.0":
+  version "3.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.0.tgz#0c53bcaa64e1ee8068d43699dc55540ae480ca84"
+  integrity sha512-AZ+AqVhAFqK3Yl/KmzDHbECP/MnivUlEKfdF52yPudQX9VE3wVRpk+C11YDTPDZ+8EBNT/L9XVa+nxNc1RTRiQ==
+
 "@algolia/abtesting@1.22.0":
   version "1.22.0"
   resolved "https://registry.yarnpkg.com/@algolia/abtesting/-/abtesting-1.22.0.tgz#7537637f52d2fe00b3714fe2d5ce8cb856be35ff"
@@ -1484,11 +1489,6 @@
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@csstools/utilities/-/utilities-2.0.0.tgz#f7ff0fee38c9ffb5646d47b6906e0bc8868bde60"
   integrity sha512-5VdOr0Z71u+Yp3ozOx8T11N703wIFGVRgOWbOZMKgglPJsWA54MRIoMNVMa7shUToIhx5J8vX4sOZgD2XiihiQ==
-
-"@devraj-labs/vajra-ui-core@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@devraj-labs/vajra-ui-core/-/vajra-ui-core-2.2.0.tgz#6ca3750d69eb53161360d9813c494600f47ed183"
-  integrity sha512-+ky8iLI3LMZpSqJOJ+6a7tjYmsoQXqJGjc/w1tMNKbBJFL2Mv/ZhS+b3zV5JvWIZjQBIeGWb1vLko2WmbuJAnQ==
 
 "@devraj-labs/vajra-ui-icons@^0.2.0":
   version "0.2.0"

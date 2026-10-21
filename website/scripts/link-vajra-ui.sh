@@ -34,15 +34,15 @@ fi
 # in the docs site without needing a real npm publish first. Safe to symlink
 # directly (not the relative-path trick above) since vajra-ui-core lives
 # outside this repo — no self-nesting risk.
-CORE_LINK_PATH="$WEBSITE_DIR/node_modules/@devraj-labs/vajra-ui-core"
+CORE_LINK_PATH="$WEBSITE_DIR/node_modules/@88khp/vajra-ui-core"
 CORE_TARGET="/Users/rishavjha/Desktop/vajra-ui-core"
 
 if [ -d "$CORE_TARGET" ]; then
-  mkdir -p "$WEBSITE_DIR/node_modules/@devraj-labs"
+  mkdir -p "$WEBSITE_DIR/node_modules/@88khp"
   if [ ! -L "$CORE_LINK_PATH" ] || [ "$(readlink "$CORE_LINK_PATH")" != "$CORE_TARGET" ]; then
     rm -rf "$CORE_LINK_PATH"
     ln -s "$CORE_TARGET" "$CORE_LINK_PATH"
-    echo "Linked website/node_modules/@devraj-labs/vajra-ui-core -> $CORE_TARGET"
+    echo "Linked website/node_modules/@88khp/vajra-ui-core -> $CORE_TARGET"
   fi
 fi
 

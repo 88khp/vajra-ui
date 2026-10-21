@@ -16,7 +16,7 @@
     "postinstall": "bash scripts/link-vajra-ui.sh"
   },
   "dependencies": {
-    "@devraj-labs/vajra-ui-core": "2.2.0",
+    "@88khp/vajra-ui-core": "3.0.0-alpha.0",
     "@docusaurus/core": "3.10.2",
     "@docusaurus/faster": "3.10.2",
     "@docusaurus/preset-classic": "3.10.2",

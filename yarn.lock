@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@88khp/vajra-ui-core@3.0.0-alpha.0":
+  version "3.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.0.tgz#0c53bcaa64e1ee8068d43699dc55540ae480ca84"
+  integrity sha512-AZ+AqVhAFqK3Yl/KmzDHbECP/MnivUlEKfdF52yPudQX9VE3wVRpk+C11YDTPDZ+8EBNT/L9XVa+nxNc1RTRiQ==
+
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.29.0", "@babel/code-frame@^7.29.7":
   version "7.29.7"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.29.7.tgz#f2fbbfea87c44a21590ec515b778b2c26d8866e7"
@@ -586,11 +591,6 @@
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
-
-"@devraj-labs/vajra-ui-core@2.2.0":
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/@devraj-labs/vajra-ui-core/-/vajra-ui-core-2.2.0.tgz#6ca3750d69eb53161360d9813c494600f47ed183"
-  integrity sha512-+ky8iLI3LMZpSqJOJ+6a7tjYmsoQXqJGjc/w1tMNKbBJFL2Mv/ZhS+b3zV5JvWIZjQBIeGWb1vLko2WmbuJAnQ==
 
 "@devraj-labs/vajra-ui-icons@0.2.0":
   version "0.2.0"

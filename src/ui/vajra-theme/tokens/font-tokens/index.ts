@@ -44,7 +44,7 @@ export const fontVariants = {
 } satisfies Record<string, TFontVariantProps>;
 
 // Augment this interface in your app to add custom typography variants with autocomplete:
-// declare module '@devraj-labs/vajra-ui' {
+// declare module '@88khp/vajra-ui' {
 //   interface IVajraFontVariants {
 //     displayLarge: TFontVariantProps;
 //     eyebrow: TFontVariantProps;
