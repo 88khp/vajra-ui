@@ -146,4 +146,19 @@ describe('Text font resolution', () => {
 
     expect(style.fontVariant).toEqual(['tabular-nums']);
   });
+
+  it('does not forward variant or font to the native Text', () => {
+    render(
+      <VajraProvider>
+        <Text testID="text" variant="h3">
+          title
+        </Text>
+      </VajraProvider>,
+    );
+
+    const { props } = screen.getByTestId('text');
+
+    expect(props).not.toHaveProperty('variant');
+    expect(props).not.toHaveProperty('font');
+  });
 });

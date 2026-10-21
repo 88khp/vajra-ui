@@ -7,9 +7,12 @@ import { getTokenResolver, TEXT_TOKEN_SPEC } from '../../utils/token-props';
 import { TTextProps } from './text-types';
 
 // Core's text spec plus fontStyle, so italics are part of the cached style.
+// `variant` and `font` are read by Text itself, so they are omitted from the
+// forwarded props instead of being split off with rest destructuring.
 const VAJRA_TEXT_STYLE_SPEC: TStyleSpec = {
   ...TEXT_STYLE_SPEC,
   keys: new Map([...TEXT_STYLE_SPEC.keys, ['fontStyle', 'fontStyle']]),
+  omit: new Set(['variant', 'font']),
 };
 
 // fontVariant is an array, which core's style cache can't key on, so it gets
@@ -34,68 +37,55 @@ const getFontVariantStyle = (variantStyle: {
 // Renders RN Text directly with core's style builder, so the built style is
 // shared by value across every Text with the same resolved tokens.
 // Memoized because text children are usually strings, which compare equal.
-export const Text = memo(
-  ({
-    variant = 'body',
-    fontSize,
-    lineHeight,
-    font,
-    fontWeight,
-    fontStyle,
-    color,
-    ...rest
-  }: TTextProps) => {
-    const theme = useVajraTheme();
-    const fontVariantStyle = theme.typography[variant];
-    const { fonts: fontsMap, defaultFont } = theme as unknown as {
-      fonts: Record<string, Record<string, string>>;
-      defaultFont?: string;
-    };
-    const familyKey = font ?? defaultFont;
-    const family = familyKey != null ? fontsMap?.[familyKey] : undefined;
-    const resolvedWeight = fontWeight ?? fontVariantStyle.fontWeight;
-    const italicKey = `${resolvedWeight}i`;
-    const hasItalicFontFile = family?.[italicKey] != null;
-    const resolvedFontFamily =
-      family != null
-        ? fontStyle === 'italic' && family[italicKey]
-          ? family[italicKey]
-          : family[resolvedWeight]
-        : undefined;
+export const Text = memo((textProps: TTextProps) => {
+  const { variant = 'body', fontSize, lineHeight, font, fontWeight, fontStyle, color } = textProps;
+  const theme = useVajraTheme();
+  const fontVariantStyle = theme.typography[variant];
+  const { fonts: fontsMap, defaultFont } = theme as unknown as {
+    fonts: Record<string, Record<string, string>>;
+    defaultFont?: string;
+  };
+  const familyKey = font ?? defaultFont;
+  const family = familyKey != null ? fontsMap?.[familyKey] : undefined;
+  const resolvedWeight = fontWeight ?? fontVariantStyle.fontWeight;
+  const italicKey = `${resolvedWeight}i`;
+  const hasItalicFontFile = family?.[italicKey] != null;
+  const resolvedFontFamily =
+    family != null
+      ? fontStyle === 'italic' && family[italicKey]
+        ? family[italicKey]
+        : family[resolvedWeight]
+      : undefined;
 
-    // Margin tokens are resolved by core, and only on a style cache miss.
-    const props: Record<string, unknown> = { ...rest };
+  // The typography props are replaced with their resolved values. Margin tokens
+  // are resolved by core, and only on a style cache miss.
+  const props: Record<string, unknown> = { ...textProps };
 
-    props.fontSize = fontSize != null ? theme.fontSizes[fontSize] : fontVariantStyle.fontSize;
-    props.lineHeight =
-      lineHeight ?? (fontSize != null ? theme.lineHeights[fontSize] : fontVariantStyle.lineHeight);
-    props.fontWeight = resolvedFontFamily != null ? undefined : resolvedWeight;
-    props.fontFamily = resolvedFontFamily;
-    props.color = color !== undefined ? theme.colors[color] : theme.colors.text;
-    props.fontStyle = hasItalicFontFile
-      ? Platform.OS === 'ios'
-        ? fontStyle
-        : undefined
-      : fontStyle;
+  props.fontSize = fontSize != null ? theme.fontSizes[fontSize] : fontVariantStyle.fontSize;
+  props.lineHeight =
+    lineHeight ?? (fontSize != null ? theme.lineHeights[fontSize] : fontVariantStyle.lineHeight);
+  props.fontWeight = resolvedFontFamily != null ? undefined : resolvedWeight;
+  props.fontFamily = resolvedFontFamily;
+  props.color = color !== undefined ? theme.colors[color] : theme.colors.text;
+  props.fontStyle = hasItalicFontFile ? (Platform.OS === 'ios' ? fontStyle : undefined) : fontStyle;
 
-    const [textStyle, textProps] = splitStyleProps<TextProps, TextStyle>(
-      props,
-      VAJRA_TEXT_STYLE_SPEC,
-      getTokenResolver(theme, TEXT_TOKEN_SPEC),
-    );
-    const variantStyle = getFontVariantStyle(fontVariantStyle);
+  const [textStyle, rest] = splitStyleProps<TextProps, TextStyle>(
+    props,
+    VAJRA_TEXT_STYLE_SPEC,
+    getTokenResolver(theme, TEXT_TOKEN_SPEC),
+  );
+  const variantStyle = getFontVariantStyle(fontVariantStyle);
 
-    return (
-      <RNText
-        {...textProps}
-        style={
-          variantStyle === undefined
-            ? composeStyle(textStyle, rest.style)
-            : [textStyle, variantStyle, rest.style]
-        }
-      />
-    );
-  },
-);
+  return (
+    <RNText
+      {...rest}
+      style={
+        variantStyle === undefined
+          ? composeStyle(textStyle, textProps.style)
+          : [textStyle, variantStyle, textProps.style]
+      }
+    />
+  );
+});
 
 Text.displayName = 'TextVariant';
