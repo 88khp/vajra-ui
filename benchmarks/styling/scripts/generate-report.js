@@ -50,6 +50,7 @@ const IMPL_LABELS = {
   nativewind: 'NativeWind',
   unistyles: 'Unistyles',
   tamagui: 'Tamagui',
+  'tamagui-compiled': 'Tamagui (compiled)',
   'styled-components': 'StyledComponents',
   twrnc: 'twrnc',
 };

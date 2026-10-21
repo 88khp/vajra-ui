@@ -11,7 +11,7 @@ const path = require('path');
 const ROOT = path.resolve(__dirname, '..');
 const RESULTS = path.join(ROOT, 'results');
 
-const ALL_IMPLS = ['stylesheet', 'vajra', 'nativewind', 'tamagui', 'styled-components', 'twrnc'];
+const ALL_IMPLS = ['stylesheet', 'vajra', 'nativewind', 'tamagui', 'tamagui-compiled', 'styled-components', 'twrnc'];
 
 // The Vajra packages under test, installed from npm.
 const VAJRA_PKG = '@88khp/vajra-ui';
