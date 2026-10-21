@@ -1,20 +1,34 @@
 import React, { forwardRef, memo } from 'react';
+import { TextInput as RNTextInput, TextInputProps, TextStyle } from 'react-native';
 
-import { CoreTextInput, TCoreTextInputProps } from '@88khp/vajra-ui-core';
+import { composeStyle, splitStyleProps, TEXT_INPUT_STYLE_SPEC } from '@88khp/vajra-ui-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
-import { resolveTokenProps, TEXT_INPUT_TOKEN_SPEC } from '../../utils/token-props';
+import { getTokenResolver, TEXT_INPUT_TOKEN_SPEC } from '../../utils/token-props';
 import { TTextInputInstance, TUiTextInputProps } from './text-input-types';
 
-const TextInputComponent = forwardRef<TTextInputInstance, TUiTextInputProps>((props, ref) => {
-  const theme = useVajraTheme();
+// Renders React Native TextInput directly with core's style builder, the same
+// way Box renders View, instead of going through CoreTextInput.
+const TextInputComponent = forwardRef<TTextInputInstance, TUiTextInputProps>(
+  ({ placeholderColor, ...props }, ref) => {
+    const theme = useVajraTheme();
+    const [inputStyle, rest] = splitStyleProps<TextInputProps, TextStyle>(
+      props,
+      TEXT_INPUT_STYLE_SPEC,
+      getTokenResolver(theme, TEXT_INPUT_TOKEN_SPEC),
+    );
 
-  return (
-    <CoreTextInput
-      ref={ref}
-      {...(resolveTokenProps(props, TEXT_INPUT_TOKEN_SPEC, theme) as TCoreTextInputProps)}
-    />
-  );
-});
+    return (
+      <RNTextInput
+        ref={ref}
+        placeholderTextColor={
+          placeholderColor !== undefined ? theme.colors[placeholderColor] : undefined
+        }
+        {...rest}
+        style={composeStyle(inputStyle, props.style)}
+      />
+    );
+  },
+);
 
 TextInputComponent.displayName = 'TextInput';
 
