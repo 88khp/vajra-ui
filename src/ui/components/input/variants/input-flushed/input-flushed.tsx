@@ -9,6 +9,8 @@ import { InputRoot } from '../../components/input-root/input-root';
 import { TInputProps } from '../../input-types';
 import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
+const FLUSHED_BORDER = { borderBottomWidth: 1 };
+
 const InputFlushedComponent = forwardRef<TTextInputInstance, TInputProps>(
   (
     {
@@ -39,7 +41,7 @@ const InputFlushedComponent = forwardRef<TTextInputInstance, TInputProps>(
         borderWidth={0}
         focusBorderColor="borderFocus"
         errorBorderColor="error"
-        style={{ borderBottomWidth: 1 }}
+        style={FLUSHED_BORDER}
         px="s-3"
         py="s-2"
       >
