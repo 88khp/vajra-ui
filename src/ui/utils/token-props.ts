@@ -1,3 +1,5 @@
+import { TStyleResolver } from '@88khp/vajra-ui-core';
+
 import { TVajraTheme } from '../vajra-theme/use-vajra-theme';
 
 type TTokenKind = 'color' | 'rounded' | 'spacing';
@@ -48,6 +50,41 @@ export const TEXT_TOKEN_SPEC = createTokenSpec({
   rounded: [],
   spacing: ['m', 'mx', 'my', 'mt', 'mb', 'ml', 'mr'],
 });
+
+const tokenResolvers = new Map<TTokenSpec, WeakMap<TVajraTheme, TStyleResolver>>();
+
+/**
+ * Returns the style resolver that maps a spec's token props to `theme` values,
+ * for core's `splitStyleProps`. It is created once per theme and spec, so core
+ * caches built styles per theme by the token names as passed: a cache hit skips
+ * resolving entirely.
+ */
+export const getTokenResolver = (theme: TVajraTheme, spec: TTokenSpec): TStyleResolver => {
+  let byTheme = tokenResolvers.get(spec);
+
+  if (byTheme === undefined) {
+    byTheme = new WeakMap();
+    tokenResolvers.set(spec, byTheme);
+  }
+
+  let resolve = byTheme.get(theme);
+
+  if (resolve === undefined) {
+    resolve = (prop, value) => {
+      const kind = spec.get(prop);
+
+      if (kind === undefined) return value;
+
+      const scale: Partial<Record<string, unknown>> =
+        kind === 'color' ? theme.colors : kind === 'rounded' ? theme.rounded : theme.spacing;
+
+      return scale[value as string];
+    };
+    byTheme.set(theme, resolve);
+  }
+
+  return resolve;
+};
 
 /**
  * Copies props, replacing token props (color, rounded, spacing) with their theme
