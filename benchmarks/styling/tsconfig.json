@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "lib": [
+      "ES2019"
+    ],
+    "jsx": "react-jsx",
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "noEmit": true,
+    "types": [
+      "jest",
+      "node"
+    ]
+  },
+  "include": [
+    "device",
+    "shared",
+    "implementations",
+    "parity",
+    "scenarios",
+    "scripts",
+    "*.d.ts",
+    "nativewind-env.d.ts"
+  ]
+}

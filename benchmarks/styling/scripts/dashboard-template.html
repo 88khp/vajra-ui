@@ -1,0 +1,489 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Styling benchmark results</title>
+<style>
+__TAILWIND_CSS__
+</style>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-sm text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-200">
+<div class="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:py-12">
+
+  <header class="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-widest text-teal-600 dark:text-teal-400">Vajra UI · styling benchmark</p>
+      <h1 class="mt-1 text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl dark:text-white">Runtime styling cost</h1>
+      <p id="subtitle" class="mt-1 text-slate-500 dark:text-slate-400"></p>
+    </div>
+    <div id="versions" class="flex flex-wrap gap-2"></div>
+  </header>
+
+  <div class="mt-6 flex gap-3 rounded-xl border border-amber-300/60 bg-amber-50 px-4 py-3 text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-200">
+    <span class="mt-0.5 h-2 w-2 shrink-0 rounded-full bg-amber-500"></span>
+    <p><span class="font-semibold">Preliminary.</span> <span id="prelim"></span></p>
+  </div>
+
+  <section class="mt-8 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+    <div class="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
+      <div class="min-w-0">
+        <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Scenario</p>
+        <div id="scenarios" class="mt-2 flex flex-wrap gap-2"></div>
+      </div>
+      <div class="shrink-0">
+        <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Cards rendered</p>
+        <div id="counts" class="mt-2 inline-flex rounded-lg bg-slate-100 p-1 dark:bg-slate-800"></div>
+      </div>
+    </div>
+    <div class="mt-5">
+      <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Implementations</p>
+      <div id="impls" class="mt-2 flex flex-wrap gap-2"></div>
+    </div>
+  </section>
+
+  <section id="kpis" class="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3"></section>
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 class="text-base font-semibold text-slate-900 dark:text-white">All scenarios at a glance</h2>
+      <p class="text-xs text-slate-500 dark:text-slate-400">Median, lower is faster · each panel has its own scale · follows the implementation chips</p>
+    </div>
+    <div id="overview" class="mt-5 grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2"></div>
+  </section>
+
+  <section id="change" class="mt-6 hidden rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 id="change-title" class="text-base font-semibold text-slate-900 dark:text-white"></h2>
+      <p class="text-xs text-slate-500 dark:text-slate-400">Time as a share of the previous version · left of 100% is faster · whisker is the 95% CI</p>
+    </div>
+    <div class="mt-4 flex flex-wrap gap-4 text-xs text-slate-600 dark:text-slate-300">
+      <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-amber-600"></span><span id="change-prev"></span></span>
+      <span class="inline-flex items-center gap-2"><span class="h-2.5 w-2.5 rounded-full bg-teal-600"></span><span id="change-current"></span></span>
+    </div>
+    <div id="change-chart" class="mt-4"></div>
+  </section>
+
+  <section id="ab" class="mt-6 hidden overflow-hidden rounded-2xl border border-teal-200 bg-white shadow-sm dark:border-teal-500/30 dark:bg-slate-900">
+    <div class="px-4 pt-4 sm:px-6 sm:pt-6">
+      <h2 id="ab-title" class="text-base font-semibold text-slate-900 dark:text-white"></h2>
+      <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Both versions ran in the same rounds, in shuffled order, so run-to-run drift affects them equally. Positive means the new version is faster.</p>
+    </div>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[44rem] whitespace-nowrap text-left tabular-nums">
+        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
+          <tr>
+            <th class="px-4 py-3 font-medium sm:px-6">Scenario</th>
+            <th class="px-3 py-3 text-right font-medium">Cards</th>
+            <th id="ab-prev" class="px-3 py-3 text-right font-medium"></th>
+            <th id="ab-current" class="px-3 py-3 text-right font-medium"></th>
+            <th class="px-3 py-3 text-right font-medium">Improvement (95% CI)</th>
+            <th class="px-4 py-3 font-medium sm:px-6">Verdict</th>
+          </tr>
+        </thead>
+        <tbody id="ab-body" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+    <div class="flex flex-wrap items-baseline justify-between gap-2">
+      <h2 class="text-base font-semibold text-slate-900 dark:text-white">Median latency</h2>
+      <p class="text-xs text-slate-500 dark:text-slate-400">Lower is faster · whisker is the 95% CI of the median</p>
+    </div>
+    <div id="chart" class="mt-5 space-y-3"></div>
+  </section>
+
+  <section class="mt-6 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div class="px-4 pt-4 sm:px-6 sm:pt-6">
+      <h2 class="text-base font-semibold text-slate-900 dark:text-white">Measurements</h2>
+      <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Improvement is against StyleSheet. "Faster" or "slower" only when the 95% CI excludes zero and the change is at least 5%.</p>
+    </div>
+    <div class="mt-4 overflow-x-auto">
+      <table class="w-full min-w-[60rem] whitespace-nowrap text-left tabular-nums">
+        <thead class="bg-slate-50 text-xs uppercase tracking-wider text-slate-500 dark:bg-slate-800/60 dark:text-slate-400">
+          <tr>
+            <th class="px-4 py-3 font-medium sm:px-6">Implementation</th>
+            <th class="px-3 py-3 text-right font-medium">Median</th>
+            <th class="px-3 py-3 text-right font-medium">95% CI</th>
+            <th class="px-3 py-3 text-right font-medium">p95</th>
+            <th class="px-3 py-3 text-right font-medium">n</th>
+            <th class="px-3 py-3 text-right font-medium">vs StyleSheet</th>
+            <th class="px-3 py-3 text-right font-medium">Improvement (95% CI)</th>
+            <th class="px-3 py-3 font-medium">Verdict</th>
+            <th class="px-3 py-3 text-right font-medium">Host re-renders</th>
+            <th class="px-3 py-3 text-right font-medium">Commits</th>
+            <th class="px-4 py-3 text-right font-medium sm:px-6">Heap Δ</th>
+          </tr>
+        </thead>
+        <tbody id="tbody" class="divide-y divide-slate-100 dark:divide-slate-800"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+      <h2 class="text-base font-semibold text-slate-900 dark:text-white">Environment</h2>
+      <dl id="cfg" class="mt-4 space-y-3"></dl>
+    </div>
+    <div class="space-y-6">
+      <div class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+        <h2 class="text-base font-semibold text-slate-900 dark:text-white">Not measured in this run</h2>
+        <ul id="notmeasured" class="mt-3 list-disc space-y-1.5 pl-5 text-slate-600 dark:text-slate-400"></ul>
+      </div>
+      <details class="group rounded-2xl border border-slate-200 bg-white p-4 shadow-sm sm:p-6 dark:border-slate-800 dark:bg-slate-900">
+        <summary class="flex cursor-pointer list-none items-center justify-between text-base font-semibold text-slate-900 dark:text-white">
+          Raw measurements
+          <span class="text-slate-400 transition-transform group-open:rotate-90">›</span>
+        </summary>
+        <ul id="raw" class="mt-3 space-y-1.5 text-slate-600 dark:text-slate-400"></ul>
+      </details>
+    </div>
+  </section>
+</div>
+
+<div id="tip" role="tooltip" class="pointer-events-none fixed z-50 hidden max-w-xs rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs text-slate-700 shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200"></div>
+
+<script>
+const SUMMARY = __SUMMARY_JSON__;
+
+const SCENARIO_LABELS = {
+  'A-mount': 'Mount',
+  'B-rerender-unrelated': 'Re-render, unchanged',
+  'C-variant-switch': 'Variant switch',
+  'C-variant-switch-trial-total': 'Variant switch · trial total',
+  'D-theme-switch': 'Theme switch',
+  'D-theme-switch-trial-total': 'Theme switch · trial total',
+  'E-combined': 'Theme + variant',
+  'E-combined-trial-total': 'Theme + variant · trial total',
+};
+
+// Every class used below is written out in full so Tailwind's scanner finds it.
+const CLS = {
+  pillOn: 'rounded-full bg-slate-900 px-3 py-1.5 text-xs font-medium text-white shadow-sm dark:bg-white dark:text-slate-900',
+  pillOff: 'rounded-full bg-slate-100 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700',
+  segOn: 'rounded-md bg-white px-3 py-1 text-xs font-semibold text-slate-900 shadow-sm dark:bg-slate-600 dark:text-white',
+  segOff: 'rounded-md px-3 py-1 text-xs font-medium text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-white',
+  chipOn: 'inline-flex items-center gap-2 rounded-lg border border-slate-300 bg-white px-3 py-1.5 text-xs font-medium text-slate-800 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100',
+  chipOff: 'inline-flex items-center gap-2 rounded-lg border border-dashed border-slate-300 px-3 py-1.5 text-xs font-medium text-slate-400 line-through dark:border-slate-700 dark:text-slate-500',
+  barVajra: 'absolute inset-y-0 left-0 rounded-md bg-teal-600',
+  barBase: 'absolute inset-y-0 left-0 rounded-md bg-slate-500 dark:bg-slate-400',
+  barOther: 'absolute inset-y-0 left-0 rounded-md bg-slate-300 dark:bg-slate-600',
+  barPrevious: 'absolute inset-y-0 left-0 rounded-md bg-amber-600',
+  badgeFaster: 'inline-flex rounded-full bg-emerald-100 px-2 py-0.5 text-xs font-medium text-emerald-700 dark:bg-emerald-500/15 dark:text-emerald-300',
+  badgeSlower: 'inline-flex rounded-full bg-rose-100 px-2 py-0.5 text-xs font-medium text-rose-700 dark:bg-rose-500/15 dark:text-rose-300',
+  badgeNoise: 'inline-flex rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-400',
+  rowVajra: 'bg-teal-50/60 dark:bg-teal-400/5',
+  version: 'inline-flex items-center gap-1.5 rounded-lg border border-slate-200 bg-white px-2.5 py-1 text-xs shadow-sm dark:border-slate-800 dark:bg-slate-900',
+};
+
+const DOT = {
+  vajra: 'h-2 w-2 rounded-full bg-teal-600',
+  stylesheet: 'h-2 w-2 rounded-full bg-slate-500 dark:bg-slate-400',
+  previous: 'h-2 w-2 rounded-full bg-amber-600',
+  other: 'h-2 w-2 rounded-full bg-slate-300 dark:bg-slate-600',
+};
+
+// `vajra-prev` is an earlier Vajra version, run through the @88khp/vajra-ui-prev alias.
+const isPrevious = impl => impl === 'vajra-prev';
+const isVajra = impl => impl === 'vajra' || isPrevious(impl);
+
+const $ = id => document.getElementById(id);
+const fmt = (n, d = 2) => (typeof n === 'number' && Number.isFinite(n) ? n.toFixed(d) : 'n/a');
+const fmtBytes = b => (typeof b === 'number' ? (b / 1024 / 1024).toFixed(2) + ' MB' : 'n/a');
+const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+const dotFor = impl => (impl === 'vajra' ? DOT.vajra : isPrevious(impl) ? DOT.previous : impl === 'stylesheet' ? DOT.stylesheet : DOT.other);
+const labelFor = impl => (SUMMARY.rows.find(r => r.impl === impl) || {}).label || impl;
+
+const meta = SUMMARY.meta;
+const PREV_VERSION = (meta && meta.versions.vajraUiPrevious && meta.versions.vajraUiPrevious !== 'not installed') ? meta.versions.vajraUiPrevious : 'previous version';
+$('prelim').textContent = SUMMARY.preliminaryReason;
+
+if (meta) {
+  const date = new Date(meta.collectedAt);
+  $('subtitle').textContent = `${date.toLocaleString()} · ${meta.options.rounds} round${meta.options.rounds === 1 ? '' : 's'} × ${meta.options.trials} trials · commit ${meta.repo.commit.slice(0, 7)}`;
+  $('versions').innerHTML = [
+    ['vajra-ui', meta.versions.vajraUi],
+    ['core', meta.versions.vajraUiCore],
+    ['react-native', meta.versions.reactNative],
+  ].map(([k, v]) => `<span class="${CLS.version}"><span class="text-slate-500 dark:text-slate-400">${esc(k)}</span><span class="font-mono font-semibold text-slate-900 dark:text-white">${esc(v)}</span></span>`).join('');
+}
+
+const scenarios = [...new Set(SUMMARY.rows.map(r => r.scenario))];
+const counts = [...new Set(SUMMARY.rows.map(r => r.count))].sort((a, b) => a - b);
+const state = {
+  scenario: scenarios.includes('D-theme-switch-trial-total') ? 'D-theme-switch-trial-total' : scenarios[0],
+  count: null,
+  impls: new Set(SUMMARY.implementations),
+};
+
+const countsFor = scenario => [...new Set(SUMMARY.rows.filter(r => r.scenario === scenario).map(r => r.count))].sort((a, b) => a - b);
+
+const renderControls = () => {
+  const available = countsFor(state.scenario);
+  if (!available.includes(state.count)) state.count = available[available.length - 1];
+
+  $('scenarios').innerHTML = scenarios.map(s =>
+    `<button type="button" data-scenario="${esc(s)}" class="${s === state.scenario ? CLS.pillOn : CLS.pillOff}">${esc(SCENARIO_LABELS[s] ?? s)}</button>`).join('');
+  $('counts').innerHTML = available.map(c =>
+    `<button type="button" data-count="${c}" class="${c === state.count ? CLS.segOn : CLS.segOff}">${c.toLocaleString()}</button>`).join('');
+  $('impls').innerHTML = SUMMARY.implementations.map(i =>
+    `<button type="button" data-impl="${esc(i)}" class="${state.impls.has(i) ? CLS.chipOn : CLS.chipOff}"><span class="${dotFor(i)}"></span>${esc(labelFor(i))}</button>`).join('');
+};
+
+const kpi = (label, value, hint, tone) => {
+  const valueCls = tone === 'good'
+    ? 'mt-2 text-3xl font-semibold tracking-tight text-emerald-600 dark:text-emerald-400'
+    : tone === 'bad'
+      ? 'mt-2 text-3xl font-semibold tracking-tight text-rose-600 dark:text-rose-400'
+      : 'mt-2 text-3xl font-semibold tracking-tight text-slate-900 dark:text-white';
+  return `<div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <p class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">${esc(label)}</p>
+    <p class="${valueCls}">${value}</p>
+    <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">${hint}</p>
+  </div>`;
+};
+
+const renderKpis = rows => {
+  const sorted = [...rows].sort((a, b) => a.medianMs - b.medianMs);
+  const vajra = rows.find(r => r.impl === 'vajra');
+  if (!vajra) { $('kpis').innerHTML = ''; return; }
+  const rank = sorted.indexOf(vajra) + 1;
+  const rival = sorted.find(r => !isVajra(r.impl) && r.impl !== 'stylesheet');
+  const v = vajra.vsBaseline;
+  const vsRival = rival ? ((rival.medianMs - vajra.medianMs) / rival.medianMs) * 100 : null;
+  $('kpis').innerHTML = [
+    kpi('Vajra UI median', `${fmt(vajra.medianMs, 1)}<span class="ml-1 text-base font-medium text-slate-400">ms</span>`,
+      `Rank ${rank} of ${sorted.length} shown`, rank === 1 ? 'good' : null),
+    kpi('vs StyleSheet', v ? `${v.relativeImprovementPct >= 0 ? '+' : ''}${fmt(v.relativeImprovementPct, 1)}%` : '—',
+      v ? `${esc(v.verdict)} · positive means faster than the baseline` : 'StyleSheet not shown',
+      v ? (v.verdict === 'faster' ? 'good' : v.verdict === 'slower' ? 'bad' : null) : null),
+    kpi(rival ? `vs ${rival.label}` : 'vs fastest library', vsRival === null ? '—' : `${vsRival >= 0 ? '+' : ''}${fmt(vsRival, 1)}%`,
+      rival ? `Fastest library other than StyleSheet · ${fmt(rival.medianMs, 1)} ms` : 'No other library shown',
+      vsRival === null ? null : vsRival >= 0 ? 'good' : 'bad'),
+  ].join('');
+};
+
+const renderChart = rows => {
+  if (rows.length === 0) {
+    $('chart').innerHTML = '<p class="py-6 text-center text-slate-500">No data for this selection.</p>';
+    return;
+  }
+  const sorted = [...rows].sort((a, b) => a.medianMs - b.medianMs);
+  const max = Math.max(...sorted.map(r => Math.max(r.medianMs, r.medianCI95Ms?.[1] ?? 0))) || 1;
+  const pct = x => `${((x / max) * 100).toFixed(2)}%`;
+  $('chart').innerHTML = sorted.map(r => {
+    const bar = barClassFor(r.impl);
+    const name = isVajra(r.impl) ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300';
+    const [lo, hi] = r.medianCI95Ms ?? [r.medianMs, r.medianMs];
+    return `<div class="grid grid-cols-[7.5rem_1fr_4.5rem] items-center gap-3 sm:grid-cols-[10rem_1fr_5.5rem]" data-tip-row="${esc(r.scenario)}|${r.count}|${esc(r.impl)}">
+      <div class="truncate ${name}">${esc(r.label)}</div>
+      <div class="relative h-6 rounded-md bg-slate-100 dark:bg-slate-800">
+        <div class="${bar}" style="width:${pct(r.medianMs)}"></div>
+        <div class="absolute top-1/2 h-px -translate-y-1/2 bg-slate-900/50 dark:bg-white/60" style="left:${pct(lo)};width:calc(${pct(hi)} - ${pct(lo)})"></div>
+      </div>
+      <div class="text-right font-mono text-xs tabular-nums ${name}">${fmt(r.medianMs, 1)} ms</div>
+    </div>`;
+  }).join('');
+};
+
+const barClassFor = impl => (impl === 'vajra' ? CLS.barVajra : isPrevious(impl) ? CLS.barPrevious : impl === 'stylesheet' ? CLS.barBase : CLS.barOther);
+const tipFor = r => `<div class="font-semibold text-slate-900 dark:text-white">${esc(r.label)}</div>`
+  + `<div class="mt-1 font-mono">median ${fmt(r.medianMs, 2)} ms · p95 ${fmt(r.p95Ms, 2)} ms</div>`
+  + `<div class="font-mono text-slate-500 dark:text-slate-400">95% CI ${fmt(r.medianCI95Ms[0], 2)}–${fmt(r.medianCI95Ms[1], 2)} ms · n ${r.n}</div>`
+  + (r.vsBaseline ? `<div class="mt-1">${fmt(r.vsBaseline.relativeImprovementPct, 1)}% vs StyleSheet (${esc(r.vsBaseline.verdict)})</div>` : '');
+
+// Mount plus the trial totals (or the per-update timings when a run has no totals).
+const OVERVIEW = [
+  ['A-mount'],
+  ['C-variant-switch-trial-total', 'C-variant-switch'],
+  ['D-theme-switch-trial-total', 'D-theme-switch'],
+  ['E-combined-trial-total', 'E-combined'],
+].map(options => options.find(s => scenarios.includes(s))).filter(Boolean);
+
+const renderOverview = () => {
+  $('overview').innerHTML = OVERVIEW.map(scenario => {
+    const available = countsFor(scenario);
+    const count = available.includes(state.count) ? state.count : available[available.length - 1];
+    const rows = SUMMARY.rows
+      .filter(r => r.scenario === scenario && r.count === count && state.impls.has(r.impl))
+      .sort((a, b) => a.medianMs - b.medianMs);
+    // Outliers (over 3× the panel's median) would flatten every other bar, so the scale
+    // stops at the largest regular value and outlier bars run off the end, marked.
+    const mid = rows.length ? rows[Math.floor(rows.length / 2)].medianMs : 0;
+    const regular = rows.filter(r => r.medianMs <= mid * 3);
+    const max = Math.max(...(regular.length ? regular : rows).map(r => r.medianMs)) || 1;
+    const bars = rows.map(r => {
+      const clipped = r.medianMs > max * 1.001;
+      const name = isVajra(r.impl) ? 'font-semibold text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300';
+      return `<div class="group grid grid-cols-[8.5rem_1fr_4rem] items-center gap-3" data-tip-row="${esc(scenario)}|${count}|${esc(r.impl)}">
+        <div class="truncate text-xs ${name}">${esc(r.label)}</div>
+        <div class="relative h-4 rounded bg-slate-100 group-hover:bg-slate-200 dark:bg-slate-800 dark:group-hover:bg-slate-700">
+          <div class="${barClassFor(r.impl)}" style="width:${clipped ? '100%' : ((r.medianMs / max) * 100).toFixed(2) + '%'}"></div>
+          ${clipped ? '<span class="absolute inset-y-0 right-1 flex items-center text-[10px] font-semibold text-slate-700 dark:text-slate-200">» off scale</span>' : ''}
+        </div>
+        <div class="text-right font-mono text-xs tabular-nums ${name}">${fmt(r.medianMs, 1)}</div>
+      </div>`;
+    }).join('');
+    return `<div>
+      <div class="flex items-baseline justify-between">
+        <h3 class="text-sm font-semibold text-slate-900 dark:text-white">${esc(SCENARIO_LABELS[scenario] ?? scenario)}</h3>
+        <span class="text-xs text-slate-500 dark:text-slate-400">${count.toLocaleString()} cards · ms</span>
+      </div>
+      <div class="mt-3 space-y-1.5">${bars || '<p class="text-xs text-slate-500">No implementations selected.</p>'}</div>
+    </div>`;
+  }).join('');
+};
+
+const renderTable = rows => {
+  $('tbody').innerHTML = [...rows].sort((a, b) => a.medianMs - b.medianMs).map(r => {
+    const v = r.vsBaseline;
+    const badge = v ? (v.verdict === 'faster' ? CLS.badgeFaster : v.verdict === 'slower' ? CLS.badgeSlower : CLS.badgeNoise) : CLS.badgeNoise;
+    return `<tr class="${r.impl === 'vajra' ? CLS.rowVajra : ''}">
+      <td class="px-4 py-3 sm:px-6"><span class="inline-flex items-center gap-2 font-medium text-slate-900 dark:text-white"><span class="${dotFor(r.impl)}"></span>${esc(r.label)}</span></td>
+      <td class="px-3 py-3 text-right font-mono font-semibold text-slate-900 dark:text-white">${fmt(r.medianMs, 2)}</td>
+      <td class="px-3 py-3 text-right font-mono text-slate-500 dark:text-slate-400">${fmt(r.medianCI95Ms[0], 2)}–${fmt(r.medianCI95Ms[1], 2)}</td>
+      <td class="px-3 py-3 text-right font-mono">${fmt(r.p95Ms, 2)}</td>
+      <td class="px-3 py-3 text-right font-mono text-slate-500 dark:text-slate-400">${r.n}</td>
+      <td class="px-3 py-3 text-right font-mono">${v ? (v.absoluteDiffMs > 0 ? '+' : '') + fmt(v.absoluteDiffMs, 2) + ' ms' : 'baseline'}</td>
+      <td class="px-3 py-3 text-right font-mono">${v ? fmt(v.relativeImprovementPct, 1) + '% <span class="text-slate-400">[' + fmt(v.relativeImprovementCI95Pct[0], 1) + ', ' + fmt(v.relativeImprovementCI95Pct[1], 1) + ']</span>' : '—'}</td>
+      <td class="px-3 py-3"><span class="${badge}">${v ? esc(v.verdict) : 'baseline'}</span></td>
+      <td class="px-3 py-3 text-right font-mono">${r.medianHostRerenders ?? '—'}</td>
+      <td class="px-3 py-3 text-right font-mono">${r.medianCommits ?? '—'}</td>
+      <td class="px-4 py-3 text-right font-mono sm:px-6">${fmtBytes(r.medianHeapDeltaBytes)}</td>
+    </tr>`;
+  }).join('');
+};
+
+const render = () => {
+  renderControls();
+  renderOverview();
+  const rows = SUMMARY.rows.filter(r => r.scenario === state.scenario && r.count === state.count && state.impls.has(r.impl));
+  renderKpis(rows);
+  renderChart(rows);
+  renderTable(rows);
+};
+
+document.addEventListener('click', e => {
+  const btn = e.target.closest('button');
+  if (!btn) return;
+  if (btn.dataset.scenario) state.scenario = btn.dataset.scenario;
+  else if (btn.dataset.count) state.count = Number(btn.dataset.count);
+  else if (btn.dataset.impl) {
+    const i = btn.dataset.impl;
+    if (state.impls.has(i)) state.impls.delete(i); else state.impls.add(i);
+  } else return;
+  render();
+});
+
+// Scenario B is left out: its timings are below the timer's 1 ms resolution.
+const abRows = SUMMARY.rows.filter(r => r.vsPrevious && r.scenario !== 'B-rerender-unrelated');
+if (abRows.length) {
+  const order = s => scenarios.indexOf(s);
+  const prevOf = r => SUMMARY.rows.find(p => isPrevious(p.impl) && p.scenario === r.scenario && p.count === r.count);
+  const current = meta ? meta.versions.vajraUi : 'current';
+  $('ab').classList.remove('hidden');
+  $('ab-title').textContent = `Vajra UI ${current} vs ${PREV_VERSION}`;
+  $('ab-prev').textContent = PREV_VERSION;
+  $('ab-current').textContent = current;
+  $('ab-body').innerHTML = [...abRows].sort((a, b) => order(a.scenario) - order(b.scenario) || a.count - b.count).map(r => {
+    const v = r.vsPrevious;
+    const badge = v.verdict === 'faster' ? CLS.badgeFaster : v.verdict === 'slower' ? CLS.badgeSlower : CLS.badgeNoise;
+    return `<tr>
+      <td class="px-4 py-3 font-medium text-slate-900 sm:px-6 dark:text-white">${esc(SCENARIO_LABELS[r.scenario] ?? r.scenario)}</td>
+      <td class="px-3 py-3 text-right font-mono text-slate-500 dark:text-slate-400">${r.count.toLocaleString()}</td>
+      <td class="px-3 py-3 text-right font-mono">${fmt(prevOf(r)?.medianMs, 2)} ms</td>
+      <td class="px-3 py-3 text-right font-mono font-semibold text-slate-900 dark:text-white">${fmt(r.medianMs, 2)} ms</td>
+      <td class="px-3 py-3 text-right font-mono">${v.relativeImprovementPct >= 0 ? '+' : ''}${fmt(v.relativeImprovementPct, 1)}% <span class="text-slate-400">[${fmt(v.relativeImprovementCI95Pct[0], 1)}, ${fmt(v.relativeImprovementCI95Pct[1], 1)}]</span></td>
+      <td class="px-4 py-3 sm:px-6"><span class="${badge}">${esc(v.verdict)}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+const changeRows = SUMMARY.rows
+  .filter(r => r.vsPrevious && r.scenario !== 'B-rerender-unrelated')
+  .sort((a, b) => scenarios.indexOf(a.scenario) - scenarios.indexOf(b.scenario) || a.count - b.count);
+if (changeRows.length) {
+  const current = meta ? meta.versions.vajraUi : 'current';
+  $('change').classList.remove('hidden');
+  $('change-title').textContent = `Vajra UI ${current} vs ${PREV_VERSION}, per scenario`;
+  $('change-prev').textContent = PREV_VERSION;
+  $('change-current').textContent = current;
+  // Share of the previous version's time: 100% is unchanged, lower is faster.
+  const share = pct => 100 - pct;
+  const values = changeRows.flatMap(r => [share(r.vsPrevious.relativeImprovementPct), ...r.vsPrevious.relativeImprovementCI95Pct.map(share)]).filter(Number.isFinite);
+  const lo = Math.floor((Math.min(...values, 100) - 2) / 5) * 5;
+  const hi = Math.ceil((Math.max(...values, 100) + 2) / 5) * 5;
+  const x = v => `${(((v - lo) / (hi - lo)) * 100).toFixed(2)}%`;
+  const ticks = [];
+  for (let t = lo; t <= hi; t += 5) ticks.push(t);
+  const grid = ticks.map(t => `<div class="absolute inset-y-0 w-px ${t === 100 ? 'bg-slate-400 dark:bg-slate-500' : 'bg-slate-100 dark:bg-slate-800'}" style="left:${x(t)}"></div>`).join('');
+  const rowsHtml = changeRows.map(r => {
+    const v = r.vsPrevious;
+    const now = share(v.relativeImprovementPct);
+    const [ciA, ciB] = v.relativeImprovementCI95Pct.map(share);
+    const prev = SUMMARY.rows.find(p => isPrevious(p.impl) && p.scenario === r.scenario && p.count === r.count);
+    const badge = v.verdict === 'faster' ? CLS.badgeFaster : v.verdict === 'slower' ? CLS.badgeSlower : CLS.badgeNoise;
+    const tip = `<div class="font-semibold text-slate-900 dark:text-white">${esc(SCENARIO_LABELS[r.scenario] ?? r.scenario)}</div>`
+      + `<div class="mt-1 font-mono">${esc(PREV_VERSION)} ${fmt(prev?.medianMs, 2)} ms → ${esc(current)} ${fmt(r.medianMs, 2)} ms</div>`
+      + `<div class="font-mono">${v.relativeImprovementPct >= 0 ? '+' : ''}${fmt(v.relativeImprovementPct, 1)}% faster · 95% CI [${fmt(v.relativeImprovementCI95Pct[0], 1)}, ${fmt(v.relativeImprovementCI95Pct[1], 1)}]</div>`
+      + `<div class="mt-1">${esc(v.verdict)}</div>`;
+    return `<div class="group grid grid-cols-[9.5rem_1fr_6.5rem] items-center gap-3 rounded-md px-1 py-1 hover:bg-slate-50 dark:hover:bg-slate-800/60" data-tip="${esc(tip)}">
+      <div class="truncate text-xs font-medium text-slate-700 dark:text-slate-200">${esc(SCENARIO_LABELS[r.scenario] ?? r.scenario)}</div>
+      <div class="relative h-6">
+        ${grid}
+        <div class="absolute top-1/2 h-0.5 -translate-y-1/2 bg-slate-300 dark:bg-slate-600" style="left:${x(Math.min(now, 100))};width:calc(${x(Math.max(now, 100))} - ${x(Math.min(now, 100))})"></div>
+        <div class="absolute top-1/2 h-2 -translate-y-1/2 rounded-full bg-teal-600/30" style="left:${x(Math.min(ciA, ciB))};width:calc(${x(Math.max(ciA, ciB))} - ${x(Math.min(ciA, ciB))})"></div>
+        <div class="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-600 ring-2 ring-white dark:ring-slate-900" style="left:${x(100)}"></div>
+        <div class="absolute top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full bg-teal-600 ring-2 ring-white dark:ring-slate-900" style="left:${x(now)}"></div>
+      </div>
+      <div class="flex items-center justify-end gap-2"><span class="font-mono text-xs tabular-nums text-slate-900 dark:text-white">${v.relativeImprovementPct >= 0 ? '−' : '+'}${fmt(Math.abs(v.relativeImprovementPct), 1)}%</span><span class="${badge}">${esc(v.verdict === 'within noise' ? 'noise' : v.verdict)}</span></div>
+    </div>`;
+  }).join('');
+  const axis = `<div class="grid grid-cols-[9.5rem_1fr_6.5rem] gap-3 px-1"><div></div><div class="relative h-5">${ticks.map(t => `<span class="absolute -translate-x-1/2 font-mono text-[10px] text-slate-500 dark:text-slate-400" style="left:${x(t)}">${t}%</span>`).join('')}</div><div></div></div>`;
+  $('change-chart').innerHTML = `<div class="space-y-1">${rowsHtml}</div>${axis}`;
+}
+
+// One tooltip for every chart: rows carry their content in data-tip, or point at a summary row.
+document.addEventListener('mousemove', e => {
+  const tip = $('tip');
+  const el = e.target.closest('[data-tip], [data-tip-row]');
+  if (!el) { tip.classList.add('hidden'); return; }
+  let html = el.dataset.tip;
+  if (!html) {
+    const [scenario, count, impl] = el.dataset.tipRow.split('|');
+    const r = SUMMARY.rows.find(x => x.scenario === scenario && x.count === Number(count) && x.impl === impl);
+    html = r ? tipFor(r) : '';
+  }
+  tip.innerHTML = html;
+  tip.classList.remove('hidden');
+  const pad = 14;
+  const w = tip.offsetWidth, h = tip.offsetHeight;
+  tip.style.left = `${Math.min(e.clientX + pad, window.innerWidth - w - 8)}px`;
+  tip.style.top = `${e.clientY + pad + h > window.innerHeight ? e.clientY - h - pad : e.clientY + pad}px`;
+});
+
+$('notmeasured').innerHTML = SUMMARY.notMeasured.map(x => `<li>${esc(x)}</li>`).join('');
+$('raw').innerHTML = SUMMARY.rawFiles.map(f => `<li><a class="font-mono text-xs text-teal-700 underline-offset-2 hover:underline dark:text-teal-300" href="raw/${esc(f.file.replace(/^raw\//, ''))}">${esc(f.file)}</a> <span class="text-xs">· ${esc(f.impl)}, round ${f.round}, ${f.samples} samples</span></li>`).join('');
+
+if (meta) {
+  const src = meta.vajraSource || [];
+  const cfg = [
+    ['Host', `${meta.host.platform} ${meta.host.release} ${meta.host.arch} · ${meta.host.cpu} · ${meta.host.cpuCount} CPUs · ${meta.host.totalMemGB} GB`],
+    ['Device', meta.host.device],
+    ['Node', meta.host.node],
+    ['react / react-native / test-renderer', `${meta.versions.react} / ${meta.versions.reactNative} / ${meta.versions.reactTestRenderer}`],
+    ['@88khp/vajra-ui', `${meta.versions.vajraUi}${src[0]?.resolved ? ' · ' + src[0].resolved : meta.vajraTarball ? ' · sha256 ' + meta.vajraTarball.sha256 : ''}`],
+    ['@88khp/vajra-ui-core', `${meta.versions.vajraUiCore}${src[1]?.resolved ? ' · ' + src[1].resolved : ''}`],
+    ...(src[2]?.resolved ? [['Previous @88khp/vajra-ui (as vajra-ui-prev)', `${meta.versions.vajraUiPrevious} · ${src[2].resolved}${src[2].integrity ? ' · ' + src[2].integrity : ''}`]] : []),
+    ...(src[3]?.resolved ? [['Previous @88khp/vajra-ui-core (as vajra-ui-core-prev)', `${meta.versions.vajraUiCorePrevious} · ${src[3].resolved}${src[3].integrity ? ' · ' + src[3].integrity : ''}`]] : []),
+    ['styled-components / tamagui / nativewind / twrnc', `${meta.versions.styledComponents} / ${meta.versions.tamagui} / ${meta.versions.nativewind} / ${meta.versions.twrnc}`],
+    ['Repository commit', `${meta.repo.commit} (${meta.repo.uncommittedPaths} uncommitted paths at run time)`],
+  ];
+  $('cfg').innerHTML = cfg.map(([k, v]) => `<div><dt class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">${esc(k)}</dt><dd class="mt-0.5 break-all font-mono text-xs text-slate-800 dark:text-slate-200">${esc(v)}</dd></div>`).join('');
+}
+
+render();
+</script>
+</body>
+</html>

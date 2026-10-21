@@ -1,0 +1,19 @@
+# Native build output for the simulator/emulator benchmark app (ios/, android/).
+ios/Pods/
+ios/build/
+ios/.xcode.env.local
+xcuserdata/
+*.xcuserstate
+android/.gradle/
+android/build/
+android/app/build/
+android/app/.cxx/
+android/local.properties
+android/.kotlin/
+*.jsbundle
+.metro-health-check*
+
+# Benchmark output. Routine runs write results/smoke/ (and results/raw/ for full runs),
+# which every run overwrites. Only frozen release snapshots are committed.
+results/*
+!results/release-*/
