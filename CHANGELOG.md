@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [3.0.0-alpha.1] - 2026-10-21
+## [3.0.0-alpha.1] - 2026-10-22
 
 ### Changed
 
@@ -14,8 +14,11 @@ All notable changes to this project will be documented in this file.
 ### Performance
 
 - `Box`, `Pressable`, `Text` and `TextInput` pass a per-theme token resolver to core's `splitStyleProps` instead of copying every prop to resolve tokens first. Styles are cached per theme by the token names as passed (`bg="primary" p="s-4"`), so an element whose style is cached skips token resolution and style building entirely.
+- `Text`, `Pressable` and `TextInput` no longer split their own props (`variant`, `font`, `activeOpacity`, `placeholderColor`, and Text's typography props) off with rest destructuring. They read them from props, and core's style specs leave them out of the forwarded props. Bundlers compile rest destructuring into a helper (`__rest`, or Babel's `objectWithoutProperties`, which React Native's Babel preset always applies) that searches the excluded keys for every prop on every render.
 - `Pressable` passes the same `style` callback on every render while its style is unchanged.
 - `Input` fields pass `TextInput` a shared style object and stable focus, blur and change handlers, and `InputRoot` memoizes its context value. The memoized `TextInput` now skips re-rendering when its own props have not changed, e.g. while another input in the same form is typed into.
+- The build targets ES2018 instead of ES2017, so object spread is emitted as native spread instead of `Object.assign`.
+- Measured result: 9–12% faster than 3.0.0-alpha.0 on variant, theme and combined updates, with both versions in the same benchmark run. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md) for the numbers and how they were produced.
 
 ## [3.0.0-alpha.0] - 2026-10-21
 
