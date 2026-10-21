@@ -11,12 +11,12 @@ type TDataPoint = {
   box: number;
 };
 
-// Median mount time (ms) from scripts/bench-box-layers.bench.tsx.
+// Median mount time (ms) from scripts/bench-box-layers.bench.tsx, measured on 3.0.
 const ABSOLUTE_DATA: TDataPoint[] = [
-  { treeSize: 100, view: 1.0, coreBox: 2.0, box: 2.0 },
-  { treeSize: 1000, view: 12.5, coreBox: 21.0, box: 24.0 },
-  { treeSize: 5000, view: 68.0, coreBox: 107.5, box: 132.0 },
-  { treeSize: 10000, view: 147.0, coreBox: 244.5, box: 306.0 },
+  { treeSize: 100, view: 1.0, coreBox: 1.0, box: 1.0 },
+  { treeSize: 1000, view: 6.0, coreBox: 8.0, box: 9.0 },
+  { treeSize: 5000, view: 34.0, coreBox: 50.5, box: 48.0 },
+  { treeSize: 10000, view: 70.0, coreBox: 99.5, box: 103.0 },
 ];
 
 // Same runs, normalized to overhead per node (µs) vs Raw View — the number
@@ -158,8 +158,8 @@ export default function PerfChart(): React.ReactElement {
       <BarChart
         data={ABSOLUTE_DATA}
         series={SERIES}
-        maxValue={320}
-        yTicks={[0, 80, 160, 240, 320]}
+        maxValue={120}
+        yTicks={[0, 30, 60, 90, 120]}
         valueSuffix="ms"
         ariaLabel="Bar chart comparing median total mount time in milliseconds for Raw View, CoreBox, and styled Box across tree sizes of 100, 1000, 5000, and 10000 nodes. Values are listed in the table below the chart."
       />
@@ -172,10 +172,10 @@ export default function PerfChart(): React.ReactElement {
       <BarChart
         data={PER_NODE_DATA}
         series={PER_NODE_SERIES}
-        maxValue={20}
-        yTicks={[0, 5, 10, 15, 20]}
+        maxValue={4}
+        yTicks={[0, 1, 2, 3, 4]}
         valueSuffix="µs"
-        ariaLabel="Bar chart comparing per-node overhead in microseconds for CoreBox and styled Box relative to Raw View, across tree sizes of 100, 1000, 5000, and 10000 nodes. The overhead stays flat around 10 to 16 microseconds per node regardless of tree size. Values are listed in the table below the chart."
+        ariaLabel="Bar chart comparing per-node overhead in microseconds for CoreBox and styled Box relative to Raw View, across tree sizes of 100, 1000, 5000, and 10000 nodes. The overhead stays at or below about 3 microseconds per node regardless of tree size. Values are listed in the table below the chart."
       />
       <p className={styles.caption}>
         This is the number that actually answers "does the wrapper cost scale?" — it doesn't.

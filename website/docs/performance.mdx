@@ -1,99 +1,106 @@
 ---
 id: performance
-title: Performance
+title: Performance & benchmarks
 ---
 
+import StylingBenchChart from '@site/src/components/StylingBenchChart';
 import PerfChart from '@site/src/components/PerfChart';
 
-# Performance
+# Performance & benchmarks
 
-:::note 3.0 update
-The numbers on this page were measured on 2.x, where `Box` wrapped `CoreBox`. Since 3.0, `Box` renders `View` directly with `splitStyleProps` from `@88khp/vajra-ui-core`, which builds only the style keys that were passed and shares one style object per set of values. The chart has not been re-measured yet.
-:::
+Vajra UI resolves design tokens at runtime, so you get `bg="primary"` and live theme switching
+with no compiler or build step. This page shows what that costs against the other React Native
+styling libraries, measured in one run with every library rendering the same card.
 
-`vajra-ui`'s styled components wrap headless primitives from `@88khp/vajra-ui-core`
-(`Box` wraps `CoreBox`, which wraps React Native's `View`). Two extra function calls per
-node before you hit a host component is a fair thing to ask about — this page answers it
-with numbers instead of assertions.
+<StylingBenchChart />
+
+## Results
+
+Median ms for 100 cards (a title, a status dot, a description and two buttons). The switch
+scenarios are the total of 12 updates. Lower is faster.
+
+| Library | Mount | Variant switch | Theme switch | Theme + variant |
+|---|---|---|---|---|
+| StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
+| twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
+| **Vajra UI 3.0** | **16** | **103** | **117.5** | **134.5** |
+| styled-components 6.6.0 | 15 | 121 | 104 | 121 |
+| NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
+| Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
+| Tamagui 3.1.2, runtime only | 68 | 427.5 | 768.5 | 1,163 |
+
+What this means:
+
+- **Variant switching, the most common interaction, runs at hand-written speed.** Vajra is level
+  with twrnc and within 7% of a hand-written `StyleSheet` that precomputes every style. It is 15%
+  faster than styled-components.
+- **2.2–2.6× faster than NativeWind** on every update, and 1.8× faster to mount.
+- **4–8× faster than Tamagui**, measured with Tamagui's compiler on.
+- **Theme switching is where Vajra trails the fastest libraries.** It is 13% behind
+  styled-components, 22% behind twrnc and 30% behind StyleSheet, and further behind with theme
+  and variant at once. Every `Box`, `Text` and `Pressable` follows the theme on its own, so a
+  theme change re-renders each of them. In twrnc only the card re-renders.
+
+## Faster than 3.0.0-alpha.0
+
+3.0 caches each element's style by the token names you pass, so a repeated `bg="primary" p="s-4"`
+skips token resolution and style building entirely. Both versions ran in the same benchmark:
+
+| Scenario | 3.0.0-alpha.0 | 3.0 | Improvement (95% CI) |
+|---|---|---|---|
+| Variant switch | 113 ms | 103 ms | +8.8% [6.7, 11.0] |
+| Theme switch | 131.5 ms | 117.5 ms | +10.6% [5.3, 12.8] |
+| Theme + variant | 151.5 ms | 134.5 ms | +11.2% [8.8, 16.5] |
+| Mount | 18 ms | 16 ms | +11.1% |
+
+## How it was measured
+
+- **Same card, same output.** Each library renders one `BenchmarkCard` 100 times. A parity suite
+  checks that every library renders the same host tree, styles, copy and accessibility labels for
+  3 variants × 2 themes, and that presses reach the right handler.
+- **Each library used as documented.** NativeWind's Tailwind CSS is compiled once, as Metro would,
+  outside the timed window. twrnc builds class strings with `tw.style()`. styled-components uses
+  `ThemeProvider` and transient props. Tamagui is measured twice: on its runtime path, and
+  compiled by its own compiler through `@tamagui/metro-plugin`.
+- **One run, shuffled.** 5 rounds, each library in its own Jest process, in a seeded random order
+  per round. 50 trials and 600 updates per library per scenario.
+- **Statistics.** Medians with 95% bootstrap confidence intervals. A difference counts only when
+  the interval excludes zero and the change is at least 5%.
+- **Choices that favor someone are disclosed.** The StyleSheet baseline precomputes all 6 theme ×
+  variant style sets. Vajra's card computes its `createRecipe` output once at load. Theme tokens
+  are still resolved at render time.
+
+These are JavaScript-side timings under Jest (Apple M4, Node 24, React 19.2, React Native 0.84),
+not frame times on a phone. They include React render and commit, not native layout or drawing.
+An earlier Release build on the iOS simulator and Android emulator ranked the libraries the same
+way.
+
+The harness, every library's card, the raw samples and the full method, including what could have
+biased the numbers, are in
+[`benchmarks/styling/`](https://github.com/88khp/vajra-ui/tree/main/benchmarks/styling). Start with
+[RESULTS.md](https://github.com/88khp/vajra-ui/blob/main/benchmarks/styling/RESULTS.md).
+
+## The cost of the token layer
+
+`Box` resolves tokens and renders React Native's `View` directly. This benchmark mounts trees of
+100 to 10,000 sibling nodes as raw `View`, as core's `Box` and as `vajra-ui`'s `Box`, and takes the
+median of 20 runs each, after a warm-up.
 
 <PerfChart />
 
-## Why the layering exists
+| Tree size | Raw View (median ms) | CoreBox (median ms) | Box (median ms) | Box vs View overhead |
+|---|---|---|---|---|
+| 100 | 1.00 | 1.00 | 1.00 | +0.00 ms total, 0.00 µs/node |
+| 1,000 | 6.00 | 8.00 | 9.00 | +3.00 ms total, 3.00 µs/node |
+| 5,000 | 34.00 | 50.50 | 48.00 | +14.00 ms total, 2.80 µs/node |
+| 10,000 | 70.00 | 99.50 | 103.00 | +33.00 ms total, 3.30 µs/node |
 
-`vajra-ui-core` owns layout/spacing math and has zero dependencies beyond React Native.
-`vajra-ui` owns theming (color tokens, spacing scale, dark mode) and is built on top of it.
-Splitting headless primitives from a styled layer is the same shape as Radix UI / Base UI /
-react-aria — it exists so the layout logic isn't duplicated per styled component, and so
-`vajra-ui-core` can be used standalone by anyone who wants primitives without a theme.
+A token-styled `Box` costs about **3 µs per node** over a raw `View`, and that stays flat from
+1,000 to 10,000 nodes. A dense screen with 300 styled nodes spends about 1 ms on it, once, at
+mount.
 
-## The benchmark
-
-[`scripts/bench-box-layers.bench.tsx`](https://github.com/88khp/vajra-ui/blob/main/scripts/bench-box-layers.bench.tsx)
-mounts trees of 100 / 1,000 / 5,000 / 10,000 sibling nodes for three cases and takes the
-median of 20 runs each, after a warm-up pass to let the JIT settle. 10,000 simultaneous
-sibling nodes is already well past what a real screen renders at once (a long scrollable
-form or dense list is a few hundred to low thousands) — it's included as a stress ceiling,
-not a realistic scenario.
-
-- **Raw View** — plain React Native `<View>`, no wrapper.
-- **CoreBox** — `@88khp/vajra-ui-core`'s `Box`, one layer over `View`.
-- **Box** — `vajra-ui`'s styled `Box`, two layers over `View` (resolves color/spacing
-  tokens, then delegates to `CoreBox`).
-
-Reproduce it yourself (it's excluded from the normal test run since it's a timing
-benchmark, not a correctness check):
+Reproduce it from the repository root:
 
 ```bash
 npx jest --config jest.config.js --testMatch '<rootDir>/scripts/*.bench.tsx' --verbose
 ```
-
-### Results
-
-| Tree size | Raw View (median ms) | CoreBox (median ms) | Box (median ms) | Box vs View overhead |
-|---|---|---|---|---|
-| 100 | 1.00 | 2.00 | 2.00 | +1.00ms total, 10.00µs/node |
-| 1,000 | 12.50 | 21.00 | 24.00 | +11.50ms total, 11.50µs/node |
-| 5,000 | 68.00 | 107.50 | 132.00 | +64.00ms total, 12.80µs/node |
-| 10,000 | 147.00 | 244.50 | 306.00 | +159.00ms total, 15.90µs/node |
-
-Per-node overhead stays in a **10–16µs band** across two orders of magnitude of tree size —
-it doesn't compound, and it isn't hiding an accidental O(n²) somewhere in the theme
-resolution path. (We also tried 50k/100k nodes; past ~10k the numbers get dominated by
-Node's own GC pressure from repeatedly mounting/unmounting huge trees in one process rather
-than any real per-node cost, and swing wildly between runs — that's a benchmark-harness
-artifact at a scale no real screen hits, not a finding about the library, so it's excluded here.)
-
-The absolute-time columns above grow with tree size because there's more work to do overall
-— at 10,000 nodes, `Box` takes ~2x longer in total than raw `View`. Read literally, that
-sounds alarming. But the per-node overhead column is the actual claim being tested, and it
-stays flat: `Box` isn't getting proportionally slower as the tree grows, there are just more
-nodes. The **µs/node** column — and the chart above, which plots exactly that — is the one
-to look at, not the ms totals.
-
-For scale: a genuinely large real screen (a long settings list, a dense form) might mount a
-few hundred styled nodes at once. At 300 nodes that's roughly **3–4ms** of extra reconciliation
-time for the entire screen, one time, at mount — not per frame, not per scroll, not per
-re-render of an unrelated node (see memoization below).
-
-## What this measures, and what it doesn't
-
-This benchmark measures JS-side render/reconciliation cost via `react-test-renderer`. It does
-**not** measure native paint, layout, or the old RN bridge's serialization cost — those happen
-at the host-component (`View`) level regardless of how many JS wrapper functions sit above it,
-so they're identical across all three cases and not what the extra layer could possibly affect.
-If you're chasing a real frame-drop, profile with Flipper/the RN DevTools first — it is very
-unlikely to point at this layer.
-
-## Why it doesn't compound in practice
-
-- **Every styled component is wrapped in `React.memo`.** Re-renders where props are
-  referentially unchanged skip reconciliation for that subtree entirely — the wrapper cost
-  above only applies once, at initial mount or when props actually change.
-- **The overhead is a function call, not I/O.** There's no network request, no bridge
-  round-trip, no synchronous layout pass hiding in the wrapper — it's token lookups
-  (`colors[bg]`, `spacing[gap]`) and a prop spread.
-
-## Bottom line
-
-Two wrapper layers cost about 10µs per node at mount, don't compound with tree size, and
-are skipped on re-render for anything memoized with stable props.
