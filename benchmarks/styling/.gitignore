@@ -17,3 +17,6 @@ android/.kotlin/
 # which every run overwrites. Only frozen release snapshots are committed.
 results/*
 !results/release-*/
+
+# Written by Tamagui's compiler when scripts/compile-tamagui.js evaluates the config.
+.tamagui/
