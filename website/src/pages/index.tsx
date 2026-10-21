@@ -5,6 +5,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
 import Layout from '@theme/Layout';
 import CodeBlock from '@theme/CodeBlock';
 import HomepageFeatures from '@site/src/components/HomepageFeatures';
+import HomepagePerformance from '@site/src/components/HomepagePerformance';
 import Heading from '@theme/Heading';
 
 import styles from './index.module.css';
@@ -21,9 +22,9 @@ function HomepageHeader() {
     <header className={clsx('hero', styles.heroBanner)}>
       <div className="container">
         <div className={styles.badges}>
-          <span className={styles.badge}>v1.0.0</span>
-          <span className={styles.badge}>40 components</span>
-          <span className={styles.badge}>Zero required deps</span>
+          <span className={styles.badge}>v3.0.0</span>
+          <span className={styles.badge}>40+ components</span>
+          <span className={styles.badge}>Benchmarked against 6 libraries</span>
         </div>
         <Heading as="h1" className="hero__title">
           {siteConfig.title}
@@ -37,6 +38,11 @@ function HomepageHeader() {
             className="button button--secondary button--lg"
             to="/docs/components/box">
             Browse Components
+          </Link>
+          <Link
+            className="button button--secondary button--lg"
+            to="/docs/performance">
+            See Benchmarks
           </Link>
         </div>
         <div className={styles.codePreview}>
@@ -57,6 +63,7 @@ export default function Home(): ReactNode {
       description="A minimal, token-driven React Native component library.">
       <HomepageHeader />
       <main>
+        <HomepagePerformance />
         <HomepageFeatures />
       </main>
     </Layout>

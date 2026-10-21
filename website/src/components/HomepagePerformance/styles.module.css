@@ -1,0 +1,78 @@
+.section {
+  padding: 4rem 0 1rem;
+}
+
+.intro {
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 880px;
+  margin: 0 auto 2rem;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--ifm-toc-border-color);
+  background: var(--ifm-background-surface-color, var(--ifm-color-emphasis-0));
+}
+
+.statValue {
+  font-size: 2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--ifm-font-color-base);
+}
+
+.statLabel {
+  font-size: 0.9rem;
+  line-height: 1.45;
+  opacity: 0.8;
+}
+
+.chart {
+  max-width: 880px;
+  margin: 0 auto;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 3rem 0 0;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+
+  .stats {
+    grid-template-columns: 1fr;
+  }
+}

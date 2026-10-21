@@ -44,7 +44,7 @@ const FeatureList: FeatureItem[] = [
   },
   {
     icon: '📦',
-    title: '40 components',
+    title: '40+ components',
     description: (
       <>
         Layout, forms, navigation, overlays, and feedback — Modal, Sheet,
