@@ -7,6 +7,103 @@ title: Changelog
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2026-10-22
+
+The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. Coming from 2.x, read the breaking changes under [3.0.0-alpha.0](#300-alpha0---2026-10-21): the package is renamed to `@88khp/vajra-ui`, and `Pressable` is built on React Native `Pressable`.
+
+### Changed
+
+- The core peer dependency is now `@88khp/vajra-ui-core@3.0.0`.
+
+### Fixed
+
+- The package no longer ships compiled tests. `tsconfig.build.json` excludes `*.test.ts` and `*.test.tsx`, and `build` clears `dist` first, so files from earlier builds are not published either. 3.0.0-alpha.1 shipped 94 test files.
+
+### Performance
+
+- The runtime code is the same as 3.0.0-alpha.1: every built file is byte-identical. Against other React Native styling libraries, in one run with every library rendering the same card, 3.0.0 is level with twrnc on variant switches and within 7% of hand-written `StyleSheet`, 15% faster than styled-components, 2.2–2.6× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 13–30% behind styled-components, twrnc and `StyleSheet`. Against 3.0.0-alpha.0 it is 9–11% faster on every update scenario. See [benchmarks/styling/RESULTS.md](https://github.com/88khp/vajra-ui/blob/main/benchmarks/styling/RESULTS.md).
+
+### Benchmarks
+
+- Tamagui is now also measured compiled, by its own compiler through `@tamagui/metro-plugin`, next to its runtime-only path.
+- The styling benchmark installs Vajra from npm instead of vendored tarballs.
+
+### Docs
+
+- The docs site's Performance page leads with the comparison against other styling libraries, and the home page, navbar and README link to it. The token-layer numbers are re-measured on 3.0.
+
+## [3.0.0-alpha.1] - 2026-10-22
+
+### Changed
+
+- The core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.1`.
+- `Pressable` renders React Native `Pressable` directly instead of going through core's `CorePressable`, so it is one component layer over `Pressable` instead of two. Props and press feedback are unchanged.
+- `TextInput` renders React Native `TextInput` directly instead of going through core's `CoreTextInput`. Props are unchanged.
+- `InputRoot` is no longer a `forwardRef` component. It never attached the ref, and React warned about it on import.
+
+### Performance
+
+- `Box`, `Pressable`, `Text` and `TextInput` pass a per-theme token resolver to core's `splitStyleProps` instead of copying every prop to resolve tokens first. Styles are cached per theme by the token names as passed (`bg="primary" p="s-4"`), so an element whose style is cached skips token resolution and style building entirely.
+- `Text`, `Pressable` and `TextInput` no longer split their own props (`variant`, `font`, `activeOpacity`, `placeholderColor`, and Text's typography props) off with rest destructuring. They read them from props, and core's style specs leave them out of the forwarded props. Bundlers compile rest destructuring into a helper (`__rest`, or Babel's `objectWithoutProperties`, which React Native's Babel preset always applies) that searches the excluded keys for every prop on every render.
+- `Pressable` passes the same `style` callback on every render while its style is unchanged.
+- `Input` fields pass `TextInput` a shared style object and stable focus, blur and change handlers, and `InputRoot` memoizes its context value. The memoized `TextInput` now skips re-rendering when its own props have not changed, e.g. while another input in the same form is typed into.
+- The build targets ES2018 instead of ES2017, so object spread is emitted as native spread instead of `Object.assign`.
+- Measured result: 9–12% faster than 3.0.0-alpha.0 on variant, theme and combined updates, with both versions in the same benchmark run. See [benchmarks/styling/RESULTS.md](https://github.com/88khp/vajra-ui/blob/main/benchmarks/styling/RESULTS.md) for the numbers and how they were produced.
+
+## [3.0.0-alpha.0] - 2026-10-21
+
+### Changed
+
+- **Breaking:** the package is renamed from `@devraj-labs/vajra-ui` to `@88khp/vajra-ui`. Update the dependency and every import. The repository and docs site moved to `github.com/88khp/vajra-ui` and `88khp.github.io/vajra-ui`.
+- **Breaking:** the core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.0` (renamed from `@devraj-labs/vajra-ui-core`). Install it alongside `@devraj-labs/vajra-ui` and remove the old package.
+- **Breaking:** `Pressable` is built on React Native `Pressable` instead of `TouchableOpacity`, through core's `CorePressable`. `TouchableOpacity`-only props such as `delayPressIn` are no longer accepted. Press feedback is an instant opacity change to `activeOpacity` (default `0.2`, pass `1` to turn it off) instead of a fade.
+- `AbsoluteCenter` builds its fill from Box props instead of an inline style, so passing `top`, `left`, `right` or `bottom` now overrides the fill.
+- `Box`, `Pressable`, `Row`, `Col`, `Center`, `AbsoluteCenter`, `AbsoluteView`, `Grid.Root` and `Grid.Item` are no longer wrapped in `memo`. They take children, which are new elements on every parent render, so the comparison never skipped a render.
+
+### Performance
+
+- `Box` renders `View` directly with core's `splitStyleProps` instead of going through `CoreBox`, so it is one component layer over `View` instead of two.
+- `Text` renders React Native `Text` directly with core's style builder. It no longer builds a new style array with margin, `fontVariant` and `fontStyle` keys on every render, so `Text` elements with the same resolved tokens share one cached style object.
+- Token props (colors, rounded, spacing) are resolved in one pass, and token props that were not passed are dropped instead of forwarded as `undefined`. This replaces a 15-key spacing object allocated on every render of `Box`, `Pressable` and `TextInput`.
+- `Spacer` renders `View` directly with a cached style.
+- `AbsoluteCenter` and `AbsoluteView` no longer pass a new inline style object on every render.
+
+## [2.0.0] - 2026-10-21
+
+### Added
+
+- `Switch` now works as a standalone on/off toggle: `<Switch value={boolean} onChange={(value: boolean) => void} label? color? isDisabled? />`. `Switch.Root` / `Switch.Item` remain the single-select group.
+- `Button` and `Badge` accept a `tone` prop (`primary` | `secondary` | `success` | `warning` | `error` | `info`). On `Button`, `tone` re-points the variant's accent color, so `tone="error"` gives a destructive button; on `Badge` it sets the background, and an explicit `bg` still wins.
+- `IconButton` accepts `isPill`, matching `Button`.
+- `SafeAreaScreenWrapper` accepts a `bg` color token (defaults to `background`), so full-screen sheets can use `surfaceRaised`.
+- Typography variants accept `fontVariant` (for example `['tabular-nums']`), applied to every `Text` that uses the variant.
+- `createVajraTheme({ defaultFont })` names a font family from `fonts` that every `Text` uses by default, at each variant's own weight.
+- `createVajraTheme({ appBar: { bg, tint } })` sets the default colors for `AppBar.Header`, replacing the hard-coded `primary` / `textInverse` pair.
+- `TTextInputInstance` type, the instance type `TextInput` refs now expose.
+
+### Changed
+
+- **Breaking:** `Menu` action `icon` takes a `TVajraIconComponent` (like `IconButton` and `AppBar`) instead of a `ReactNode`. The icon receives `size` and `color` automatically, and destructive actions color it with the error token.
+- `Text` with a `font` prop now resolves the family at the variant's weight. Previously it always used `fontWeight="400"` unless passed explicitly, so a `h1` with `font` rendered at regular weight.
+- `Grid.Item` sizes from its enclosing `Grid.Root`'s measured width (minus the root's horizontal padding), so `screenPadding` is no longer needed. It is only used for the first frame before layout.
+- `TextInput` and the `Input` family forward refs typed as `TTextInputInstance` (the instance `TextInput` holds) instead of the `TextInput` component type.
+
+## [1.1.0] - 2026-08-11
+
+### Added
+
+- `AlertProvider` / `useAlert()` — a global, stacked notification-list provider for `Alert`, mirroring `ToastProvider`'s API (`show()`/`hide()`, queued overflow, top/bottom anchoring). Alerts stay visible until dismissed by default (no auto-dismiss timer), unlike Toast.
+- `ToastProvider` now stacks up to `maxVisible` toasts on screen simultaneously (previously only one toast was ever visible at a time, with the rest queued behind it) — each toast animates and auto-dismisses independently.
+- `maxVisible` prop on `ToastProvider` and `AlertProvider`, and a matching `toast.maxVisible` / `alert.maxVisible` theme default (3) in `defaultVajraTheme`, overridable via `createVajraTheme({ toast: { maxVisible }, alert: { maxVisible } })`.
+- `Toast` and `Alert` now show a default icon per variant (`success`/`error`/`warning`/`info`) from `@devraj-labs/vajra-ui-icons` automatically — pass `icon` to override it, or `null` to render none.
+- `Toast` gained an optional `dismissible` flag (and `Alert`'s existing `onDismiss` dismiss button now defaults to `XIcon`) rendering a proper dismiss button with a real touch target (`hitSlop` + padding), replacing the old plain "✕" text glyph.
+- `@devraj-labs/vajra-ui-icons` added as a dependency — the first consumer of the sibling icons package.
+
+### Fixed
+
+- `ToastProvider`'s overlay used `pointerEvents="none"`, which silently blocked presses on the new dismiss button; changed to `pointerEvents="box-none"` so the container stays click-through while its children remain interactive.
+- Docs site (`website/docs/components/toast.mdx`, `alert.mdx`): the live preview card had no `position: relative`, so a triggered Toast rendered outside/above the demo card instead of inside it.
+
 ## [1.0.0] - 2026-07-31
 
 First stable release. Two phases of work: hardening the foundation (testing, CI, architecture) so a breadth push could ship on solid ground, then the breadth push itself — 15 new components and a full documentation site with live, in-browser previews of every component.
@@ -17,7 +114,7 @@ First stable release. Two phases of work: hardening the foundation (testing, CI,
 - Two more ESLint layer-boundary rules: `src/ui/core/**` can no longer import from `src/ui/components/**` (prevents layer inversion), and nothing outside `src/ui/vajra-theme/**` may import `src/theme/**` directly (it's internal plumbing — use `useVajraTheme`/`VajraProvider` instead).
 - Jest + React Native Testing Library at the root package — the library itself had zero test coverage before this release.
 - CI (`.github/workflows/ci.yml`): typecheck/lint/test/build the library on every PR, a typecheck of `examples/app` against the local package to catch breaking API changes, and a verification that the built `dist/` output is actually importable the way a real consumer would (`scripts/verify-dist.sh` — packs the tarball, installs it fresh, typechecks a real import against it).
-- Documented the `src/theme` vs `src/ui/vajra-theme` relationship, a step-by-step component authoring scaffold (simple and compositional), and the optional-peer-dependency pattern for motion-enhanced components in [Contributing](./contributing).
+- Documented the `src/theme` vs `src/ui/vajra-theme` relationship, a step-by-step component authoring scaffold (simple and compositional), and the optional-peer-dependency pattern for motion-enhanced components in `CODING_GUIDELINES.md`.
 
 ### Added — Breadth & Reach
 
@@ -83,7 +180,7 @@ Fifteen new components, closing the gap with other RN component libraries on rea
 
 ### Changed
 
-- [Theming](./theming) rewritten to accurately document the "Bring Your Own Theme" (BYOT) model and all augmentation interfaces.
+- `docs/theming.md` rewritten to accurately document the "Bring Your Own Theme" (BYOT) model and all augmentation interfaces.
 
 ## [0.4.0] - 2026-04-11
 
@@ -129,4 +226,4 @@ Fifteen new components, closing the gap with other RN component libraries on rea
 
 ## [0.1.0] - 2026-04-09
 
-Initial tagged release. Project scaffolding, [Contributing](./contributing) guidelines, and README.
+Initial tagged release. Project scaffolding, `CODING_GUIDELINES.md`, and README.
