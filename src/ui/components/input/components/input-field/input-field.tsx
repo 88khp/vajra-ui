@@ -1,5 +1,5 @@
-import React, { forwardRef } from 'react';
-import { TextInputProps } from 'react-native';
+import React, { forwardRef, useCallback } from 'react';
+import { TextInputProps, TextStyle } from 'react-native';
 
 import { fontVariants, TFontVariant } from '../../../../vajra-theme/tokens/font-tokens';
 import { TextInput } from '../../../../core/text-input';
@@ -18,28 +18,54 @@ export type TInputFieldProps = Omit<
   size?: TInputSize;
 };
 
+type TFocusEvent = Parameters<NonNullable<TextInputProps['onFocus']>>[0];
+
+// One style object per font variant, so the memoized TextInput is not handed a
+// new style on every render.
+const fieldStyles = new Map<TFontVariant, TextStyle>();
+
+const getFieldStyle = (variant: TFontVariant): TextStyle => {
+  let style = fieldStyles.get(variant);
+
+  if (style === undefined) {
+    const { fontSize, lineHeight } = fontVariants[variant];
+
+    style = { flex: 1, fontSize, lineHeight };
+    fieldStyles.set(variant, style);
+  }
+
+  return style;
+};
+
 const InputFieldComponent = forwardRef<TTextInputInstance, TInputFieldProps>(
   ({ size = 'md', color, onFocus, onBlur, ...rest }, ref) => {
     const { setIsFocused, isDisabled, isReadOnly } = useInputContext();
     const sizeStyle = getInputSizeStyle(size);
     const inputVariant = sizeStyle.inputText.variant ?? 'body';
-    const { fontSize, lineHeight } = fontVariants[inputVariant as TFontVariant];
+    const handleFocus = useCallback(
+      (e: TFocusEvent) => {
+        setIsFocused(true);
+        (onFocus as TextInputProps['onFocus'])?.(e);
+      },
+      [setIsFocused, onFocus],
+    );
+    const handleBlur = useCallback(
+      (e: TFocusEvent) => {
+        setIsFocused(false);
+        (onBlur as TextInputProps['onBlur'])?.(e);
+      },
+      [setIsFocused, onBlur],
+    );
 
     return (
       <TextInput
         ref={ref}
-        style={{ flex: 1, fontSize, lineHeight }}
+        style={getFieldStyle(inputVariant as TFontVariant)}
         color={color ?? 'text'}
         placeholderColor="textMuted"
         editable={!isDisabled && !isReadOnly}
-        onFocus={(e: Parameters<NonNullable<TextInputProps['onFocus']>>[0]) => {
-          setIsFocused(true);
-          (onFocus as TextInputProps['onFocus'])?.(e);
-        }}
-        onBlur={(e: Parameters<NonNullable<TextInputProps['onBlur']>>[0]) => {
-          setIsFocused(false);
-          (onBlur as TextInputProps['onBlur'])?.(e);
-        }}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
         {...rest}
       />
     );
