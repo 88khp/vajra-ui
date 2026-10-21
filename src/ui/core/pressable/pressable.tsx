@@ -15,7 +15,8 @@ import { TUiPressableProps } from './pressable-types';
 // way Box renders View, instead of going through CorePressable.
 //
 // Not memoized: it takes children, so a props comparison would never skip a render.
-export const Pressable = ({ activeOpacity, ...props }: TUiPressableProps) => {
+// activeOpacity is read from props and left out by the spec's `omit`.
+export const Pressable = (props: TUiPressableProps) => {
   const theme = useVajraTheme();
   const [boxStyle, rest] = splitStyleProps<PressableProps, ViewStyle>(
     props,
@@ -26,7 +27,7 @@ export const Pressable = ({ activeOpacity, ...props }: TUiPressableProps) => {
   return (
     <RNPressable
       {...rest}
-      style={getPressableStyle(composeStyle(boxStyle, props.style), activeOpacity)}
+      style={getPressableStyle(composeStyle(boxStyle, props.style), props.activeOpacity)}
     />
   );
 };

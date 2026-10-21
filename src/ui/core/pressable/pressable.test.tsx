@@ -55,4 +55,16 @@ describe('Pressable', () => {
     expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.primary);
     expect(style.borderRadius).toBe(defaultVajraTheme.light.rounded['r-2']);
   });
+
+  it('does not forward activeOpacity to the native Pressable', () => {
+    render(
+      <VajraProvider>
+        <Pressable testID="pressable" activeOpacity={0.5}>
+          <RNText>content</RNText>
+        </Pressable>
+      </VajraProvider>,
+    );
+
+    expect(screen.getByTestId('pressable').props).not.toHaveProperty('activeOpacity');
+  });
 });
