@@ -1,16 +1,33 @@
 import React from 'react';
+import { Pressable as RNPressable, PressableProps, ViewStyle } from 'react-native';
 
-import { CorePressable, TCorePressableProps } from '@88khp/vajra-ui-core';
+import {
+  composeStyle,
+  getPressableStyle,
+  PRESSABLE_STYLE_SPEC,
+  splitStyleProps,
+} from '@88khp/vajra-ui-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
-import { BOX_TOKEN_SPEC, resolveTokenProps } from '../../utils/token-props';
+import { BOX_TOKEN_SPEC, getTokenResolver } from '../../utils/token-props';
 import { TUiPressableProps } from './pressable-types';
 
+// Renders React Native Pressable directly with core's style builder, the same
+// way Box renders View, instead of going through CorePressable.
+//
 // Not memoized: it takes children, so a props comparison would never skip a render.
-export const Pressable = (props: TUiPressableProps) => {
+export const Pressable = ({ activeOpacity, ...props }: TUiPressableProps) => {
   const theme = useVajraTheme();
+  const [boxStyle, rest] = splitStyleProps<PressableProps, ViewStyle>(
+    props,
+    PRESSABLE_STYLE_SPEC,
+    getTokenResolver(theme, BOX_TOKEN_SPEC),
+  );
 
   return (
-    <CorePressable {...(resolveTokenProps(props, BOX_TOKEN_SPEC, theme) as TCorePressableProps)} />
+    <RNPressable
+      {...rest}
+      style={getPressableStyle(composeStyle(boxStyle, props.style), activeOpacity)}
+    />
   );
 };
 
