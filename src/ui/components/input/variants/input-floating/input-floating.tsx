@@ -1,4 +1,4 @@
-import React, { forwardRef, useEffect, useRef, useState } from 'react';
+import React, { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Animated, View } from 'react-native';
 
 import { useVajraTheme } from '../../../../vajra-theme/use-vajra-theme';
@@ -52,6 +52,20 @@ const FloatingLabelField = ({
   const containerHeight = FLOATED_TOP + labelFontProps.lineHeight + 4 + sizeStyle.height;
   const inputTop = FLOATED_TOP + labelFontProps.lineHeight + 4;
   const idleLabelTop = (containerHeight - inputFontProps.lineHeight - 4) / 2;
+
+  const inputStyle = useMemo(
+    () => ({ flex: 1, fontSize: inputFontProps.fontSize, lineHeight: inputFontProps.lineHeight }),
+    [inputFontProps],
+  );
+  const handleChangeText = useCallback(
+    (text: string) => {
+      setInternalValue(text);
+      onChangeText?.(text);
+    },
+    [onChangeText],
+  );
+  const handleFocus = useCallback(() => setIsFocused(true), [setIsFocused]);
+  const handleBlur = useCallback(() => setIsFocused(false), [setIsFocused]);
 
   const anim = useRef(new Animated.Value(isFloating ? 1 : 0)).current;
 
@@ -139,22 +153,15 @@ const FloatingLabelField = ({
         {startElement}
         <TextInput
           ref={inputRef}
-          style={{
-            flex: 1,
-            fontSize: inputFontProps.fontSize,
-            lineHeight: inputFontProps.lineHeight,
-          }}
+          style={inputStyle}
           color="text"
           placeholderColor="textMuted"
           editable={!isDisabled}
           value={value}
           defaultValue={defaultValue}
-          onChangeText={(text: string) => {
-            setInternalValue(text);
-            onChangeText?.(text);
-          }}
-          onFocus={() => setIsFocused(true)}
-          onBlur={() => setIsFocused(false)}
+          onChangeText={handleChangeText}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
           {...fieldProps}
         />
         {endElement}
