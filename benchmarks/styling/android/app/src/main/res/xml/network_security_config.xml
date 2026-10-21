@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The benchmark app reports results to the host runner over plain HTTP on localhost,
+  tunnelled with `adb reverse` (scripts/run-device-benchmark.js). The React Native Gradle
+  plugin turns cleartext off for release builds, so it is allowed here for localhost only.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">127.0.0.1</domain>
+    </domain-config>
+</network-security-config>
