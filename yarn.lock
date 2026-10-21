@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@88khp/vajra-ui-core@3.0.0-alpha.0":
-  version "3.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.0.tgz#0c53bcaa64e1ee8068d43699dc55540ae480ca84"
-  integrity sha512-AZ+AqVhAFqK3Yl/KmzDHbECP/MnivUlEKfdF52yPudQX9VE3wVRpk+C11YDTPDZ+8EBNT/L9XVa+nxNc1RTRiQ==
+"@88khp/vajra-ui-core@3.0.0-alpha.1":
+  version "3.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.1.tgz#53bf2d2c639ee85a97196924eaa633627d3fedae"
+  integrity sha512-pElEaPRTTEKa9tu94c6OEVJzCIeiEAUPqWUVUPGctva/DJtXpz+jlC80fOs79juakKP9o8lY4fpRaXzhfZ4LbA==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.29.0", "@babel/code-frame@^7.29.7":
   version "7.29.7"
