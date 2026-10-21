@@ -1,0 +1,131 @@
+{
+  "collectedAt": "2026-10-21T19:42:44.421Z",
+  "options": {
+    "rounds": 5,
+    "trials": 10,
+    "warmup": 3,
+    "steps": 12,
+    "impls": [
+      "stylesheet",
+      "vajra",
+      "vajra-prev",
+      "twrnc",
+      "styled-components",
+      "nativewind",
+      "tamagui"
+    ]
+  },
+  "host": {
+    "platform": "darwin",
+    "release": "25.5.0",
+    "arch": "arm64",
+    "cpu": "Apple M4",
+    "cpuCount": 10,
+    "totalMemGB": 16,
+    "node": "v24.22.0",
+    "device": "host machine (no physical device used; JS-side measurement)"
+  },
+  "versions": {
+    "react": "19.2.3",
+    "reactNative": "0.84.1",
+    "reactTestRenderer": "19.2.3",
+    "jest": "29.7.0",
+    "vajraUi": "3.0.0-alpha.1",
+    "vajraUiCore": "3.0.0-alpha.1",
+    "vajraUiPrevious": "3.0.0-alpha.0",
+    "vajraUiCorePrevious": "3.0.0-alpha.0",
+    "styledComponents": "6.6.0",
+    "tamagui": "3.1.2",
+    "nativewind": "4.2.7",
+    "tailwindcss": "3.4.19",
+    "reactNativeCssInterop": "0.2.7",
+    "twrnc": "4.16.0"
+  },
+  "vajraSource": [
+    {
+      "package": "@88khp/vajra-ui",
+      "resolved": "file:./vendor/88khp-vajra-ui-3.0.0-alpha.1-7b3a116e.tgz#7b3a116e45d1ac8c39d389250852c27a22bf1890"
+    },
+    {
+      "package": "@88khp/vajra-ui-core",
+      "resolved": "file:./vendor/88khp-vajra-ui-core-3.0.0-alpha.1-53bf2d2c.tgz#53bf2d2c639ee85a97196924eaa633627d3fedae"
+    },
+    {
+      "package": "@88khp/vajra-ui-prev",
+      "resolved": "https://registry.yarnpkg.com/@88khp/vajra-ui/-/vajra-ui-3.0.0-alpha.0.tgz#8ee58bf13e946b22a5b734ae8646daa2685e503a",
+      "integrity": "sha512-SemEQI66QVWrszCyBlLrHf1zv0dBHxwH8UX4GcojA3YHYjmmsE587F771KruO6nRWp8NeuAoTW1UNQuakr7L4w=="
+    },
+    {
+      "package": "@88khp/vajra-ui-core-prev",
+      "resolved": "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0-alpha.0.tgz#0c53bcaa64e1ee8068d43699dc55540ae480ca84",
+      "integrity": "sha512-AZ+AqVhAFqK3Yl/KmzDHbECP/MnivUlEKfdF52yPudQX9VE3wVRpk+C11YDTPDZ+8EBNT/L9XVa+nxNc1RTRiQ=="
+    }
+  ],
+  "repo": {
+    "commit": "38bfa6512fbc554876e15f30e8aa6150fd77fd31",
+    "uncommittedPaths": 9
+  },
+  "runtime": "jest",
+  "orderPlan": [
+    {
+      "round": 1,
+      "order": [
+        "vajra-prev",
+        "nativewind",
+        "stylesheet",
+        "twrnc",
+        "vajra",
+        "tamagui",
+        "styled-components"
+      ]
+    },
+    {
+      "round": 2,
+      "order": [
+        "styled-components",
+        "twrnc",
+        "stylesheet",
+        "vajra-prev",
+        "vajra",
+        "nativewind",
+        "tamagui"
+      ]
+    },
+    {
+      "round": 3,
+      "order": [
+        "nativewind",
+        "vajra",
+        "twrnc",
+        "styled-components",
+        "vajra-prev",
+        "stylesheet",
+        "tamagui"
+      ]
+    },
+    {
+      "round": 4,
+      "order": [
+        "tamagui",
+        "vajra",
+        "vajra-prev",
+        "twrnc",
+        "nativewind",
+        "styled-components",
+        "stylesheet"
+      ]
+    },
+    {
+      "round": 5,
+      "order": [
+        "tamagui",
+        "twrnc",
+        "styled-components",
+        "stylesheet",
+        "vajra",
+        "nativewind",
+        "vajra-prev"
+      ]
+    }
+  ]
+}
