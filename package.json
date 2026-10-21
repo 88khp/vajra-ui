@@ -1,6 +1,6 @@
 {
   "name": "@88khp/vajra-ui",
-  "version": "2.0.0",
+  "version": "3.0.0-alpha.0",
   "description": "A minimal zero dependency React Native styling and theming library",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -31,7 +31,8 @@
     "test": "jest",
     "format": "prettier --write 'src/**/*.{ts,tsx}'",
     "prepare": "node -e \"process.exit(require('fs').existsSync('.git') ? 0 : 1)\" && husky || true",
-    "release": "npm run build && npm publish --access public"
+    "release": "npm run build && npm publish --access public",
+    "release:alpha": "npm run build && npm publish --access public --tag alpha"
   },
   "keywords": [
     "react-native",

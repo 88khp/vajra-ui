@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0-alpha.0] - 2026-10-21
+
+### Changed
+
+- **Breaking:** the package is renamed from `@devraj-labs/vajra-ui` to `@88khp/vajra-ui`. Update the dependency and every import. The repository and docs site moved to `github.com/88khp/vajra-ui` and `88khp.github.io/vajra-ui`.
+- **Breaking:** the core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.0` (renamed from `@devraj-labs/vajra-ui-core`). Install it alongside `@devraj-labs/vajra-ui` and remove the old package.
+- **Breaking:** `Pressable` is built on React Native `Pressable` instead of `TouchableOpacity`, through core's `CorePressable`. `TouchableOpacity`-only props such as `delayPressIn` are no longer accepted. Press feedback is an instant opacity change to `activeOpacity` (default `0.2`, pass `1` to turn it off) instead of a fade.
+- `AbsoluteCenter` builds its fill from Box props instead of an inline style, so passing `top`, `left`, `right` or `bottom` now overrides the fill.
+- `Box`, `Pressable`, `Row`, `Col`, `Center`, `AbsoluteCenter`, `AbsoluteView`, `Grid.Root` and `Grid.Item` are no longer wrapped in `memo`. They take children, which are new elements on every parent render, so the comparison never skipped a render.
+
+### Performance
+
+- `Box` renders `View` directly with core's `splitStyleProps` instead of going through `CoreBox`, so it is one component layer over `View` instead of two.
+- `Text` renders React Native `Text` directly with core's style builder. It no longer builds a new style array with margin, `fontVariant` and `fontStyle` keys on every render, so `Text` elements with the same resolved tokens share one cached style object.
+- Token props (colors, rounded, spacing) are resolved in one pass, and token props that were not passed are dropped instead of forwarded as `undefined`. This replaces a 15-key spacing object allocated on every render of `Box`, `Pressable` and `TextInput`.
+- `Spacer` renders `View` directly with a cached style.
+- `AbsoluteCenter` and `AbsoluteView` no longer pass a new inline style object on every render.
+
 ## [2.0.0] - 2026-10-21
 
 ### Added
