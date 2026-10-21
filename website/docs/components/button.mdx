@@ -69,6 +69,7 @@ A pressable button with six visual variants and five sizes, all token-driven.
 | `label` | `string` | | Required. Button text. |
 | `onPress` | `() => void` | | Press handler (inherited from Pressable). |
 | `variant` | `'solid' \| 'subtle' \| 'surface' \| 'outline' \| 'ghost' \| 'plain'` | `'solid'` | Visual style. |
+| `tone` | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'primary'` | Re-points the variant's accent color, e.g. `tone="error"` for destructive actions. `plain` and `surface` keep their neutral text color. |
 | `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Padding, radius, and label font scale. |
 | `isDisabled` | `boolean` | `false` | Disables interaction and dims opacity. |
 | `isLoading` | `boolean` | `false` | Shows a spinner in place of (or alongside) the label. |

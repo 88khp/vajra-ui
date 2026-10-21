@@ -9,3 +9,11 @@ export type TSwitchRootProps = {
   isDisabled?: boolean;
   children: React.ReactNode;
 };
+
+export type TSwitchProps = {
+  value: boolean;
+  onChange: (value: boolean) => void;
+  label?: string;
+  color?: TVajraColors;
+  isDisabled?: boolean;
+};

@@ -82,3 +82,18 @@ describe('createVajraTheme', () => {
     expect(theme.alert.maxVisible).toBe(defaultVajraTheme.light.alert.maxVisible);
   });
 });
+
+describe('createVajraTheme font and app bar options', () => {
+  it('stores the defaultFont key on the theme', () => {
+    const theme = createVajraTheme({ fonts, defaultFont: 'inter' });
+
+    expect(theme.defaultFont).toBe('inter');
+  });
+
+  it('merges partial appBar overrides, leaving the other intact', () => {
+    const theme = createVajraTheme({ fonts, appBar: { bg: 'background' } });
+
+    expect(theme.appBar.bg).toBe('background');
+    expect(theme.appBar.tint).toBe(defaultVajraTheme.light.appBar.tint);
+  });
+});

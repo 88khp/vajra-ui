@@ -1,3 +1,5 @@
+import type { TextStyle } from 'react-native';
+
 import { fontSizeTokens, TFontSizeToken, IVajraFontSizeTokens } from './font-size-tokens';
 
 export type { IVajraFontSizeTokens };
@@ -8,6 +10,7 @@ export type TFontVariantProps = {
   fontSize: number;
   lineHeight: number;
   fontWeight: '400' | '500' | '600' | '700';
+  fontVariant?: TextStyle['fontVariant'];
 };
 
 const f = (scale: TFontSizeToken, weight: TFontWeightToken): TFontVariantProps => ({

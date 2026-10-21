@@ -7,5 +7,6 @@ export type TUiGridItemProps = TUiBoxProps & {
   span?: TGridColumns;
   columns?: TGridColumns;
   colGap?: number;
+  // Only used until the enclosing Grid.Root has been measured.
   screenPadding?: number;
 };

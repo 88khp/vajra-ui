@@ -1,3 +1,5 @@
+import React from 'react';
+import { TextInput as RNTextInput } from 'react-native';
 import { TCoreTextInputProps } from '@devraj-labs/vajra-ui-core';
 import { TVajraColors } from '../../vajra-theme/colors';
 import { TRoundedToken } from '../../vajra-theme/tokens/rounded-tokens';
@@ -32,3 +34,5 @@ export type TUiTextInputProps = Omit<
     color?: TVajraColors;
     placeholderColor?: TVajraColors;
   };
+
+export type TTextInputInstance = React.ElementRef<typeof RNTextInput>;

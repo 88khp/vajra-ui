@@ -3,6 +3,7 @@ import React from 'react';
 import { TUiPressableProps } from '../../core/pressable/pressable-types';
 import { TTextProps } from '../../core/text/text-types';
 import { TButtonSize, TButtonVariant } from './button-variants';
+import { TVajraTone } from '../../utils/tone';
 
 export type { TButtonSize, TButtonVariant };
 
@@ -17,6 +18,7 @@ export type TButtonLoadingProps = {
 export type TButtonProps = Omit<TUiPressableProps, 'disabled'> & {
   variant?: TButtonVariant;
   size?: TButtonSize;
+  tone?: TVajraTone;
   label: string;
   isDisabled?: boolean;
   isLoading?: boolean;

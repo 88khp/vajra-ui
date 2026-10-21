@@ -1,12 +1,11 @@
 import React, { forwardRef, memo } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
 
 import { CoreTextInput } from '@devraj-labs/vajra-ui-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
 import { resolveSpacing } from '../../utils/spacing-props';
-import { TUiTextInputProps } from './text-input-types';
+import { TTextInputInstance, TUiTextInputProps } from './text-input-types';
 
-const TextInputComponent = forwardRef<RNTextInput, TUiTextInputProps>(
+const TextInputComponent = forwardRef<TTextInputInstance, TUiTextInputProps>(
   (
     {
       bg,

@@ -1,5 +1,5 @@
 import React, { forwardRef, useEffect, useRef, useState } from 'react';
-import { Animated, TextInput as RNTextInput, View } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import { useVajraTheme } from '../../../../vajra-theme/use-vajra-theme';
 import { fontVariants, TFontVariant } from '../../../../vajra-theme/tokens/font-tokens';
@@ -11,6 +11,7 @@ import { InputRoot } from '../../components/input-root/input-root';
 import { useInputContext } from '../../input-context';
 import { getInputSizeStyle } from '../../input-utils';
 import { TInputFloatingProps } from './input-floating-types';
+import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
 const FLOATED_TOP = 8;
 
@@ -19,7 +20,7 @@ type TFloatingFieldProps = Omit<
   'label' | 'helperText' | 'errorText' | 'isInvalid' | 'isDisabled' | 'isReadOnly'
 > & {
   label: string;
-  inputRef: React.RefObject<RNTextInput>;
+  inputRef: React.RefObject<TTextInputInstance>;
 };
 
 const FloatingLabelField = ({
@@ -162,7 +163,7 @@ const FloatingLabelField = ({
   );
 };
 
-const InputFloatingComponent = forwardRef<RNTextInput, TInputFloatingProps>(
+const InputFloatingComponent = forwardRef<TTextInputInstance, TInputFloatingProps>(
   (
     { label = '', helperText, errorText, isInvalid, isDisabled, isReadOnly, size, ...rest },
     ref,
@@ -174,7 +175,11 @@ const InputFloatingComponent = forwardRef<RNTextInput, TInputFloatingProps>(
       errorText={errorText}
       size={size}
     >
-      <FloatingLabelField label={label} inputRef={ref as React.RefObject<RNTextInput>} {...rest} />
+      <FloatingLabelField
+        label={label}
+        inputRef={ref as React.RefObject<TTextInputInstance>}
+        {...rest}
+      />
       {errorText !== undefined && <InputError>{errorText}</InputError>}
       {helperText !== undefined && <InputHelper>{helperText}</InputHelper>}
     </InputRoot>

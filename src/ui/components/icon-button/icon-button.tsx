@@ -13,6 +13,7 @@ const IconButtonComponent: React.FC<TIconButtonProps> = ({
   iconColor,
   isDisabled = false,
   isLoading = false,
+  isPill = false,
   loading,
   ...rest
 }) => {
@@ -31,7 +32,7 @@ const IconButtonComponent: React.FC<TIconButtonProps> = ({
     <Pressable
       disabled={isInteractionDisabled}
       bg={container.backgroundColor}
-      rounded={container.rounded}
+      rounded={isPill ? 'r-full' : container.rounded}
       style={[{ width: container.size, height: container.size, opacity: isDisabled ? 0.4 : 1 }]}
       align="center"
       justify="center"

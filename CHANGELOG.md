@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.0.0] - 2026-10-21
+
+### Added
+
+- `Switch` now works as a standalone on/off toggle: `<Switch value={boolean} onChange={(value: boolean) => void} label? color? isDisabled? />`. `Switch.Root` / `Switch.Item` remain the single-select group.
+- `Button` and `Badge` accept a `tone` prop (`primary` | `secondary` | `success` | `warning` | `error` | `info`). On `Button`, `tone` re-points the variant's accent color, so `tone="error"` gives a destructive button; on `Badge` it sets the background, and an explicit `bg` still wins.
+- `IconButton` accepts `isPill`, matching `Button`.
+- `SafeAreaScreenWrapper` accepts a `bg` color token (defaults to `background`), so full-screen sheets can use `surfaceRaised`.
+- Typography variants accept `fontVariant` (for example `['tabular-nums']`), applied to every `Text` that uses the variant.
+- `createVajraTheme({ defaultFont })` names a font family from `fonts` that every `Text` uses by default, at each variant's own weight.
+- `createVajraTheme({ appBar: { bg, tint } })` sets the default colors for `AppBar.Header`, replacing the hard-coded `primary` / `textInverse` pair.
+- `TTextInputInstance` type, the instance type `TextInput` refs now expose.
+
+### Changed
+
+- **Breaking:** `Menu` action `icon` takes a `TVajraIconComponent` (like `IconButton` and `AppBar`) instead of a `ReactNode`. The icon receives `size` and `color` automatically, and destructive actions color it with the error token.
+- `Text` with a `font` prop now resolves the family at the variant's weight. Previously it always used `fontWeight="400"` unless passed explicitly, so a `h1` with `font` rendered at regular weight.
+- `Grid.Item` sizes from its enclosing `Grid.Root`'s measured width (minus the root's horizontal padding), so `screenPadding` is no longer needed. It is only used for the first frame before layout.
+- `TextInput` and the `Input` family forward refs typed as `TTextInputInstance` (the instance `TextInput` holds) instead of the `TextInput` component type.
+
 ## [1.1.0] - 2026-08-11
 
 ### Added

@@ -79,3 +79,17 @@ describe('IconButton', () => {
     expect(onPress).not.toHaveBeenCalled();
   });
 });
+
+describe('IconButton isPill', () => {
+  it('uses a fully rounded corner when isPill is set', () => {
+    render(
+      <VajraProvider>
+        <IconButton testID="icon-button" icon={TestIcon} isPill />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByTestId('icon-button').props.style);
+
+    expect(style.borderRadius).toBe(defaultVajraTheme.light.rounded['r-full']);
+  });
+});

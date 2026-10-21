@@ -89,3 +89,41 @@ describe('Button', () => {
     expect(screen.queryByText('Save')).toBeNull();
   });
 });
+
+describe('Button tone', () => {
+  it('fills a solid button with the tone color', () => {
+    render(
+      <VajraProvider>
+        <Button testID="button" label="Delete" tone="error" onPress={() => {}} />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByTestId('button').props.style);
+
+    expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.error);
+  });
+
+  it('colors the label of a ghost button with the tone color', () => {
+    render(
+      <VajraProvider>
+        <Button variant="ghost" label="Unmatch" tone="error" onPress={() => {}} />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByText('Unmatch').props.style);
+
+    expect(style.color).toBe(defaultVajraTheme.light.colors.error);
+  });
+
+  it('keeps the primary color when no tone is passed', () => {
+    render(
+      <VajraProvider>
+        <Button testID="button" label="Save" onPress={() => {}} />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByTestId('button').props.style);
+
+    expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.primary);
+  });
+});

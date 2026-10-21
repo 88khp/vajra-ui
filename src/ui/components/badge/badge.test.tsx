@@ -47,3 +47,29 @@ describe('Badge', () => {
     expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.error);
   });
 });
+
+describe('Badge tone', () => {
+  it('fills the badge with the tone color', () => {
+    render(
+      <VajraProvider>
+        <Badge testID="badge" label="Paid" tone="success" />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByTestId('badge').props.style);
+
+    expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.success);
+  });
+
+  it('lets an explicit bg override the tone', () => {
+    render(
+      <VajraProvider>
+        <Badge testID="badge" label="Custom" tone="success" bg="surface" />
+      </VajraProvider>,
+    );
+
+    const style = flattenStyle(screen.getByTestId('badge').props.style);
+
+    expect(style.backgroundColor).toBe(defaultVajraTheme.light.colors.surface);
+  });
+});

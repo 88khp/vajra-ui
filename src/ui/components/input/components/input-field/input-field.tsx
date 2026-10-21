@@ -1,9 +1,12 @@
 import React, { forwardRef } from 'react';
-import { TextInput as RNTextInput, TextInputProps } from 'react-native';
+import { TextInputProps } from 'react-native';
 
 import { fontVariants, TFontVariant } from '../../../../vajra-theme/tokens/font-tokens';
 import { TextInput } from '../../../../core/text-input';
-import { TUiTextInputProps } from '../../../../core/text-input/text-input-types';
+import {
+  TTextInputInstance,
+  TUiTextInputProps,
+} from '../../../../core/text-input/text-input-types';
 import { useInputContext } from '../../input-context';
 import { TInputSize } from '../../input-types';
 import { getInputSizeStyle } from '../../input-utils';
@@ -15,7 +18,7 @@ export type TInputFieldProps = Omit<
   size?: TInputSize;
 };
 
-const InputFieldComponent = forwardRef<RNTextInput, TInputFieldProps>(
+const InputFieldComponent = forwardRef<TTextInputInstance, TInputFieldProps>(
   ({ size = 'md', color, onFocus, onBlur, ...rest }, ref) => {
     const { setIsFocused, isDisabled, isReadOnly } = useInputContext();
     const sizeStyle = getInputSizeStyle(size);

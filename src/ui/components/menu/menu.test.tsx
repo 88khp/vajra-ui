@@ -1,9 +1,10 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react-native';
-import { Animated } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import { VajraProvider, defaultVajraTheme } from '../../vajra-theme';
 import { Menu } from './menu';
+import { TVajraIconComponent } from '../icon-button/icon-button-types';
 
 // Menu renders inside Sheet, which fades its backdrop via Animated.timing
 // with useNativeDriver: true — not supported by this test environment's
@@ -124,5 +125,43 @@ describe('Menu', () => {
     const style = flattenStyle(screen.getByText('Delete').props.style);
 
     expect(style.color).toBe(defaultVajraTheme.light.colors.error);
+  });
+});
+
+describe('Menu icon components', () => {
+  const ActionIcon: TVajraIconComponent = ({ color }) => (
+    <View testID="action-icon" accessibilityLabel={color} />
+  );
+
+  it('colors a destructive action icon with the error color', () => {
+    render(
+      <VajraProvider>
+        <Menu
+          isVisible
+          onClose={() => {}}
+          actions={[{ label: 'Delete', onPress: () => {}, icon: ActionIcon, isDestructive: true }]}
+        />
+      </VajraProvider>,
+    );
+
+    expect(screen.getByTestId('action-icon').props.accessibilityLabel).toBe(
+      defaultVajraTheme.light.colors.error,
+    );
+  });
+
+  it('colors a regular action icon with the text color', () => {
+    render(
+      <VajraProvider>
+        <Menu
+          isVisible
+          onClose={() => {}}
+          actions={[{ label: 'Edit', onPress: () => {}, icon: ActionIcon }]}
+        />
+      </VajraProvider>,
+    );
+
+    expect(screen.getByTestId('action-icon').props.accessibilityLabel).toBe(
+      defaultVajraTheme.light.colors.text,
+    );
   });
 });

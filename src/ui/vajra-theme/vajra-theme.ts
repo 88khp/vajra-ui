@@ -6,6 +6,7 @@ import { fontSizeTokens } from './tokens/font-tokens/font-size-tokens';
 import { lineHeightTokens } from './tokens/font-tokens/line-height-tokens';
 import { layoutTokens } from './tokens/layout-tokens';
 import { notificationTokens } from './tokens/notification-tokens';
+import { appBarTokens } from './tokens/app-bar-tokens';
 
 const staticTokens = {
   spacing: spacingTokens,
@@ -16,6 +17,7 @@ const staticTokens = {
   layout: layoutTokens,
   toast: notificationTokens.toast,
   alert: notificationTokens.alert,
+  appBar: appBarTokens,
 };
 
 export const defaultVajraTheme = {

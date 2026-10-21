@@ -1,9 +1,9 @@
 import React, { forwardRef, useState } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
 
 import { InputContextProvider } from '../../input-context';
 import { TInputProps } from '../../input-types';
 import { Col } from '../../../../core';
+import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
 export type TInputRootProps = Pick<
   TInputProps,
@@ -12,7 +12,7 @@ export type TInputRootProps = Pick<
   children: React.ReactNode;
 };
 
-const InputRootComponent = forwardRef<RNTextInput, TInputRootProps>(
+const InputRootComponent = forwardRef<TTextInputInstance, TInputRootProps>(
   ({
     isInvalid = false,
     isDisabled = false,

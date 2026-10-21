@@ -45,5 +45,6 @@ export type TIconButtonProps = Omit<TUiPressableProps, 'disabled'> & {
   size?: TIconButtonSize;
   isDisabled?: boolean;
   isLoading?: boolean;
+  isPill?: boolean;
   loading?: TIconButtonLoadingProps;
 };

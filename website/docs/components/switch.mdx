@@ -11,7 +11,25 @@ import { Switch } from 'vajra-ui';
 
 # Switch
 
-A single-select group of animated toggle rows, controlled via `value`. Built from `Switch.Root` and `Switch.Item` (which internally composes `Switch.Label` and `Switch.Indicator`).
+An animated on/off toggle. Pass a boolean `value` and an `onChange` that receives the next boolean. For a single-select group of toggle rows, use `Switch.Root` and `Switch.Item`, which internally compose `Switch.Label` and `Switch.Indicator`.
+
+## On / off toggle
+
+```tsx
+function NotificationsToggle() {
+  const [enabled, setEnabled] = useState(false);
+
+  return <Switch value={enabled} onChange={setEnabled} label="Notifications" />;
+}
+```
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `boolean` | | Required. Whether the toggle is on. |
+| `onChange` | `(value: boolean) => void` | | Required. Called with the next value when pressed. |
+| `label` | `string` | | Optional text rendered to the left of the track. The whole row is pressable. |
+| `color` | `TVajraColors` | `'primary'` | "On" track color. |
+| `isDisabled` | `boolean` | `false` | Disables the toggle and dims it. |
 
 ## Basic usage
 

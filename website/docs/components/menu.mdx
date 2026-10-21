@@ -79,6 +79,6 @@ function PostMenu() {
 |---|---|---|---|
 | `label` | `string` | | Required. Action text. |
 | `onPress` | `() => void` | | Required. Called when the action is pressed, immediately followed by `onClose`. |
-| `icon` | `ReactNode` | | Optional leading icon. |
+| `icon` | `TVajraIconComponent` | | Optional leading icon component. Receives `size` and `color` automatically; destructive actions get the error color. |
 | `isDestructive` | `boolean` | `false` | Styles the label in the destructive (error) color. |
 | `isDisabled` | `boolean` | `false` | Disables the action and dims it. |

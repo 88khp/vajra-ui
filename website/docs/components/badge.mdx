@@ -54,11 +54,12 @@ Badge accepts all `Box` props (`TUiBoxProps`) in addition to:
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `label` | `string` | | Required. Badge text. |
+| `tone` | `'primary' \| 'secondary' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'primary'` | Background color for the badge. An explicit `bg` overrides it. |
 | `textProps` | `Omit<TTextProps, 'children'>` | | Extra props forwarded to the internal `Text`. |
 | `icon` | `TVajraIconComponent` | | Optional icon component rendered before the label; receives `size` and `color`. |
 | `iconSize` | `number` | `12` | Size passed to the icon. |
 | `iconColor` | `TVajraColors` | `'textInverse'` | Color passed to the icon. |
 | `rounded` | `TRoundedToken` | `'r-full'` | Corner radius (inherited from `Box`). |
-| `bg` | `TVajraColors` | `'primary'` | Background color (inherited from `Box`). |
+| `bg` | `TVajraColors` | `tone` | Background color (inherited from `Box`). Defaults to the `tone` color. |
 | `px` | `TSpacingToken` | `'s-2'` | Horizontal padding (inherited from `Box`). |
 | `py` | `TSpacingToken` | `'s-1'` | Vertical padding (inherited from `Box`). |

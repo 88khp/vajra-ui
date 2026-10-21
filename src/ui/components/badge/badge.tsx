@@ -12,7 +12,8 @@ const BadgeComponent: React.FC<TBadgeProps> = ({
   iconSize = 12,
   iconColor = 'textInverse',
   rounded = 'r-full',
-  bg = 'primary',
+  tone = 'primary',
+  bg,
   px = 's-2',
   py = 's-1',
   ...rest
@@ -22,7 +23,7 @@ const BadgeComponent: React.FC<TBadgeProps> = ({
   return (
     <Box
       rounded={rounded}
-      bg={bg}
+      bg={bg ?? tone}
       px={px}
       py={py}
       align="center"

@@ -2,16 +2,18 @@ import React, { memo } from 'react';
 
 import { Pressable } from '../../../../core/pressable';
 import { Text } from '../../../../core/text';
+import { useVajraTheme } from '../../../../vajra-theme/use-vajra-theme';
 import { TMenuItemProps } from './menu-item-types';
 
 const MenuItemComponent: React.FC<TMenuItemProps> = ({
   label,
   onPress,
-  icon,
+  icon: Icon,
   isDestructive = false,
   isDisabled = false,
   testID,
 }) => {
+  const { colors } = useVajraTheme();
   const color = isDestructive ? 'error' : 'text';
 
   return (
@@ -27,7 +29,7 @@ const MenuItemComponent: React.FC<TMenuItemProps> = ({
       accessibilityRole="menuitem"
       accessibilityState={{ disabled: isDisabled }}
     >
-      {icon}
+      {Icon && <Icon size={20} width={20} height={20} color={colors[color]} />}
       <Text variant="body" color={color}>
         {label}
       </Text>

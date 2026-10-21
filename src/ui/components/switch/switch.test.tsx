@@ -99,3 +99,31 @@ describe('Switch', () => {
     expect(onTranslateX).toBeGreaterThan(offTranslateX);
   });
 });
+
+describe('Switch toggle', () => {
+  it('calls onChange with the negated value when pressed', () => {
+    const onChange = jest.fn();
+
+    render(
+      <VajraProvider>
+        <Switch value={false} onChange={onChange} label="Notifications" />
+      </VajraProvider>,
+    );
+
+    fireEvent.press(screen.getByText('Notifications'));
+    expect(onChange).toHaveBeenCalledWith(true);
+  });
+
+  it('does not call onChange when disabled', () => {
+    const onChange = jest.fn();
+
+    render(
+      <VajraProvider>
+        <Switch value onChange={onChange} label="Locked" isDisabled />
+      </VajraProvider>,
+    );
+
+    fireEvent.press(screen.getByText('Locked'));
+    expect(onChange).not.toHaveBeenCalled();
+  });
+});

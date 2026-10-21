@@ -1,5 +1,4 @@
 import React, { forwardRef } from 'react';
-import { TextInput as RNTextInput } from 'react-native';
 
 import { InputContainer } from '../../components/input-container/input-container';
 import { InputError } from '../../components/input-error/input-error';
@@ -8,8 +7,9 @@ import { InputHelper } from '../../components/input-helper/input-helper';
 import { InputLabel } from '../../components/input-label/input-label';
 import { InputRoot } from '../../components/input-root/input-root';
 import { TInputProps } from '../../input-types';
+import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
-const InputFilledComponent = forwardRef<RNTextInput, TInputProps>(
+const InputFilledComponent = forwardRef<TTextInputInstance, TInputProps>(
   (
     {
       label,

@@ -128,8 +128,8 @@ When `centered` is set on `AppBar.Title`, it's positioned absolutely so it stays
 | `contentStyle` | `ViewStyle` | | Style applied to the inner row that holds the slots. |
 | `height` | `number` | `56` | Height of the content row. |
 | `useSafeArea` | `boolean` | `true` | Adds top safe-area inset padding. |
-| `bg` | `TVajraColors` | `'primary'` | Background color token. |
-| `tint` | `TVajraColors` | `'textInverse'` | Color applied to the title text and icon buttons. |
+| `bg` | `TVajraColors` | `theme.appBar.bg` (`'primary'`) | Background color token. Set the default once with `createVajraTheme({ appBar: { bg } })`. |
+| `tint` | `TVajraColors` | `theme.appBar.tint` (`'textInverse'`) | Color applied to the title text and icon buttons. |
 
 ### AppBar.Title
 

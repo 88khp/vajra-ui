@@ -12,7 +12,7 @@ export const Text = memo(
     fontSize,
     lineHeight,
     font,
-    fontWeight = '400',
+    fontWeight,
     fontStyle,
     color,
     m,
@@ -27,14 +27,20 @@ export const Text = memo(
   }: TTextProps) => {
     const theme = useVajraTheme();
     const fontVariantStyle = theme.typography[variant];
-    const fontsMap = (theme as unknown as { fonts: Record<string, Record<string, string>> }).fonts;
-    const italicKey = `${fontWeight}i`;
-    const hasItalicFontFile = font != null && fontsMap?.[font]?.[italicKey] != null;
+    const { fonts: fontsMap, defaultFont } = theme as unknown as {
+      fonts: Record<string, Record<string, string>>;
+      defaultFont?: string;
+    };
+    const familyKey = font ?? defaultFont;
+    const family = familyKey != null ? fontsMap?.[familyKey] : undefined;
+    const resolvedWeight = fontWeight ?? fontVariantStyle.fontWeight;
+    const italicKey = `${resolvedWeight}i`;
+    const hasItalicFontFile = family?.[italicKey] != null;
     const resolvedFontFamily =
-      font != null
-        ? fontStyle === 'italic' && fontsMap?.[font]?.[italicKey]
-          ? fontsMap[font][italicKey]
-          : fontsMap?.[font]?.[fontWeight]
+      family != null
+        ? fontStyle === 'italic' && family[italicKey]
+          ? family[italicKey]
+          : family[resolvedWeight]
         : undefined;
     const {
       m: margin,
@@ -53,11 +59,12 @@ export const Text = memo(
           lineHeight ??
           (fontSize != null ? theme.lineHeights[fontSize] : fontVariantStyle.lineHeight)
         }
-        fontWeight={resolvedFontFamily != null ? undefined : fontVariantStyle.fontWeight}
+        fontWeight={resolvedFontFamily != null ? undefined : resolvedWeight}
         fontFamily={resolvedFontFamily}
         color={color !== undefined ? theme.colors[color] : theme.colors.text}
         style={[
           {
+            fontVariant: fontVariantStyle.fontVariant,
             margin,
             marginHorizontal: marginH,
             marginVertical: marginV,

@@ -1,8 +1,8 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react-native';
+import { render, screen, fireEvent } from '@testing-library/react-native';
 import { Text as RNText } from 'react-native';
 
-import { VajraProvider } from '../../vajra-theme';
+import { VajraProvider, defaultVajraTheme } from '../../vajra-theme';
 import { Grid } from './grid';
 
 const flattenStyle = (style: unknown): Record<string, unknown> => {
@@ -66,5 +66,46 @@ describe('Grid', () => {
     const doubleStyle = flattenStyle(screen.getByTestId('double').props.style);
 
     expect(doubleStyle.width as number).toBeCloseTo((singleStyle.width as number) * 2, 5);
+  });
+});
+
+describe('Grid measured width', () => {
+  const layout = (width: number) => ({ nativeEvent: { layout: { x: 0, y: 0, width, height: 0 } } });
+
+  it('sizes items from the measured Grid.Root width instead of the screen', () => {
+    render(
+      <VajraProvider>
+        <Grid.Root testID="grid-root">
+          <Grid.Item testID="grid-item" columns={2} colGap={10}>
+            <RNText>item</RNText>
+          </Grid.Item>
+        </Grid.Root>
+      </VajraProvider>,
+    );
+
+    fireEvent(screen.getByTestId('grid-root'), 'layout', layout(300));
+
+    const style = flattenStyle(screen.getByTestId('grid-item').props.style);
+
+    expect(style.width).toBe(145);
+  });
+
+  it('subtracts the Grid.Root horizontal padding from the measured width', () => {
+    render(
+      <VajraProvider>
+        <Grid.Root testID="grid-root" px="s-4">
+          <Grid.Item testID="grid-item" columns={2}>
+            <RNText>item</RNText>
+          </Grid.Item>
+        </Grid.Root>
+      </VajraProvider>,
+    );
+
+    fireEvent(screen.getByTestId('grid-root'), 'layout', layout(300));
+
+    const style = flattenStyle(screen.getByTestId('grid-item').props.style);
+    const padding = defaultVajraTheme.light.spacing['s-4'] * 2;
+
+    expect(style.width).toBe((300 - padding) / 2);
   });
 });

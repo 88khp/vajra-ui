@@ -20,6 +20,8 @@ import { createVajraTheme } from '@devraj-labs/vajra-ui';
 export const theme = createVajraTheme({
   colorScheme: 'light',    // 'light' | 'dark', defaults to 'light'
   fonts: myFonts,          // required
+  defaultFont: 'inter',    // optional: family used by every <Text>, at each variant's weight
+  appBar: { bg: 'background', tint: 'text' }, // optional: default AppBar.Header colors
 });
 ```
 
@@ -141,3 +143,14 @@ Plus `transparent`, resolving to CSS `transparent`.
 | `label` | 12 | 16 | 400 | Small UI labels |
 | `labelMedium` | 12 | 16 | 500 | Medium weight label |
 | `caption` | 14 | 18 | 400 | Helper text, timestamps |
+
+A variant can also set `fontVariant` to any React Native `fontVariant` value, for example `['tabular-nums']` so prices line up:
+
+```ts
+const theme = createVajraTheme({
+  fonts: myFonts,
+  typography: {
+    body: { fontSize: 16, lineHeight: 20, fontWeight: '400', fontVariant: ['tabular-nums'] },
+  },
+});
+```

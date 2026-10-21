@@ -9,15 +9,19 @@ import { useSafeAreaScreenWrapper } from './use-safe-area-screen-wrapper';
 import { useVajraTheme } from '../../vajra-theme';
 
 export const SafeAreaScreenWrapper = memo<TSafeAreaScreenWrapperProps>(
-  ({ style, edges = ['top', 'bottom'], loader, children }) => {
+  ({ style, bg, edges = ['top', 'bottom'], loader, children }) => {
     const { isLoading = false, loader: customLoader, loaderText } = loader ?? {};
     const { opacity, visible } = useSafeAreaScreenWrapper(isLoading);
-    const {
-      colors: { background },
-    } = useVajraTheme();
+    const { colors } = useVajraTheme();
 
     return (
-      <SafeAreaView edges={edges} style={[{ flex: 1, backgroundColor: background }, style]}>
+      <SafeAreaView
+        edges={edges}
+        style={[
+          { flex: 1, backgroundColor: bg !== undefined ? colors[bg] : colors.background },
+          style,
+        ]}
+      >
         {children}
         {visible && (
           <Animated.View
