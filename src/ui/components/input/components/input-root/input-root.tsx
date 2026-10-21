@@ -1,9 +1,8 @@
-import React, { forwardRef, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { InputContextProvider } from '../../input-context';
 import { TInputProps } from '../../input-types';
 import { Col } from '../../../../core';
-import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
 export type TInputRootProps = Pick<
   TInputProps,
@@ -12,27 +11,29 @@ export type TInputRootProps = Pick<
   children: React.ReactNode;
 };
 
-const InputRootComponent = forwardRef<TTextInputInstance, TInputRootProps>(
-  ({
-    isInvalid = false,
-    isDisabled = false,
-    isReadOnly = false,
-    errorText,
-    size = 'md',
-    children,
-  }) => {
-    const [isFocused, setIsFocused] = useState(false);
-    const hasError = isInvalid || !!errorText;
+// Not a forwardRef: it holds no element to attach a ref to.
+const InputRootComponent = ({
+  isInvalid = false,
+  isDisabled = false,
+  isReadOnly = false,
+  errorText,
+  size = 'md',
+  children,
+}: TInputRootProps) => {
+  const [isFocused, setIsFocused] = useState(false);
+  const hasError = isInvalid || !!errorText;
+  // Memoized so context consumers only re-render when a value changes.
+  const context = useMemo(
+    () => ({ isFocused, hasError, isDisabled, isReadOnly, size, setIsFocused }),
+    [isFocused, hasError, isDisabled, isReadOnly, size],
+  );
 
-    return (
-      <InputContextProvider
-        value={{ isFocused, hasError, isDisabled, isReadOnly, size, setIsFocused }}
-      >
-        <Col>{children}</Col>
-      </InputContextProvider>
-    );
-  },
-);
+  return (
+    <InputContextProvider value={context}>
+      <Col>{children}</Col>
+    </InputContextProvider>
+  );
+};
 
 InputRootComponent.displayName = 'InputRoot';
 
