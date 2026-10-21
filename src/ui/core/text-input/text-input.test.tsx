@@ -49,4 +49,17 @@ describe('TextInput', () => {
     expect(style.color).toBe(defaultVajraTheme.light.colors.text);
     expect(style.borderRadius).toBe(defaultVajraTheme.light.rounded['r-2']);
   });
+
+  it('maps placeholderColor to placeholderTextColor without forwarding it', () => {
+    render(
+      <VajraProvider>
+        <TextInput testID="input" placeholderColor="textMuted" />
+      </VajraProvider>,
+    );
+
+    const { props } = screen.getByTestId('input');
+
+    expect(props.placeholderTextColor).toBe(defaultVajraTheme.light.colors.textMuted);
+    expect(props).not.toHaveProperty('placeholderColor');
+  });
 });

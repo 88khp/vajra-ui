@@ -9,7 +9,8 @@ import { TTextInputInstance, TUiTextInputProps } from './text-input-types';
 // Renders React Native TextInput directly with core's style builder, the same
 // way Box renders View, instead of going through CoreTextInput.
 const TextInputComponent = forwardRef<TTextInputInstance, TUiTextInputProps>(
-  ({ placeholderColor, ...props }, ref) => {
+  // placeholderColor is read from props and left out by the spec's `omit`.
+  (props, ref) => {
     const theme = useVajraTheme();
     const [inputStyle, rest] = splitStyleProps<TextInputProps, TextStyle>(
       props,
@@ -21,7 +22,7 @@ const TextInputComponent = forwardRef<TTextInputInstance, TUiTextInputProps>(
       <RNTextInput
         ref={ref}
         placeholderTextColor={
-          placeholderColor !== undefined ? theme.colors[placeholderColor] : undefined
+          props.placeholderColor !== undefined ? theme.colors[props.placeholderColor] : undefined
         }
         {...rest}
         style={composeStyle(inputStyle, props.style)}
