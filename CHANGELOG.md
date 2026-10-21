@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0-alpha.1] - 2026-10-21
+
+### Changed
+
+- The core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.1`.
+- `Pressable` renders React Native `Pressable` directly instead of going through core's `CorePressable`, so it is one component layer over `Pressable` instead of two. Props and press feedback are unchanged.
+- `TextInput` renders React Native `TextInput` directly instead of going through core's `CoreTextInput`. Props are unchanged.
+- `InputRoot` is no longer a `forwardRef` component. It never attached the ref, and React warned about it on import.
+
+### Performance
+
+- `Box`, `Pressable`, `Text` and `TextInput` pass a per-theme token resolver to core's `splitStyleProps` instead of copying every prop to resolve tokens first. Styles are cached per theme by the token names as passed (`bg="primary" p="s-4"`), so an element whose style is cached skips token resolution and style building entirely.
+- `Pressable` passes the same `style` callback on every render while its style is unchanged.
+- `Input` fields pass `TextInput` a shared style object and stable focus, blur and change handlers, and `InputRoot` memoizes its context value. The memoized `TextInput` now skips re-rendering when its own props have not changed, e.g. while another input in the same form is typed into.
+
 ## [3.0.0-alpha.0] - 2026-10-21
 
 ### Changed
