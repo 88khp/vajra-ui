@@ -3,7 +3,7 @@ import { Platform, Text as RNText, TextProps, TextStyle } from 'react-native';
 
 import { composeStyle, splitStyleProps, TEXT_STYLE_SPEC, TStyleSpec } from '@88khp/vajra-ui-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
-import { resolveTokenProps, TEXT_TOKEN_SPEC } from '../../utils/token-props';
+import { getTokenResolver, TEXT_TOKEN_SPEC } from '../../utils/token-props';
 import { TTextProps } from './text-types';
 
 // Core's text spec plus fontStyle, so italics are part of the cached style.
@@ -63,7 +63,8 @@ export const Text = memo(
           : family[resolvedWeight]
         : undefined;
 
-    const props = resolveTokenProps(rest, TEXT_TOKEN_SPEC, theme);
+    // Margin tokens are resolved by core, and only on a style cache miss.
+    const props: Record<string, unknown> = { ...rest };
 
     props.fontSize = fontSize != null ? theme.fontSizes[fontSize] : fontVariantStyle.fontSize;
     props.lineHeight =
@@ -80,6 +81,7 @@ export const Text = memo(
     const [textStyle, textProps] = splitStyleProps<TextProps, TextStyle>(
       props,
       VAJRA_TEXT_STYLE_SPEC,
+      getTokenResolver(theme, TEXT_TOKEN_SPEC),
     );
     const variantStyle = getFontVariantStyle(fontVariantStyle);
 
