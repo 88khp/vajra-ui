@@ -15,13 +15,13 @@ const config: Config = {
   },
 
   // Set the production url of your site here
-  url: 'https://devraj-labs.github.io',
+  url: 'https://88khp.github.io',
   // Set the /<baseUrl>/ pathname under which your site is served
   // For GitHub pages deployment, it is often '/<projectName>/'
   baseUrl: '/vajra-ui/',
 
   // GitHub pages deployment config.
-  organizationName: 'devraj-labs',
+  organizationName: '88khp',
   projectName: 'vajra-ui',
 
   onBrokenLinks: 'throw',
@@ -40,7 +40,7 @@ const config: Config = {
       {
         docs: {
           sidebarPath: './sidebars.ts',
-          editUrl: 'https://github.com/devraj-labs/vajra-ui/tree/main/website/',
+          editUrl: 'https://github.com/88khp/vajra-ui/tree/main/website/',
         },
         blog: false,
         theme: {
@@ -70,12 +70,12 @@ const config: Config = {
           label: 'Docs',
         },
         {
-          href: 'https://github.com/devraj-labs/vajra-ui',
+          href: 'https://github.com/88khp/vajra-ui',
           label: 'GitHub',
           position: 'right',
         },
         {
-          href: 'https://www.npmjs.com/package/@devraj-labs/vajra-ui',
+          href: 'https://www.npmjs.com/package/@88khp/vajra-ui',
           label: 'npm',
           position: 'right',
         },
@@ -110,11 +110,11 @@ const config: Config = {
           items: [
             {
               label: 'GitHub',
-              href: 'https://github.com/devraj-labs/vajra-ui',
+              href: 'https://github.com/88khp/vajra-ui',
             },
             {
               label: 'npm',
-              href: 'https://www.npmjs.com/package/@devraj-labs/vajra-ui',
+              href: 'https://www.npmjs.com/package/@88khp/vajra-ui',
             },
             {
               label: 'Changelog',

@@ -15,7 +15,7 @@ Vajra UI's theme system is built around semantic design tokens: colors, spacing,
 The entry point for setting up your theme. Wrap your app in `VajraProvider` with the result.
 
 ```ts
-import { createVajraTheme } from '@devraj-labs/vajra-ui';
+import { createVajraTheme } from '@88khp/vajra-ui';
 
 export const theme = createVajraTheme({
   colorScheme: 'light',    // 'light' | 'dark', defaults to 'light'
@@ -36,7 +36,7 @@ export const theme = createVajraTheme({
 Access the resolved theme anywhere inside `VajraProvider`.
 
 ```tsx
-import { useVajraTheme } from '@devraj-labs/vajra-ui';
+import { useVajraTheme } from '@88khp/vajra-ui';
 
 const { colors, spacing, rounded, typography, fontSizes, lineHeights, fonts } = useVajraTheme();
 ```

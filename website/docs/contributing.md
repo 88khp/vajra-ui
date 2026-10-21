@@ -173,7 +173,7 @@ Use this recipe every time. It's the same shape `button`, `badge`, `card`, and e
 2. `<name>-types.ts` — the props type, named `T<Name>Props`. No runtime code.
 3. `<name>-constants.ts` — only if the component has fixed values (default sizes, icon maps, etc.). Skip if not needed.
 4. `<name>-variants.ts` — only if the component has visual variants (`solid`/`outline`/`ghost`, size scales, etc.), via `createRecipe` (see `src/ui/utils/create-recipe.ts` and `button-variants.ts` for the pattern). Skip for components with no variants.
-5. `<name>.tsx` — the component itself. Import only from `src/ui/core` (never `@devraj-labs/vajra-ui-core` directly — ESLint enforces this) and `useVajraTheme` for token resolution. Follow the inline `memo` pattern:
+5. `<name>.tsx` — the component itself. Import only from `src/ui/core` (never `@88khp/vajra-ui-core` directly — ESLint enforces this) and `useVajraTheme` for token resolution. Follow the inline `memo` pattern:
    ```tsx
    export const Foobar = memo<TFoobarProps>(({ ... }) => { return (...); });
    Foobar.displayName = 'Foobar';
@@ -233,9 +233,9 @@ At minimum, cover: renders with required props, key prop/variant variations prod
 
 | Layer | Location | Description |
 |-------|----------|--------------|
-| Core | `@devraj-labs/vajra-ui-core` | Headless, unstyled. No theme context. No `useVajraTheme`. Raw primitives only. |
-| UI Core | `src/ui/core/` | Token-aware wrappers around `@devraj-labs/vajra-ui-core`. Use `useVajraTheme`. Only imports from `@devraj-labs/vajra-ui-core`. |
-| Components | `src/ui/components/` | Opinionated components with variants, constants, and optional hooks. Only imports from `src/ui/core` — never `@devraj-labs/vajra-ui-core` directly. |
+| Core | `@88khp/vajra-ui-core` | Headless, unstyled. No theme context. No `useVajraTheme`. Raw primitives only. |
+| UI Core | `src/ui/core/` | Token-aware wrappers around `@88khp/vajra-ui-core`. Use `useVajraTheme`. Only imports from `@88khp/vajra-ui-core`. |
+| Components | `src/ui/components/` | Opinionated components with variants, constants, and optional hooks. Only imports from `src/ui/core` — never `@88khp/vajra-ui-core` directly. |
 | Theme | `src/theme/` | Generic `ThemeProvider` + `useTheme`. No vajra-specific tokens. |
 | Vajra Theme | `src/ui/vajra-theme/` | Default vajra tokens. `VajraProvider`, `useVajraTheme`, `defaultVajraTheme`. |
 

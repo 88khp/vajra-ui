@@ -9,10 +9,10 @@ sidebar_position: 2
 ## Install
 
 ```sh
-npm install @devraj-labs/vajra-ui @devraj-labs/vajra-ui-core
+npm install @88khp/vajra-ui @88khp/vajra-ui-core
 ```
 
-`@devraj-labs/vajra-ui-core` is a required peer dependency: the headless, unstyled primitives that `@devraj-labs/vajra-ui` builds its token-aware components on top of.
+`@88khp/vajra-ui-core` (formerly `@devraj-labs/vajra-ui-core`) is a required peer dependency: the headless, unstyled primitives that `@88khp/vajra-ui` builds its token-aware components on top of.
 
 ### Peer dependencies
 
@@ -31,7 +31,7 @@ npm install react react-native react-native-safe-area-context
 `VajraProvider` makes theme tokens available to every component via `useVajraTheme()`.
 
 ```tsx
-import { VajraProvider } from '@devraj-labs/vajra-ui';
+import { VajraProvider } from '@88khp/vajra-ui';
 
 export default function App() {
   return (
@@ -48,7 +48,7 @@ export default function App() {
 
 ```tsx
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { VajraProvider } from '@devraj-labs/vajra-ui';
+import { VajraProvider } from '@88khp/vajra-ui';
 
 export default function App() {
   return (
@@ -92,7 +92,7 @@ Each key under a font family is a `fontWeight` value (`'400' | '500' | '600' | '
 
 ```ts
 // theme.ts
-import { createVajraTheme } from '@devraj-labs/vajra-ui';
+import { createVajraTheme } from '@88khp/vajra-ui';
 import { myFonts } from './fonts';
 
 export const theme = createVajraTheme({ fonts: myFonts });
@@ -107,7 +107,7 @@ export const theme = createVajraTheme({ fonts: myFonts });
 ### 3. (Optional) Get autocomplete on `font="..."`
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFonts {
     inter: true;
   }
@@ -123,7 +123,7 @@ See [Custom Theme](./custom-theme) for overriding colors, spacing, and other tok
 ## Quick start
 
 ```tsx
-import { VajraProvider, Box, Text, Button } from '@devraj-labs/vajra-ui';
+import { VajraProvider, Box, Text, Button } from '@88khp/vajra-ui';
 
 export default function App() {
   return (

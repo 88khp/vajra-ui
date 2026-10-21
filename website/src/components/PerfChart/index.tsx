@@ -30,7 +30,7 @@ const PER_NODE_DATA: TDataPoint[] = ABSOLUTE_DATA.map((d) => ({
 
 const SERIES: { key: TSeriesKey; label: string }[] = [
   { key: 'view', label: 'Raw View — react-native' },
-  { key: 'coreBox', label: 'CoreBox — @devraj-labs/vajra-ui-core' },
+  { key: 'coreBox', label: 'CoreBox — @88khp/vajra-ui-core' },
   { key: 'box', label: 'Box (styled) — vajra-ui' },
 ];
 

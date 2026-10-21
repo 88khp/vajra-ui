@@ -1,6 +1,11 @@
 # Performance: the vajra-ui → vajra-ui-core layer
 
-`vajra-ui`'s styled components wrap headless primitives from `@devraj-labs/vajra-ui-core`
+> **3.0 update.** The numbers below were measured on 2.x, where `Box` wrapped `CoreBox`. Since
+> 3.0, `Box` renders `View` directly with `splitStyleProps` from `@88khp/vajra-ui-core`, which
+> builds only the style keys that were passed and shares one style object per set of values.
+> The table has not been re-measured yet.
+
+`vajra-ui`'s styled components wrap headless primitives from `@88khp/vajra-ui-core`
 (`Box` wraps `CoreBox`, which wraps React Native's `View`). Two extra function calls per
 node before you hit a host component is a fair thing to ask about — this doc answers it
 with numbers instead of assertions.
@@ -22,7 +27,7 @@ well past what a real screen renders at once (a long scrollable form or dense li
 hundred to low thousands) — it's included as a stress ceiling, not a realistic scenario.
 
 - **Raw View** — plain React Native `<View>`, no wrapper.
-- **CoreBox** — `@devraj-labs/vajra-ui-core`'s `Box`, one layer over `View`.
+- **CoreBox** — `@88khp/vajra-ui-core`'s `Box`, one layer over `View`.
 - **Box** — `vajra-ui`'s styled `Box`, two layers over `View` (resolves color/spacing
   tokens, then delegates to `CoreBox`).
 

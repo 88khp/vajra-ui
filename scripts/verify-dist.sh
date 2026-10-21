@@ -35,7 +35,7 @@ cat > tsconfig.json <<'EOF'
 EOF
 
 cat > verify.tsx <<'EOF'
-import { VajraProvider, Box, Text, Button, useVajraTheme, createVajraTheme } from '@devraj-labs/vajra-ui';
+import { VajraProvider, Box, Text, Button, useVajraTheme, createVajraTheme } from '@88khp/vajra-ui';
 
 const theme = createVajraTheme({ fonts: {} });
 

@@ -12,7 +12,7 @@ A minimal, token-driven React Native component library. Bring your own brand: ov
 - **Token-first**: every prop (`bg`, `p`, `rounded`, `color`) maps to a design token, never a raw value.
 - **Themeable**: override colors, spacing, and border radii via `createVajraTheme`; switch themes at runtime.
 - **Typed end to end**: tokens are typed unions, no magic strings slip through.
-- **Headless core**: unstyled primitives in `@devraj-labs/vajra-ui-core` if you want full control.
+- **Headless core**: unstyled primitives in `@88khp/vajra-ui-core` if you want full control.
 
 See [Installation & Setup](./installation) to get started, or [Theming](./theming) for the full token and customization guide.
 

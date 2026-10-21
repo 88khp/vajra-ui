@@ -164,10 +164,10 @@ import { HeartIcon } from '@devraj-labs/vajra-ui-icons';
 | `p` / `px` / `py` / `pt` / `pb` / `pl` / `pr` | `TSpacingToken` | | Padding tokens. |
 | `gap` | `TSpacingToken` | | Gap token. |
 | `opacity` | `number` | | Opacity. |
-| `activeOpacity` | `number` | | Opacity while pressed. |
+| `activeOpacity` | `number` | `0.2` | Opacity while pressed. Pass `1` to turn press feedback off. |
 | `onPress` | `() => void` | | Press handler. |
 | `disabled` | `boolean` | | Disables interaction. |
 
-Also accepts all remaining Box layout props (`w`, `h`, `flex`, `justify`, `align`, `direction`, `position`, etc.) and standard React Native `TouchableOpacity` props.
+Also accepts all remaining Box layout props (`w`, `h`, `flex`, `justify`, `align`, `direction`, `position`, etc.) and standard React Native `Pressable` props.
 
 Need pre-styled, semantic tappable elements instead? See [Button](./button) or [IconButton](./icon-button).

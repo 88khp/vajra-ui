@@ -7,7 +7,11 @@ import PerfChart from '@site/src/components/PerfChart';
 
 # Performance
 
-`vajra-ui`'s styled components wrap headless primitives from `@devraj-labs/vajra-ui-core`
+:::note 3.0 update
+The numbers on this page were measured on 2.x, where `Box` wrapped `CoreBox`. Since 3.0, `Box` renders `View` directly with `splitStyleProps` from `@88khp/vajra-ui-core`, which builds only the style keys that were passed and shares one style object per set of values. The chart has not been re-measured yet.
+:::
+
+`vajra-ui`'s styled components wrap headless primitives from `@88khp/vajra-ui-core`
 (`Box` wraps `CoreBox`, which wraps React Native's `View`). Two extra function calls per
 node before you hit a host component is a fair thing to ask about — this page answers it
 with numbers instead of assertions.
@@ -24,7 +28,7 @@ react-aria — it exists so the layout logic isn't duplicated per styled compone
 
 ## The benchmark
 
-[`scripts/bench-box-layers.bench.tsx`](https://github.com/devraj-labs/vajra-ui/blob/main/scripts/bench-box-layers.bench.tsx)
+[`scripts/bench-box-layers.bench.tsx`](https://github.com/88khp/vajra-ui/blob/main/scripts/bench-box-layers.bench.tsx)
 mounts trees of 100 / 1,000 / 5,000 / 10,000 sibling nodes for three cases and takes the
 median of 20 runs each, after a warm-up pass to let the JIT settle. 10,000 simultaneous
 sibling nodes is already well past what a real screen renders at once (a long scrollable
@@ -32,7 +36,7 @@ form or dense list is a few hundred to low thousands) — it's included as a str
 not a realistic scenario.
 
 - **Raw View** — plain React Native `<View>`, no wrapper.
-- **CoreBox** — `@devraj-labs/vajra-ui-core`'s `Box`, one layer over `View`.
+- **CoreBox** — `@88khp/vajra-ui-core`'s `Box`, one layer over `View`.
 - **Box** — `vajra-ui`'s styled `Box`, two layers over `View` (resolves color/spacing
   tokens, then delegates to `CoreBox`).
 

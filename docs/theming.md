@@ -9,7 +9,7 @@ Vajra UI's theme system is built around semantic design tokens. You can override
 The main entry point for setting up your theme.
 
 ```ts
-import { createVajraTheme } from '@devraj-labs/vajra-ui';
+import { createVajraTheme } from '@88khp/vajra-ui';
 
 export const theme = createVajraTheme({
   colorScheme: 'light',    // 'light' | 'dark' — defaults to 'light'
@@ -72,7 +72,7 @@ All token systems support module augmentation. Declare the interface in your app
 
 ```ts
 // theme.ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraCustomColors {
     brandGold: string;
     surfaceAccent: string;
@@ -103,7 +103,7 @@ colors.surfaceAccent // ✅ typed, autocompletes
 ### Custom spacing tokens
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraSpacingTokens {
     's-20': number;
     's-24': number;
@@ -128,7 +128,7 @@ export const theme = createVajraTheme({
 ### Custom border radius tokens
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraRoundedTokens {
     'r-12': number;
     'r-16': number;
@@ -154,7 +154,7 @@ export const theme = createVajraTheme({
 ### Custom font size tokens
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFontSizeTokens {
     'f-2.5': number;
   }
@@ -176,9 +176,9 @@ export const theme = createVajraTheme({
 ### Custom typography variants
 
 ```ts
-import { TFontVariantProps } from '@devraj-labs/vajra-ui';
+import { TFontVariantProps } from '@88khp/vajra-ui';
 
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFontVariants {
     displayLarge: TFontVariantProps;
     eyebrow: TFontVariantProps;
@@ -218,7 +218,7 @@ export const theme = createVajraTheme({ fonts: myFonts });
 Augment `IVajraFonts` to get autocomplete on `<Text font="..." />`:
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFonts {
     inter: true;
   }
@@ -237,7 +237,7 @@ Hold theme state at the app root, rebuild with `createVajraTheme` on change, pas
 
 ```tsx
 import { useState } from 'react';
-import { VajraProvider, createVajraTheme } from '@devraj-labs/vajra-ui';
+import { VajraProvider, createVajraTheme } from '@88khp/vajra-ui';
 
 type TColorScheme = 'light' | 'dark';
 
@@ -274,7 +274,7 @@ export function AppWithTheme({ children }: { children: React.ReactNode }) {
 Access the resolved theme anywhere inside `VajraProvider`.
 
 ```tsx
-import { useVajraTheme } from '@devraj-labs/vajra-ui';
+import { useVajraTheme } from '@88khp/vajra-ui';
 
 const { colors, spacing, rounded, typography, fontSizes, lineHeights, fonts } = useVajraTheme();
 ```

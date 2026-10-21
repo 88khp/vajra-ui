@@ -6,11 +6,11 @@
 
 <p>Bring your own brand. Override what you need. Build the rest on top.</p>
 
-[![npm version](https://img.shields.io/npm/v/@devraj-labs/vajra-ui)](https://www.npmjs.com/package/@devraj-labs/vajra-ui)
-[![license](https://img.shields.io/npm/l/@devraj-labs/vajra-ui)](./LICENSE)
+[![npm version](https://img.shields.io/npm/v/@88khp/vajra-ui)](https://www.npmjs.com/package/@88khp/vajra-ui)
+[![license](https://img.shields.io/npm/l/@88khp/vajra-ui)](./LICENSE)
 [![platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
 
-<p><a href="https://devraj-labs.github.io/vajra-ui/"><strong>Documentation</strong></a></p>
+<p><a href="https://88khp.github.io/vajra-ui/"><strong>Documentation</strong></a></p>
 
 
 
@@ -27,7 +27,7 @@
 - **Token-first** — every prop (`bg`, `p`, `rounded`, `color`) maps to a design token, never a raw value
 - **Themeable** — override colors, spacing, and border radii via `createVajraTheme`; switch themes at runtime
 - **Typed end to end** — tokens are typed unions, no magic strings slip through
-- **Headless core** — unstyled primitives in `@devraj-labs/vajra-ui-core` if you want full control
+- **Headless core** — unstyled primitives in `@88khp/vajra-ui-core` if you want full control
 - **Zero opinions on navigation** — works with any navigation library
 
 ---
@@ -36,17 +36,17 @@
 
 | Package | Description |
 |---------|-------------|
-| `@devraj-labs/vajra-ui` | Token-aware components + Vajra theme system |
-| `@devraj-labs/vajra-ui-core` | Headless, unstyled primitives — no theme, no tokens |
+| `@88khp/vajra-ui` | Token-aware components + Vajra theme system |
+| `@88khp/vajra-ui-core` | Headless, unstyled primitives — no theme, no tokens |
 
 ---
 
 ## Installation
 
 ```sh
-npm install @devraj-labs/vajra-ui
+npm install @88khp/vajra-ui @88khp/vajra-ui-core
 # or
-yarn add @devraj-labs/vajra-ui
+yarn add @88khp/vajra-ui @88khp/vajra-ui-core
 ```
 
 **Peer dependencies**
@@ -62,7 +62,7 @@ npm install react react-native react-native-safe-area-context
 ### 1. Wrap your app
 
 ```tsx
-import { VajraProvider } from '@devraj-labs/vajra-ui';
+import { VajraProvider } from '@88khp/vajra-ui';
 
 export default function App() {
   return (
@@ -76,7 +76,7 @@ export default function App() {
 ### 2. Build with token props
 
 ```tsx
-import { Box, Text, Button, Badge } from '@devraj-labs/vajra-ui';
+import { Box, Text, Button, Badge } from '@88khp/vajra-ui';
 
 export function MyScreen() {
   return (
@@ -92,7 +92,7 @@ export function MyScreen() {
 ### 3. Access tokens in your own components
 
 ```tsx
-import { useVajraTheme } from '@devraj-labs/vajra-ui';
+import { useVajraTheme } from '@88khp/vajra-ui';
 import { View } from 'react-native';
 
 export function MyCard() {
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({ title: { marginTop: 8 } });
 
 ```ts
 // theme.ts
-import { createVajraTheme } from '@devraj-labs/vajra-ui';
+import { createVajraTheme } from '@88khp/vajra-ui';
 import { myFonts } from './fonts';
 
 export const theme = createVajraTheme({ fonts: myFonts });
@@ -168,7 +168,7 @@ Get font autocomplete on `<Text font="..." />` by augmenting the module:
 ```ts
 export type TAppFonts = keyof typeof myFonts;
 
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFonts extends Record<TAppFonts, true> {}
 }
 ```
@@ -224,7 +224,7 @@ function AppWithTheme() {
 
 ```ts
 // theme.ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraCustomColors {
     surfaceAccent: string;
     brandGold: string;
@@ -250,7 +250,7 @@ colors.brandGold     // ✅ typed, autocompletes
 **Custom rounded tokens** — augment `IVajraRoundedTokens`. Accepted by `rounded`, `roundedT/B/L/R` on `Box` and other components.
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraRoundedTokens { 'r-12': number; }
 }
 ```
@@ -258,7 +258,7 @@ declare module '@devraj-labs/vajra-ui' {
 **Custom spacing tokens** — augment `IVajraSpacingTokens`. Accepted by all spacing props (`p`, `m`, `px`, `gap`, etc.).
 
 ```ts
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraSpacingTokens { 's-20': number; }
 }
 ```
@@ -266,9 +266,9 @@ declare module '@devraj-labs/vajra-ui' {
 **Custom typography variants** — augment `IVajraFontVariants`. Accepted by `variant` on `Text` and available via `useVajraTheme().typography`.
 
 ```ts
-import { TFontVariantProps } from '@devraj-labs/vajra-ui';
+import { TFontVariantProps } from '@88khp/vajra-ui';
 
-declare module '@devraj-labs/vajra-ui' {
+declare module '@88khp/vajra-ui' {
   interface IVajraFontVariants {
     displayLarge: TFontVariantProps;
   }
@@ -358,21 +358,22 @@ For the full theming guide including runtime switching, spacing/radius overrides
 ## Architecture
 
 ```
-@devraj-labs/vajra-ui
+@88khp/vajra-ui
 ├── core/           Token-aware wrappers (Box, Text, Pressable...)
 ├── components/     Opinionated components (Button, Badge, TabBar...)
 ├── vajra-theme/    Default tokens, VajraProvider, useVajraTheme
 └── theme/          Generic ThemeProvider + useTheme (no vajra tokens)
 
-@devraj-labs/vajra-ui-core
+@88khp/vajra-ui-core
 └── Headless primitives — no theme dependency
 ```
 
 **Layer rule:** `core` imports from `vajra-ui-core`. `components` imports from `core`. Nothing imports across layers.
 
-Wondering whether wrapping `vajra-ui-core` twice costs anything at render time? See
-[docs/PERFORMANCE.md](./docs/PERFORMANCE.md) — short answer: ~10µs/node, doesn't compound,
-and skipped entirely on memoized re-renders.
+Wondering whether wrapping `vajra-ui-core` costs anything at render time? See
+[docs/PERFORMANCE.md](./docs/PERFORMANCE.md). Since 3.0, `Box` and `Text` render React Native's
+`View` / `Text` directly with core's cached style builder, so they are one layer over the host
+component.
 
 ---
 

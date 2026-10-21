@@ -37,7 +37,7 @@ const FeatureList: FeatureItem[] = [
     description: (
       <>
         Opinionated components are built on top of unstyled, headless
-        primitives in <code>@devraj-labs/vajra-ui-core</code> — use the
+        primitives in <code>@88khp/vajra-ui-core</code> — use the
         styled layer, or drop down for full control.
       </>
     ),
