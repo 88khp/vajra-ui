@@ -15,8 +15,10 @@
 
 
 
-> **✅ v1.0.0 — stable release**
-> See [CHANGELOG.md](./CHANGELOG.md) for the full release history.
+> **✅ v3.0.0 — stable release**
+> Runtime design tokens at hand-written speed: level with twrnc on variant switches, 2.2–2.6× faster
+> than NativeWind and 4–8× faster than Tamagui. [See the benchmarks](#performance).
+> Full release history in [CHANGELOG.md](./CHANGELOG.md).
 
 </div>
 
@@ -24,11 +26,41 @@
 
 ## Why Vajra UI
 
+- **Fast without a compiler** — tokens resolve at runtime with cached styles, so variant switches run within 7% of hand-written `StyleSheet`. No Babel plugin, no build step. [Benchmarks](#performance)
 - **Token-first** — every prop (`bg`, `p`, `rounded`, `color`) maps to a design token, never a raw value
 - **Themeable** — override colors, spacing, and border radii via `createVajraTheme`; switch themes at runtime
 - **Typed end to end** — tokens are typed unions, no magic strings slip through
 - **Headless core** — unstyled primitives in `@88khp/vajra-ui-core` if you want full control
 - **Zero opinions on navigation** — works with any navigation library
+
+---
+
+## Performance
+
+Benchmarked against five other React Native styling libraries in one run, every library rendering
+the same card with identical output. Median ms for 100 cards; switch scenarios are the total of 12
+updates. Lower is faster.
+
+| Library | Mount | Variant switch | Theme switch | Theme + variant |
+|---|---|---|---|---|
+| StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
+| twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
+| **Vajra UI 3.0** | **16** | **103** | **117.5** | **134.5** |
+| styled-components 6.6.0 | 15 | 121 | 104 | 121 |
+| NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
+| Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
+| Tamagui 3.1.2, runtime only | 68 | 427.5 | 768.5 | 1,163 |
+
+- **Variant switches run at hand-written speed**: level with twrnc, within 7% of a `StyleSheet` that
+  precomputes every style, and 15% faster than styled-components.
+- **2.2–2.6× faster than NativeWind** on every update, and **4–8× faster than Tamagui** with
+  Tamagui's compiler on.
+- **Theme switching trails the fastest libraries**: 13% behind styled-components and 22% behind
+  twrnc, because every `Box`, `Text` and `Pressable` follows the theme on its own.
+
+JavaScript-side timings under Jest on an Apple M4, each library used as its docs describe. The
+harness, every library's implementation, the raw samples and the full method are in
+[`benchmarks/styling/`](./benchmarks/styling/RESULTS.md). Run it yourself and check.
 
 ---
 
@@ -370,10 +402,9 @@ For the full theming guide including runtime switching, spacing/radius overrides
 
 **Layer rule:** `core` imports from `vajra-ui-core`. `components` imports from `core`. Nothing imports across layers.
 
-Wondering whether wrapping `vajra-ui-core` costs anything at render time? See
-[docs/PERFORMANCE.md](./docs/PERFORMANCE.md). Since 3.0, `Box` and `Text` render React Native's
-`View` / `Text` directly with core's cached style builder, so they are one layer over the host
-component.
+`Box`, `Text`, `Pressable` and `TextInput` render React Native's host components directly with
+core's cached style builder. A token-styled `Box` costs about 3 µs per node over a raw `View`; see
+[docs/PERFORMANCE.md](./docs/PERFORMANCE.md).
 
 ---
 
