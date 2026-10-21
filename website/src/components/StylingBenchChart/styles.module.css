@@ -1,0 +1,138 @@
+.wrapper {
+  --bench-bar: #a8adb6;
+  --bench-bar-vajra: var(--ifm-color-primary);
+  --bench-track: #f1f2f4;
+  --bench-text: #52514e;
+  --bench-text-strong: #0b0b0b;
+
+  width: 100%;
+  margin: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: var(--ifm-code-border-radius);
+  background: var(--vajra-preview-bg, var(--ifm-background-color));
+  box-sizing: border-box;
+}
+
+[data-theme='dark'] .wrapper {
+  --bench-bar: #5c636e;
+  --bench-track: #23262b;
+  --bench-text: #c3c2b7;
+  --bench-text-strong: #ffffff;
+}
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.tab {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-family: inherit;
+  color: var(--bench-text);
+  background: transparent;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.tab:hover {
+  border-color: var(--ifm-color-primary);
+}
+
+.tabActive {
+  color: var(--ifm-background-color);
+  background: var(--bench-text-strong);
+  border-color: var(--bench-text-strong);
+}
+
+.subtitle {
+  margin: 0.75rem 0 1rem;
+  font-size: 0.85rem;
+  color: var(--bench-text);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(9rem, 13rem) 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0;
+}
+
+.label {
+  font-size: 0.85rem;
+  color: var(--bench-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.labelVajra {
+  font-weight: 700;
+  color: var(--bench-text-strong);
+}
+
+.track {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* Leaves room after the longest bar for its value label. */
+.bar {
+  display: block;
+  flex-shrink: 0;
+  width: calc((100% - 4.5rem) * var(--bench-fraction));
+  height: 14px;
+  border-radius: 0 4px 4px 0;
+  background: var(--bench-bar);
+  transition: width 0.25s ease;
+}
+
+.barVajra {
+  background: var(--bench-bar-vajra);
+}
+
+.value {
+  flex-shrink: 0;
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--bench-text-strong);
+}
+
+.caption {
+  margin: 1rem 0 0;
+  font-size: 0.8rem;
+  color: var(--bench-text);
+}
+
+@media screen and (max-width: 600px) {
+  .wrapper {
+    padding: 1rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}
