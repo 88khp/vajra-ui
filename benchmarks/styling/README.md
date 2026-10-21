@@ -14,7 +14,7 @@ project's dependencies, config, and tests are not changed.
 > scrolling), Unistyles, bundle size, and physical-device runs are **not** measured yet.
 > See [What is not measured](#what-is-not-measured).
 >
-> The results for Vajra UI 3.0.0-alpha.1, and exactly how they were produced, are in
+> The results for Vajra UI 3.0.0, and exactly how they were produced, are in
 > [RESULTS.md](RESULTS.md).
 
 ## Status by implementation
@@ -25,11 +25,12 @@ project's dependencies, config, and tests are not changed.
 | VajraUI | yes | passes (6 of 6 combinations) | yes | Public API only: `VajraProvider`, `Box`, `Text`, `Pressable`, `createRecipe` |
 | VajraUI, previous version (`vajra-prev`) | yes | passes (6 of 6), with `BENCH_IMPL=vajra-prev` | yes | The same card file, run against an earlier Vajra version. See [Comparing two Vajra versions](#comparing-two-vajra-versions) |
 | NativeWind 4.2.7 | yes | passes (6 of 6) | yes | Tailwind compiled once per process and registered (see [Methodology](#methodology)) |
-| Tamagui 3.1.2 | yes | passes (6 of 6) | yes | Requires `react-dom` as a peer, even on native |
+| Tamagui 3.1.2 | yes | passes (6 of 6) | yes | Runtime only. Requires `react-dom` as a peer, even on native |
+| Tamagui 3.1.2, compiled (`tamagui-compiled`) | yes | passes (6 of 6) | yes | The same card, compiled by Tamagui's compiler. See [Tamagui's compiler](#tamaguis-compiler) |
 | styled-components 6.6.0 | yes | passes (6 of 6) | yes | `styled.View` / `$variant` transient props |
 | Unistyles 3.5.3 | yes | **skipped** | **not run** | Needs its Nitro and Reanimated native runtime. Requires a simulator or device build |
 
-Parity result at the time of writing: `48 passed, 1 skipped` (the skip is Unistyles), both
+Parity result at the time of writing: `55 passed, 1 skipped` (the skip is Unistyles), both
 with and without `BENCH_IMPL=vajra-prev`.
 
 ## Setup
@@ -76,7 +77,9 @@ All commands run from `benchmarks/styling/`.
 | `yarn benchmark:report -- --smoke --platform ios` | Builds the report for a simulator or emulator run. `--platform` is `ios` or `android`. Drop `--smoke` for a full run. |
 | `yarn benchmark:report-card` | Builds the report-card dashboard, `results/report-card.html`, from the Jest, iOS, and Android full-run summaries, with a platform switch and each library's multiple of StyleSheet per platform. Run `benchmark:report` for each platform first. |
 | `yarn benchmark:smoke-card` | The same card for the smoke runs: `results/smoke/smoke-test.html`. |
-| `node scripts/run-benchmark.js --smoke --rounds 5 --trials 10 --warmup 3 --steps 12 --impls stylesheet,vajra,vajra-prev,twrnc,styled-components,nativewind,tamagui` | The release comparison: two Vajra versions and every other library in the same run. Writes `results/smoke/`. Then run `yarn benchmark:report -- --smoke`. |
+| `node scripts/run-benchmark.js --smoke --rounds 5 --trials 10 --warmup 3 --steps 12 --impls stylesheet,vajra,vajra-prev,twrnc,styled-components,nativewind,tamagui,tamagui-compiled` | The release comparison: two Vajra versions and every other library in the same run. Writes `results/smoke/`. Then run `yarn benchmark:report -- --smoke`. |
+| `node scripts/compile-tamagui.js` | Rebuilds `implementations/tamagui-compiled/` with Tamagui's compiler. Run it after changing the Tamagui card or config. |
+| `node scripts/snapshot-tamagui-theme.js` | Rewrites `implementations/tamagui/theme-values.json` from Vajra's default theme. Run it after changing the Vajra version. |
 | `yarn tsc --noEmit -p tsconfig.json` | Type-checks all six implementations, the shared spec, and both harnesses. |
 
 A full run (3 rounds × 5 implementations × 30 trials) takes on the order of an hour or two on
@@ -96,7 +99,8 @@ benchmarks/styling/
     vajra/                    VajraUI
     nativewind/               NativeWind (+ tailwind.config.js, global.css)
     unistyles/                Unistyles (+ config.ts). Not run in Jest.
-    tamagui/                  Tamagui (+ config.ts)
+    tamagui/                  Tamagui (+ config.ts, theme-values.json)
+    tamagui-compiled/         Generated: the Tamagui card after Tamagui's compiler
     styled-components/        styled-components/native
   parity/                     Visual and behavioral parity tests and the normalizer
   harness/                    Per-implementation runtime setup (NativeWind CSS registration)
@@ -112,10 +116,12 @@ benchmarks/styling/
     run-device-benchmark.js   Runner for the simulator/emulator: build, install, relaunch per implementation
     bench-common.js           Options, seeded order, and meta.json shared by both runners
     generate-report.js        Statistics and report generation
+    compile-tamagui.js        Compiles the Tamagui card with @tamagui/metro-plugin
+    snapshot-tamagui-theme.js Writes the Tamagui config's theme values from Vajra's theme
     dashboard-template.html   Dashboard. Every number is embedded from summary.json
     dashboard.tailwind.config.js  Tailwind config for the dashboard. The CSS is compiled at
                               report time and inlined, so a dashboard is one file that opens offline
-  vendor/                     Vajra tarballs from `npm pack`, for versions not on npm yet
+  vendor/                     Vajra tarballs from `npm pack`, only while benchmarking a version not on npm yet
   results/                    Raw and generated output: results/smoke/ for smoke runs,
                               each with REPORT.md, summary.json/csv and dashboard.html.
                               Only results/release-<version>/ snapshots are committed
@@ -209,6 +215,22 @@ into the result: between two runs on the same day, StyleSheet's variant-switch t
   `vsBaseline`, with the earlier version as the baseline. `REPORT.md` gets a "vs (same run)"
   table and the dashboard a per-scenario chart.
 - `meta.json` records both versions and both sources. Rows are labelled with the version that ran.
+
+### Tamagui's compiler
+
+Tamagui's compiler is optional but recommended for production, so Tamagui is measured twice:
+`tamagui` on its runtime path, and `tamagui-compiled` with the compiler.
+
+- Tamagui 3 has no standalone Babel plugin. The compiler runs inside `@tamagui/metro-plugin`.
+  `scripts/compile-tamagui.js` drives the plugin's frontend and transformer with the options an
+  app passes to `withTamagui()`, and writes what Metro would ship to
+  `implementations/tamagui-compiled/benchmark-card.js`. It prints the compiler's report and
+  refuses to write a build the compiler did not lower.
+- The plugin requires Metro 0.84 or newer. React Native 0.84.1 ships Metro 0.83.8, so the
+  workspace adds `metro-resolver` 0.84.4 for the compile step. The app's Metro keeps its own copy.
+- The compiler evaluates `implementations/tamagui/config.ts` in Node. It cannot import the shared
+  spec, which loads the full `@88khp/vajra-ui` entry, so it reads `theme-values.json`, a snapshot
+  of Vajra's default theme. The parity suite checks the rendered styles against the spec.
 
 ### NativeWind under Jest
 
