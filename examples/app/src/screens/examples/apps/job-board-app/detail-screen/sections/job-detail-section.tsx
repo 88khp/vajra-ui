@@ -8,7 +8,7 @@ export const JobDetailSection: React.FC = () => (
   <Col gap="s-4">
     <DetailHeader
       title="Senior React Native Dev"
-      company="Devraj Labs"
+      company="88khp"
       location="Remote"
       type="Full-time"
       salary="$120k–$150k"

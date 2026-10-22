@@ -19,7 +19,7 @@ export const SettingsProfileScreen: React.FC = () => {
       </AppBar.Header>
       <ScrollView>
         <Box p="s-4" gap="s-6">
-          <AvatarHeader name="Rishav Jha" email="rishav@devrajlabs.com" initials="RJ" />
+          <AvatarHeader name="Rishav Jha" email="rishav@example.com" initials="RJ" />
           <MenuSection />
         </Box>
       </ScrollView>

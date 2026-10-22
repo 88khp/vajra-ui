@@ -69,7 +69,7 @@ export function HomeScreen() {
               <Zap size={36} color="white" />
             </Box>
             <Box gap="s-1" align="center">
-              <Text variant="h2">Devraj Labs · Vajra UI</Text>
+              <Text variant="h2">88khp · Vajra UI</Text>
               <Text variant="body" color="textMuted" style={{ textAlign: 'center' }}>
                 A minimal, token-driven React Native{'\n'}component library.
               </Text>
@@ -102,7 +102,7 @@ export function HomeScreen() {
           {/* Footer */}
           <Box align="center" py="s-4">
             <Text variant="caption" color="textDisabled">
-              Built by Devraj Labs
+              Built by 88khp
             </Text>
           </Box>
 

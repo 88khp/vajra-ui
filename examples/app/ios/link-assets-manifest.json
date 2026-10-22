@@ -2,367 +2,367 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-Bold.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Bold.ttf",
       "sha1": "606f1b32433c9b6902d97c657f9b3a2f89bab582"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-BoldItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-BoldItalic.ttf",
       "sha1": "3c7982159791d551e0dc9b9e0d2e333fe3bbfd0e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-ExtraBold.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-ExtraBold.ttf",
       "sha1": "1f1ff730addefdfe324657b5db5056fb05b4b43b"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-ExtraBoldItalic.ttf",
       "sha1": "12f7cdcf58d6c7544ee78256e8a3e0f1bc67d6bb"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-ExtraLight.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-ExtraLight.ttf",
       "sha1": "8c8c67a8c0ffac6da8093fea6a710e4e69492916"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-ExtraLightItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-ExtraLightItalic.ttf",
       "sha1": "530fa67f1d72599913183f5f5046ba0973c71572"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-Italic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Italic.ttf",
       "sha1": "9511da5fd2efd40a427ba6489635569d85a7a683"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-Light.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Light.ttf",
       "sha1": "88b01027e4d47b1cb0f4e6fbae888ddc81866f78"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-LightItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-LightItalic.ttf",
       "sha1": "33a0046a48c1f9ecaa33a73b888de8c6f8730333"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-Medium.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Medium.ttf",
       "sha1": "c328c76cab7078b89d925d73809f03c12a00143a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-MediumItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-MediumItalic.ttf",
       "sha1": "40b026f7db1b69a439548baa81dac421ac0fa927"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-Regular.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-Regular.ttf",
       "sha1": "ea07d33f23fb6c4856a642d035c463dc99a7f88a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-SemiBold.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-SemiBold.ttf",
       "sha1": "576ccf10be11652fc309f3682a327a98847c596e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-jakaratasans/assets/fonts/PlusJakartaSans-SemiBoldItalic.ttf",
+      "path": "assets/fonts/plus-jakarta-sans/PlusJakartaSans-SemiBoldItalic.ttf",
       "sha1": "693c174f75547d2bc28a319a76efb4575ba1bb02"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-Bold.ttf",
+      "path": "assets/fonts/manrope/Manrope-Bold.ttf",
       "sha1": "dbc0b874ad8b9f3415d0e9b4e22907890ca72327"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-ExtraBold.ttf",
+      "path": "assets/fonts/manrope/Manrope-ExtraBold.ttf",
       "sha1": "df131208d5c08ff782fbf12c264f473d8dacd83e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-ExtraLight.ttf",
+      "path": "assets/fonts/manrope/Manrope-ExtraLight.ttf",
       "sha1": "bc714297659d8d6d987142c11987df3fe6f04b4e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-Light.ttf",
+      "path": "assets/fonts/manrope/Manrope-Light.ttf",
       "sha1": "27d7897032dc0615ace6c53fd292107ae53280e5"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-Medium.ttf",
+      "path": "assets/fonts/manrope/Manrope-Medium.ttf",
       "sha1": "b5e2c6265e0919163142bb8eac9b6450fb91f920"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-Regular.ttf",
+      "path": "assets/fonts/manrope/Manrope-Regular.ttf",
       "sha1": "3f36e4904a42d23273ac346047c1b6bcf067ccfc"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-manrope/assets/fonts/Manrope-SemiBold.ttf",
+      "path": "assets/fonts/manrope/Manrope-SemiBold.ttf",
       "sha1": "f7a023cd6c102b2ffa8bf729579552445970d62d"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-Bold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-Bold.ttf",
       "sha1": "7d3477547c1fc1c7cb036422dada0fb533d6ce59"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-BoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-BoldItalic.ttf",
       "sha1": "af77f9f7d3e3ce9a4ea1bcde6af6a9ca92d4d710"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-ExtraBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-ExtraBold.ttf",
       "sha1": "50ec75b6b0f299e0a6211ec3a51642f6f9f6db67"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-ExtraBoldItalic.ttf",
       "sha1": "c12c77975145bab74bcaffc43272203374f6100a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-ExtraLight.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-ExtraLight.ttf",
       "sha1": "67bf12abf1750c10b579abe3dceeb815dffa7e61"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-ExtraLightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-ExtraLightItalic.ttf",
       "sha1": "d29d8bda8d495624ef51a365027d74bcbc4727b0"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-Italic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-Italic.ttf",
       "sha1": "e9bf04feb706490123bbee62825f3084eb0bb240"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-Light.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-Light.ttf",
       "sha1": "6cbf439c3c2a9554dfc2bfddc59b0401516f5141"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-LightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-LightItalic.ttf",
       "sha1": "b202861600b85ad2e91ab0ffb1cd2ab72875d90d"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-Medium.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-Medium.ttf",
       "sha1": "4112d192a551b5385ed19e1c48cd1cbbd03db2b9"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-MediumItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-MediumItalic.ttf",
       "sha1": "92e80d0cc700b547e28c9de77b675179a2e84e91"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-Regular.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-Regular.ttf",
       "sha1": "b5af2222aba28b2061dc0a5684d1d878f67da289"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-SemiBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-SemiBold.ttf",
       "sha1": "ce224daac9c6c261beaf90dd7779aedc9bc96987"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_14pt-SemiBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_14pt-SemiBoldItalic.ttf",
       "sha1": "fd87b57c2c7039f617bc44262e6eea6df15a4d33"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-Bold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-Bold.ttf",
       "sha1": "591a30a122240e95d560247f9f3df663fc701a10"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-BoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-BoldItalic.ttf",
       "sha1": "a27ac5ad6a5d283f40b8cc5367b6284a768a3922"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-ExtraBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-ExtraBold.ttf",
       "sha1": "f06e3d0f718d9cbe3620f5d79242f3d0d7b68ea9"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-ExtraBoldItalic.ttf",
       "sha1": "d486e9ea77157f83477137b7ec7790c2f7bfe47a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-ExtraLight.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-ExtraLight.ttf",
       "sha1": "0dba08d6d8b78424916c6d57c19c1d0c63d2076b"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-ExtraLightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-ExtraLightItalic.ttf",
       "sha1": "74cd77a564012172401948b7b51a826637ffe987"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-Italic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-Italic.ttf",
       "sha1": "ce3ffe6380ca41fd8da95ad4bb2aab9aba3c72e7"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-Light.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-Light.ttf",
       "sha1": "4ed9546b78edb08082c77676bb61b60e9a829e7e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-LightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-LightItalic.ttf",
       "sha1": "f3859a9cddff052b7c01ca0ffabe2cfd76711fcc"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-Medium.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-Medium.ttf",
       "sha1": "686ddd2d46d1bbf3c4b681b5766c2c667e73cc31"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-MediumItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-MediumItalic.ttf",
       "sha1": "edbdea0aa7aebb4ec34a944e8a217c29b19ed386"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-Regular.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-Regular.ttf",
       "sha1": "657dcbb78873113a969a6fb4a59b5cfddb9f21b1"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-SemiBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-SemiBold.ttf",
       "sha1": "edb4c6b6dc4e8d547e6b620ae12d5b334c89c85b"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_24pt-SemiBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_24pt-SemiBoldItalic.ttf",
       "sha1": "5a80f41511c6f1c4368394ca8e65337c940b38aa"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-Bold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-Bold.ttf",
       "sha1": "6d01747aebf4dbb70e387e0d1842ab3ec55d1246"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-BoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-BoldItalic.ttf",
       "sha1": "38270554f0f832d1cab50c8c46dc4098d859aece"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-ExtraBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-ExtraBold.ttf",
       "sha1": "1b15800cfd631443b812f00c3698f75312138dad"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-ExtraBoldItalic.ttf",
       "sha1": "0d1ffb966dba98284ce87bf8fc0c2cbecc7ab66e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-ExtraLight.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-ExtraLight.ttf",
       "sha1": "b9b49121baae797018ce12d4cd46628cb85a9c2e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-ExtraLightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-ExtraLightItalic.ttf",
       "sha1": "05120bfa21a938e043f5d844c02af41e34de275c"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-Italic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-Italic.ttf",
       "sha1": "92122e1949f33017d227fa29b6847da929a7d2be"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-Light.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-Light.ttf",
       "sha1": "9ea61e7c17f82839f16a9576f47c1f9301f3ee1d"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-LightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-LightItalic.ttf",
       "sha1": "ca6007700bf183aee3f7d03c79046be51cdb108e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-Medium.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-Medium.ttf",
       "sha1": "f79fcf43fb6d723bf563dc4cef01559739919532"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-MediumItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-MediumItalic.ttf",
       "sha1": "9054e71a677fa1218ae50b8989db0d91678c326c"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-Regular.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-Regular.ttf",
       "sha1": "190c41fec26ae587989906af4f94572fb9559fda"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-SemiBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-SemiBold.ttf",
       "sha1": "78a011a66aba6eec79ea89558ea382f74b9243cb"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_36pt-SemiBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_36pt-SemiBoldItalic.ttf",
       "sha1": "c12eecf5884820fdc8c22c3ae11a348e877b191b"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-Bold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-Bold.ttf",
       "sha1": "02c4f598b80021d9374d13886e4fa31e10ac073a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-BoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-BoldItalic.ttf",
       "sha1": "9df0cc5fb93371f409575aac62c75a75926f3d9a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-ExtraBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-ExtraBold.ttf",
       "sha1": "31bc571e160dd075b7b0526996b0cfb8d3d5f325"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-ExtraBoldItalic.ttf",
       "sha1": "e58a3f3b53fa916ae33e5091aa896acfff04d1a7"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-ExtraLight.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-ExtraLight.ttf",
       "sha1": "e89e37db09f216962526f4a267842c83bae4a70a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-ExtraLightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-ExtraLightItalic.ttf",
       "sha1": "52b684919d5bd97d13eee715b473be6b56af8e1c"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-Italic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-Italic.ttf",
       "sha1": "1604a6badf11a3b57406bcf9719d322c7471085a"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-Light.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-Light.ttf",
       "sha1": "f0bbccdcd5317df18e864d64065ee59fdae6b21e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-LightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-LightItalic.ttf",
       "sha1": "4940eb160cb3968bb3674aa6706745f97c33b92b"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-Medium.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-Medium.ttf",
       "sha1": "67cfd25b009fdf1eb6e843b6ec5c79af6e906e46"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-MediumItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-MediumItalic.ttf",
       "sha1": "3a9c3fea992530aa61cf5aa320fa0d0e520e8ddf"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-Regular.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-Regular.ttf",
       "sha1": "a7c2be34675c65efe26fe6b473cf6055b6971125"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-SemiBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-SemiBold.ttf",
       "sha1": "3cf15ac15470478bf1d690723add1fa6ebe4a6a0"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_60pt-SemiBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_60pt-SemiBoldItalic.ttf",
       "sha1": "a86f39ca3dd24e5809bad29ec7cf817488741e74"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-Bold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-Bold.ttf",
       "sha1": "f2c06babd24854978020adf04198c0c0648d9e87"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-BoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-BoldItalic.ttf",
       "sha1": "a266eac2ae75bcd43c3a3fbb4f2828a1aac244b0"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-ExtraBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-ExtraBold.ttf",
       "sha1": "7a6bce5d0b61af4ed0c17b379e092e71b5c849f1"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-ExtraBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-ExtraBoldItalic.ttf",
       "sha1": "d246ce42c9bc31f04299dd4446bb36d1aad5afc7"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-ExtraLight.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-ExtraLight.ttf",
       "sha1": "7b6a9cda7ac395c6cef33f0ee549f53ab3503132"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-ExtraLightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-ExtraLightItalic.ttf",
       "sha1": "39be1b0ccede180747afa9e84ea83814bac7eedc"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-Italic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-Italic.ttf",
       "sha1": "3d65411a52773d0f4040af2790da3f3a1f252f48"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-Light.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-Light.ttf",
       "sha1": "2c9c862c53925d29f35d227ebc38a4fec8c7058f"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-LightItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-LightItalic.ttf",
       "sha1": "4ad5d53db9c91cae1d4ddc0c72a14fab0e7b052e"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-Medium.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-Medium.ttf",
       "sha1": "e30b8eaa94645fb112e2c82d2bedc68d207e72a7"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-MediumItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-MediumItalic.ttf",
       "sha1": "8cb1e11cddcf9ecf52a5aeefa872b3c24bdc8c9c"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-Regular.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-Regular.ttf",
       "sha1": "9921fd350ec6511a4aadd759ab35581ccf258178"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-SemiBold.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-SemiBold.ttf",
       "sha1": "6313ed88aa75b60c4add18f0a4e8efd1b43fbed6"
     },
     {
-      "path": "node_modules/@devraj-labs/rn-font-newsreader/assets/fonts/Newsreader_9pt-SemiBoldItalic.ttf",
+      "path": "assets/fonts/newsreader/Newsreader_9pt-SemiBoldItalic.ttf",
       "sha1": "8c7ee1b0eec3dbd43bd3966d780168d15380974f"
     }
   ]

@@ -1,7 +1,6 @@
-import { plusFonts } from '@devraj-labs/rn-font-jakaratasans';
-import { manropeFonts } from '@devraj-labs/rn-font-manrope';
-import { newsreaderFonts } from '@devraj-labs/rn-font-newsreader';
 import { createVajraTheme, TVajraColorOverrides } from 'vajra-ui';
+
+import { manropeFonts, newsreaderFonts, plusFonts } from './fonts';
 
 import {
   blueDark,
