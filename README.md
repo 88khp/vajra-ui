@@ -1,37 +1,49 @@
 <div align="center">
 
-<h1>Devraj Labs · Vajra UI ⚡️</h1>
+<h1>88khp · Vajra UI ⚡️</h1>
 
-<p><strong>A minimal, token-driven React Native component library.</strong></p>
+<p><strong>Design tokens, not class strings.</strong></p>
 
-<p>Bring your own brand. Override what you need. Build the rest on top.</p>
+<p>A typed React Native design system: style with props you already know, get 40+ components out of the box, and switch themes live, with no compiler and no build step. Free and MIT.</p>
 
 [![npm version](https://img.shields.io/npm/v/@88khp/vajra-ui)](https://www.npmjs.com/package/@88khp/vajra-ui)
 [![license](https://img.shields.io/npm/l/@88khp/vajra-ui)](./LICENSE)
 [![platform](https://img.shields.io/badge/platform-iOS%20%7C%20Android-lightgrey)](https://reactnative.dev)
 
-<p><a href="https://88khp.github.io/vajra-ui/"><strong>Documentation</strong></a></p>
-
-
-
+<p><a href="https://88khp.github.io/vajra-ui/"><strong>Documentation</strong></a> · <a href="https://88khp.github.io/vajra-ui/docs/performance"><strong>Benchmarks</strong></a></p>
 
 > **✅ v3.0.0 — stable release**
-> Runtime design tokens at hand-written speed: level with twrnc on variant switches, 2.2–2.6× faster
-> than NativeWind and 4–8× faster than Tamagui. [See the benchmarks](#performance).
-> Full release history in [CHANGELOG.md](./CHANGELOG.md).
+> Level with twrnc on variant switches, 2.2–2.6× faster than NativeWind and 4–8× faster than
+> Tamagui. [See the benchmarks](#performance). Full release history in [CHANGELOG.md](./CHANGELOG.md).
 
 </div>
+
+```tsx
+<Box p="s-4" gap="s-3" bg="surface" rounded="r-3">
+  <Text variant="subheading">Hello</Text>
+  <Button label="Get started" onPress={() => {}} />
+</Box>
+
+// <Box bg="primry" />
+// ✗ Type '"primry"' is not assignable. Did you mean '"primary"'?
+```
 
 ---
 
 ## Why Vajra UI
 
-- **Fast without a compiler** — tokens resolve at runtime with cached styles, so variant switches run within 7% of hand-written `StyleSheet`. No Babel plugin, no build step. [Benchmarks](#performance)
-- **Token-first** — every prop (`bg`, `p`, `rounded`, `color`) maps to a design token, never a raw value
-- **Themeable** — override colors, spacing, and border radii via `createVajraTheme`; switch themes at runtime
-- **Typed end to end** — tokens are typed unions, no magic strings slip through
-- **Headless core** — unstyled primitives in `@88khp/vajra-ui-core` if you want full control
-- **Zero opinions on navigation** — works with any navigation library
+A design system, not a styling dialect. Utility classes give you a vocabulary; Vajra gives you the
+components, the tokens and the theme, typed and ready to ship.
+
+- **Nothing new to learn** — style with props (`bg`, `p`, `rounded`, `color`) that map to design tokens and to React Native styles. No class vocabulary to memorise.
+- **Components included** — 40+ components for real screens, from Button and Input to Modal, Sheet, Toast and Tabs, plus `createRecipe` for your own variants. Build each component once instead of rebuilding it from class strings on every screen.
+- **No build step** — no Babel plugin, Metro config or CSS file. Install, wrap your app in `VajraProvider`, and build.
+- **Typed end to end** — tokens are typed unions, so a typo fails at compile time with *Did you mean...?*
+- **Your brand, live theming** — override colors, spacing, radii and fonts with `createVajraTheme`; switch light and dark at runtime.
+- **Fast, with proof** — tokens resolve at runtime with cached styles, within 7% of hand-written `StyleSheet` on variant switches. [Benchmarks](#performance)
+- **Headless core** — unstyled primitives in `@88khp/vajra-core` if you want full control.
+- **Free and MIT** — every component, no Pro tier, nothing behind a paywall.
+- **Zero opinions on navigation** — works with any navigation library.
 
 ---
 
@@ -45,7 +57,7 @@ updates. Lower is faster.
 |---|---|---|---|---|
 | StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
 | twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
-| **Vajra UI 3.0** | **16** | **103** | **117.5** | **134.5** |
+| **Vajra UI 3.0.0** | **16** | **103** | **117.5** | **134.5** |
 | styled-components 6.6.0 | 15 | 121 | 104 | 121 |
 | NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
 | Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
@@ -69,23 +81,30 @@ harness, every library's implementation, the raw samples and the full method are
 | Package | Description |
 |---------|-------------|
 | `@88khp/vajra-ui` | Token-aware components + Vajra theme system |
-| `@88khp/vajra-ui-core` | Headless, unstyled primitives — no theme, no tokens |
+| `@88khp/vajra-core` | Headless, unstyled primitives — no theme, no tokens |
+| `@88khp/vajra-icons` | Optional. Lucide icons adapted to Vajra's icon contract, used as Alert and Toast defaults |
 
 ---
 
 ## Installation
 
 ```sh
-npm install @88khp/vajra-ui @88khp/vajra-ui-core
+npm install @88khp/vajra-ui @88khp/vajra-core react-native-safe-area-context
 # or
-yarn add @88khp/vajra-ui @88khp/vajra-ui-core
+yarn add @88khp/vajra-ui @88khp/vajra-core react-native-safe-area-context
 ```
 
-**Peer dependencies**
+No Babel plugin, Metro config or CSS file. `react` (>=18) and `react-native` (>=0.73) are peer
+dependencies your app already has.
+
+**Icons (optional).** `Alert` and `Toast` use icons from `@88khp/vajra-icons` when it's installed,
+and text glyphs (✓ ! ⚠︎ i ✕) when it isn't. Every other component takes any icon component you pass.
 
 ```sh
-npm install react react-native react-native-safe-area-context
+npm install @88khp/vajra-icons lucide-react-native react-native-svg
 ```
+
+See the [installation guide](https://88khp.github.io/vajra-ui/docs/installation) for details.
 
 ---
 
@@ -396,11 +415,11 @@ For the full theming guide including runtime switching, spacing/radius overrides
 ├── vajra-theme/    Default tokens, VajraProvider, useVajraTheme
 └── theme/          Generic ThemeProvider + useTheme (no vajra tokens)
 
-@88khp/vajra-ui-core
+@88khp/vajra-core
 └── Headless primitives — no theme dependency
 ```
 
-**Layer rule:** `core` imports from `vajra-ui-core`. `components` imports from `core`. Nothing imports across layers.
+**Layer rule:** `core` imports from `vajra-core`. `components` imports from `core`. Nothing imports across layers.
 
 `Box`, `Text`, `Pressable` and `TextInput` render React Native's host components directly with
 core's cached style builder. A token-styled `Box` costs about 3 µs per node over a raw `View`; see
@@ -416,4 +435,4 @@ See [CODING_GUIDELINES.md](./CODING_GUIDELINES.md) for naming conventions, folde
 
 ## License
 
-MIT © [Devraj Labs](https://github.com/devraj-labs)
+MIT © [88khp](https://github.com/88khp)
