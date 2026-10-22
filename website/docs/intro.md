@@ -28,7 +28,7 @@ compiler and no build step.
   *Did you mean "primary"?*
 - **Your brand, live theming**: override colors, spacing, radii and fonts with `createVajraTheme`,
   and switch light and dark at runtime.
-- **Fast, with proof**: level with twrnc on variant switches, 2.2–2.6× faster than NativeWind and
+- **Fast, with proof**: level with twrnc on variant switches, 2.1–2.5× faster than NativeWind and
   4–8× faster than Tamagui, in an open benchmark. See [Performance & benchmarks](./performance).
 - **Headless core**: unstyled primitives in `@88khp/vajra-core` if you want full control.
 - **Free and MIT**: every component, no Pro tier, nothing behind a paywall.

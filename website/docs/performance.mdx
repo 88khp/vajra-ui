@@ -21,23 +21,23 @@ scenarios are the total of 12 updates. Lower is faster.
 
 | Library | Mount | Variant switch | Theme switch | Theme + variant |
 |---|---|---|---|---|
-| StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
-| twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
-| **Vajra UI 3.0.0** | **16** | **103** | **117.5** | **134.5** |
-| styled-components 6.6.0 | 15 | 121 | 104 | 121 |
-| NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
-| Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
-| Tamagui 3.1.2, runtime only | 68 | 427.5 | 768.5 | 1,163 |
+| StyleSheet (hand-written baseline) | 12 | 95 | 91 | 93 |
+| twrnc 4.16.0 | 13 | 106 | 97 | 99.5 |
+| **Vajra UI 3.0.0** | **17** | **103** | **121.5** | **134.5** |
+| styled-components 6.6.0 | 15 | 122.5 | 107 | 124 |
+| NativeWind 4.2.7 | 30 | 257 | 279.5 | 287 |
+| Tamagui 3.1.2, compiled | 60 | 445.5 | 626.5 | 1,071 |
+| Tamagui 3.1.2, runtime only | 68 | 422.5 | 764 | 1,188.5 |
 
 What this means:
 
 - **Variant switching, the most common interaction, runs at hand-written speed.** Vajra is level
-  with twrnc and within 7% of a hand-written `StyleSheet` that precomputes every style. It is 15%
+  with twrnc and within 8% of a hand-written `StyleSheet` that precomputes every style. It is 16%
   faster than styled-components.
-- **2.2–2.6× faster than NativeWind** on every update, and 1.8× faster to mount.
+- **2.1–2.5× faster than NativeWind** on every update, and 1.8× faster to mount.
 - **4–8× faster than Tamagui**, measured with Tamagui's compiler on.
-- **Theme switching is where Vajra trails the fastest libraries.** It is 13% behind
-  styled-components, 22% behind twrnc and 30% behind StyleSheet, and further behind with theme
+- **Theme switching is where Vajra trails the fastest libraries.** It is 14% behind
+  styled-components, 25% behind twrnc and 34% behind StyleSheet, and further behind with theme
   and variant at once. Every `Box`, `Text` and `Pressable` follows the theme on its own, so a
   theme change re-renders each of them. In twrnc only the card re-renders.
 
@@ -62,24 +62,24 @@ The same run, timed per single update: the median shows the typical update, p95 
 | Library | Variant switch, median / p95 | Theme switch, median / p95 | Theme + variant, median / p95 |
 |---|---|---|---|
 | StyleSheet | 7 / 26 | 7 / 11 | 7 / 12 |
-| twrnc | 8 / 27 | 8 / 11 | 8 / 12 |
-| **Vajra UI 3.0.0** | **8 / 12** | **9 / 28** | **11 / 21** |
-| styled-components | 10 / 15 | 8 / 13 | 10 / 14 |
-| NativeWind | 19 / 42 | 23 / 61 | 24 / 63 |
-| Tamagui, compiled | 33 / 57 | 46 / 78 | 79.5 / 132 |
-| Tamagui, runtime only | 32 / 57 | 54 / 89 | 88 / 141 |
+| twrnc | 8 / 27 | 8 / 26 | 8 / 12 |
+| **Vajra UI 3.0.0** | **8 / 18** | **9 / 28** | **11 / 21** |
+| styled-components | 10 / 16 | 8 / 16 | 10 / 24 |
+| NativeWind | 19 / 44 | 22 / 60 | 22 / 61 |
+| Tamagui, compiled | 33 / 58 | 46 / 79 | 81 / 133 |
+| Tamagui, runtime only | 33 / 57 | 54 / 87 | 89 / 143 |
 
-- **Vajra has the steadiest variant switches.** Its slowest updates take 12 ms, less than half of
-  StyleSheet's and twrnc's 26–27 ms.
-- **Theme switches have a longer tail.** Vajra's p95 is 28 ms against 11–13 ms for StyleSheet,
-  twrnc and styled-components.
+- **Vajra's variant switches have a short tail.** Its slowest updates take 18 ms, about a third
+  less than StyleSheet's and twrnc's 26–27 ms.
+- **Theme switches have a longer tail.** Vajra's p95 is 28 ms, against 11 ms for StyleSheet and
+  16 ms for styled-components.
 
 :::info[In a real app]
 
 - **A frame is 16.7 ms at 60 Hz, 8.3 ms at 120 Hz.** An update that takes longer drops a frame.
 - **Variant switches are the everyday case**: a tab, a toggle, a selected item. In this test,
-  Vajra's slow updates of a 100-card list (p95 12 ms) fit inside one 60 Hz frame, while
-  StyleSheet's and twrnc's (26–27 ms) don't. Read it as a ratio, since device times differ.
+  Vajra's slow updates of a 100-card list (p95 18 ms) are about a third shorter than StyleSheet's
+  and twrnc's (26–27 ms). Read it as a ratio, since device times differ.
 - **Theme switches are rare**, usually one tap in settings. Vajra's 28 ms tail there means at most
   one or two dropped frames at the moment the user switches to dark mode.
 
@@ -92,22 +92,22 @@ garbage collection.
 
 | Library | Median | p95 | JS heap |
 |---|---|---|---|
-| StyleSheet | 12 ms | 34 ms | 4.7 MB |
+| StyleSheet | 12 ms | 35 ms | 4.7 MB |
 | twrnc | 13 ms | 35 ms | 4.7 MB |
-| **Vajra UI 3.0.0** | **16 ms** | **19 ms** | **5.9 MB** |
-| styled-components | 15 ms | 18 ms | 6.1 MB |
-| NativeWind | 29 ms | 31 ms | 11.8 MB |
-| Tamagui, compiled | 57.5 ms | 104 ms | 14.9 MB |
-| Tamagui, runtime only | 68 ms | 112 ms | 16.5 MB |
+| **Vajra UI 3.0.0** | **17 ms** | **28 ms** | **5.8 MB** |
+| styled-components | 15 ms | 17 ms | 6.2 MB |
+| NativeWind | 30 ms | 31 ms | 11.8 MB |
+| Tamagui, compiled | 60 ms | 228 ms | 14.9 MB |
+| Tamagui, runtime only | 68 ms | 113 ms | 16.5 MB |
 
-Vajra mounts 3–4 ms behind StyleSheet and twrnc at the median, but its slowest mounts are faster
-(19 ms against 34–35 ms). It uses about 1 MB more memory than StyleSheet for 100 cards, and half
+Vajra mounts 4–5 ms behind StyleSheet and twrnc at the median, but its slowest mounts are faster
+(28 ms against 35 ms). It uses about 1 MB more memory than StyleSheet for 100 cards, and half
 what NativeWind uses.
 
 :::info[In a real app]
 
 - **Mount cost is paid once, when a screen opens.** A `FlatList` renders about 10–20 rows at
-  first, so the 4 ms gap per 100 cards to StyleSheet comes to about 1 ms on a typical screen.
+  first, so the 5 ms gap per 100 cards to StyleSheet comes to about 1 ms on a typical screen.
 - **Memory differences under 2 MB per 100 cards don't matter on a modern phone.** NativeWind and
   Tamagui use 2–3× Vajra's memory, which adds up in long lists kept mounted, such as feeds and
   chats.

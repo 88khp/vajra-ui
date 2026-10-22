@@ -50,7 +50,7 @@ const FeatureList: FeatureItem[] = [
     title: 'Fast, with proof',
     description: (
       <>
-        Level with twrnc on variant switches, 2.2–2.6× faster than NativeWind
+        Level with twrnc on variant switches, 2.1–2.5× faster than NativeWind
         and 4–8× faster than Tamagui, in an open benchmark you can run
         yourself. <Link to="/docs/performance">See the numbers</Link>.
       </>

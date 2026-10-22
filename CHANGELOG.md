@@ -18,12 +18,12 @@ The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. 
 
 ### Performance
 
-- The styling code path (`Box`, `Text`, `Pressable`, `TextInput` and core's style builder) is the same as in 3.0.0-alpha.1, which the benchmark measured; only the core import name changed. Against other React Native styling libraries, in one run with every library rendering the same card, 3.0.0 is level with twrnc on variant switches and within 7% of hand-written `StyleSheet`, 15% faster than styled-components, 2.2–2.6× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 13–30% behind styled-components, twrnc and `StyleSheet`. Against 3.0.0-alpha.0 it is 9–11% faster on every update scenario. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md).
+- Measured on the published 3.0.0 packages, in one run with every library rendering the same card: level with twrnc on variant switches and within 8% of hand-written `StyleSheet`, 16% faster than styled-components, 2.1–2.5× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 14–34% behind styled-components, twrnc and `StyleSheet`. The styling code path (`Box`, `Text`, `Pressable`, `TextInput` and core's style builder) is the same as in 3.0.0-alpha.1, which was 9–11% faster than 3.0.0-alpha.0 on every update scenario. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md).
 
 ### Benchmarks
 
 - Tamagui is now also measured compiled, by its own compiler through `@tamagui/metro-plugin`, next to its runtime-only path.
-- The styling benchmark installs Vajra from npm instead of vendored tarballs.
+- The styling benchmark installs Vajra from npm instead of vendored tarballs, and its published results are from `@88khp/vajra-ui@3.0.0` and `@88khp/vajra-core@3.0.0`.
 
 ### Docs
 

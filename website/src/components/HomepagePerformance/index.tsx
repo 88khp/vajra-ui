@@ -12,11 +12,11 @@ type TStat = {
 // From benchmarks/styling/results/release-3.0.0, the same numbers as the chart.
 const STATS: TStat[] = [
   {
-    value: '7%',
+    value: '8%',
     label: <>from hand-written StyleSheet on variant switches, level with twrnc</>,
   },
   {
-    value: '2.2–2.6×',
+    value: '2.1–2.5×',
     label: <>faster than NativeWind on every update</>,
   },
   {

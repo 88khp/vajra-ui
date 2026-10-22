@@ -13,7 +13,7 @@
 <p><a href="https://88khp.github.io/vajra-ui/"><strong>Documentation</strong></a> · <a href="https://88khp.github.io/vajra-ui/docs/performance"><strong>Benchmarks</strong></a></p>
 
 > **✅ v3.0.0 — stable release**
-> Level with twrnc on variant switches, 2.2–2.6× faster than NativeWind and 4–8× faster than
+> Level with twrnc on variant switches, 2.1–2.5× faster than NativeWind and 4–8× faster than
 > Tamagui. [See the benchmarks](#performance). Full release history in [CHANGELOG.md](./CHANGELOG.md).
 
 </div>
@@ -40,7 +40,7 @@ components, the tokens and the theme, typed and ready to ship.
 - **No build step** — no Babel plugin, Metro config or CSS file. Install, wrap your app in `VajraProvider`, and build.
 - **Typed end to end** — tokens are typed unions, so a typo fails at compile time with *Did you mean...?*
 - **Your brand, live theming** — override colors, spacing, radii and fonts with `createVajraTheme`; switch light and dark at runtime.
-- **Fast, with proof** — tokens resolve at runtime with cached styles, within 7% of hand-written `StyleSheet` on variant switches. [Benchmarks](#performance)
+- **Fast, with proof** — tokens resolve at runtime with cached styles, within 8% of hand-written `StyleSheet` on variant switches. [Benchmarks](#performance)
 - **Headless core** — unstyled primitives in `@88khp/vajra-core` if you want full control.
 - **Free and MIT** — every component, no Pro tier, nothing behind a paywall.
 - **Zero opinions on navigation** — works with any navigation library.
@@ -55,19 +55,19 @@ updates. Lower is faster.
 
 | Library | Mount | Variant switch | Theme switch | Theme + variant |
 |---|---|---|---|---|
-| StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
-| twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
-| **Vajra UI 3.0.0** | **16** | **103** | **117.5** | **134.5** |
-| styled-components 6.6.0 | 15 | 121 | 104 | 121 |
-| NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
-| Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
-| Tamagui 3.1.2, runtime only | 68 | 427.5 | 768.5 | 1,163 |
+| StyleSheet (hand-written baseline) | 12 | 95 | 91 | 93 |
+| twrnc 4.16.0 | 13 | 106 | 97 | 99.5 |
+| **Vajra UI 3.0.0** | **17** | **103** | **121.5** | **134.5** |
+| styled-components 6.6.0 | 15 | 122.5 | 107 | 124 |
+| NativeWind 4.2.7 | 30 | 257 | 279.5 | 287 |
+| Tamagui 3.1.2, compiled | 60 | 445.5 | 626.5 | 1,071 |
+| Tamagui 3.1.2, runtime only | 68 | 422.5 | 764 | 1,188.5 |
 
-- **Variant switches run at hand-written speed**: level with twrnc, within 7% of a `StyleSheet` that
-  precomputes every style, and 15% faster than styled-components.
-- **2.2–2.6× faster than NativeWind** on every update, and **4–8× faster than Tamagui** with
+- **Variant switches run at hand-written speed**: level with twrnc, within 8% of a `StyleSheet` that
+  precomputes every style, and 16% faster than styled-components.
+- **2.1–2.5× faster than NativeWind** on every update, and **4–8× faster than Tamagui** with
   Tamagui's compiler on.
-- **Theme switching trails the fastest libraries**: 13% behind styled-components and 22% behind
+- **Theme switching trails the fastest libraries**: 14% behind styled-components and 25% behind
   twrnc, because every `Box`, `Text` and `Pressable` follows the theme on its own.
 
 JavaScript-side timings under Jest on an Apple M4, each library used as its docs describe. The
