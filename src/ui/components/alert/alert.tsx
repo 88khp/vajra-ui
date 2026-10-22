@@ -1,4 +1,3 @@
-import { XIcon } from '@devraj-labs/vajra-ui-icons';
 import React, { memo } from 'react';
 
 import { Box } from '../../core/box';
@@ -7,6 +6,7 @@ import { Pressable } from '../../core/pressable';
 import { Row } from '../../core/row';
 import { Text } from '../../core/text';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
+import { DEFAULT_ICONS } from '../default-icons';
 import { ALERT_VARIANT_COLORS, ALERT_VARIANT_ICONS } from './alert-constants';
 import { TAlertProps } from './alert-types';
 
@@ -16,7 +16,7 @@ const AlertComponent: React.FC<TAlertProps> = ({
   variant = 'default',
   onDismiss,
   icon,
-  dismissIcon: DismissIcon = XIcon,
+  dismissIcon: DismissIcon = DEFAULT_ICONS.dismiss,
   testID,
 }) => {
   const { colors } = useVajraTheme();

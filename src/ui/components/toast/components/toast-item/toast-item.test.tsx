@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { View } from 'react-native';
-import { CheckCircleIcon } from '@devraj-labs/vajra-ui-icons';
+import { CheckCircleIcon } from '@88khp/vajra-icons';
 
 import { VajraProvider } from '../../../../vajra-theme';
 import { ToastItem } from './toast-item';

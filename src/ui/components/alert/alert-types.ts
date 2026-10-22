@@ -11,7 +11,7 @@ export type TAlertProps = {
   onDismiss?: () => void;
   /** Overrides the variant's default icon. Pass `null` to render no icon. */
   icon?: React.ReactNode;
-  /** Icon shown in the dismiss button, when `onDismiss` is set. Defaults to `XIcon`. */
+  /** Icon shown in the dismiss button, when `onDismiss` is set. Defaults to `XIcon` from `@88khp/vajra-icons` when installed, otherwise a ✕ glyph. */
   dismissIcon?: TVajraIconComponent;
   testID?: string;
 };
@@ -24,7 +24,7 @@ export type TAlertOptions = {
   duration?: number;
   /** Overrides the variant's default icon. Pass `null` to render no icon. */
   icon?: React.ReactNode;
-  /** Icon shown in the dismiss button. Defaults to `XIcon`. */
+  /** Icon shown in the dismiss button. Defaults to `XIcon` from `@88khp/vajra-icons` when installed, otherwise a ✕ glyph. */
   dismissIcon?: TVajraIconComponent;
 };
 

@@ -1,12 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react-native';
 import { View } from 'react-native';
-import {
-  AlertCircleIcon,
-  AlertTriangleIcon,
-  CheckCircleIcon,
-  InfoIcon,
-} from '@devraj-labs/vajra-ui-icons';
+import { AlertCircleIcon, AlertTriangleIcon, CheckCircleIcon, InfoIcon } from '@88khp/vajra-icons';
 
 import { VajraProvider, defaultVajraTheme } from '../../vajra-theme';
 import { Alert } from './alert';

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react-native';
 import { Animated, Button as RNButton } from 'react-native';
-import { CheckCircleIcon } from '@devraj-labs/vajra-ui-icons';
+import { CheckCircleIcon } from '@88khp/vajra-icons';
 
 import { VajraProvider, defaultVajraTheme } from '../../vajra-theme';
 import { AlertProvider } from './alert-provider';

@@ -1,11 +1,5 @@
-import {
-  AlertCircleIcon,
-  AlertTriangleIcon,
-  CheckCircleIcon,
-  InfoIcon,
-} from '@devraj-labs/vajra-ui-icons';
-
 import { TVajraColors } from '../../vajra-theme/colors';
+import { DEFAULT_ICONS } from '../default-icons';
 import { TVajraIconComponent } from '../icon-button/icon-button-types';
 import { TToastVariant } from './toast-types';
 
@@ -22,8 +16,8 @@ export const TOAST_VARIANT_COLORS: Record<TToastVariant, { bg: TVajraColors; tex
 
 export const TOAST_VARIANT_ICONS: Record<TToastVariant, TVajraIconComponent | undefined> = {
   default: undefined,
-  success: CheckCircleIcon,
-  error: AlertCircleIcon,
-  warning: AlertTriangleIcon,
-  info: InfoIcon,
+  success: DEFAULT_ICONS.success,
+  error: DEFAULT_ICONS.error,
+  warning: DEFAULT_ICONS.warning,
+  info: DEFAULT_ICONS.info,
 };

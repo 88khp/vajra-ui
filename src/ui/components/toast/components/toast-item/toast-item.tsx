@@ -1,4 +1,3 @@
-import { XIcon } from '@devraj-labs/vajra-ui-icons';
 import React, { memo } from 'react';
 
 import { Box } from '../../../../core/box';
@@ -7,6 +6,7 @@ import { Pressable } from '../../../../core/pressable';
 import { Row } from '../../../../core/row';
 import { Text } from '../../../../core/text';
 import { useVajraTheme } from '../../../../vajra-theme/use-vajra-theme';
+import { DEFAULT_ICONS } from '../../../default-icons';
 import { TOAST_VARIANT_COLORS, TOAST_VARIANT_ICONS } from '../../toast-constants';
 import { TToastItemProps } from './toast-item-types';
 
@@ -21,6 +21,7 @@ const ToastItemComponent: React.FC<TToastItemProps> = ({
   const { colors } = useVajraTheme();
   const { bg, text } = TOAST_VARIANT_COLORS[variant];
   const VariantIcon = TOAST_VARIANT_ICONS[variant];
+  const DismissIcon = DEFAULT_ICONS.dismiss;
   const resolvedIcon =
     icon !== undefined
       ? icon
@@ -44,7 +45,7 @@ const ToastItemComponent: React.FC<TToastItemProps> = ({
             p="s-1"
             testID={testID ? `${testID}-dismiss` : undefined}
           >
-            <XIcon size={20} width={20} height={20} color={colors[text]} />
+            <DismissIcon size={20} width={20} height={20} color={colors[text]} />
           </Pressable>
         )}
       </Row>
