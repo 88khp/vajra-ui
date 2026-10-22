@@ -1,4 +1,4 @@
-import { TStyleResolver } from '@88khp/vajra-ui-core';
+import { TStyleResolver } from '@88khp/vajra-core';
 
 import { TVajraTheme } from '../vajra-theme/use-vajra-theme';
 

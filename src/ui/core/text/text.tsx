@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Platform, Text as RNText, TextProps, TextStyle } from 'react-native';
 
-import { composeStyle, splitStyleProps, TEXT_STYLE_SPEC, TStyleSpec } from '@88khp/vajra-ui-core';
+import { composeStyle, splitStyleProps, TEXT_STYLE_SPEC, TStyleSpec } from '@88khp/vajra-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
 import { getTokenResolver, TEXT_TOKEN_SPEC } from '../../utils/token-props';
 import { TTextProps } from './text-types';

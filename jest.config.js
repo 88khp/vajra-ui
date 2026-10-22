@@ -2,7 +2,7 @@ module.exports = {
   preset: 'react-native',
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   transformIgnorePatterns: [
-    'node_modules/(?!(react-native|@react-native|@88khp/vajra-ui-core|@devraj-labs/vajra-ui-icons|lucide-react-native)/)',
+    'node_modules/(?!(react-native|@react-native|@88khp/vajra-core|@88khp/vajra-icons|lucide-react-native)/)',
   ],
   // lucide-react-native's "exports" lists a "react-native" condition ahead of
   // "require", which the RN jest preset's resolver picks first — pointing to its

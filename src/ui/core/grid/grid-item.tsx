@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 
-import { useDimensions } from '@88khp/vajra-ui-core';
+import { useDimensions } from '@88khp/vajra-core';
 import { Box } from '../box';
 import { GridContext } from './grid-context';
 import { TUiGridItemProps } from './grid-types';

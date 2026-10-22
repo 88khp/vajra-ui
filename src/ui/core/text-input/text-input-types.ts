@@ -1,6 +1,6 @@
 import React from 'react';
 import { TextInput as RNTextInput } from 'react-native';
-import { TCoreTextInputProps } from '@88khp/vajra-ui-core';
+import { TCoreTextInputProps } from '@88khp/vajra-core';
 import { TVajraColors } from '../../vajra-theme/colors';
 import { TRoundedToken } from '../../vajra-theme/tokens/rounded-tokens';
 import { TSpacingProps } from '../../utils/spacing-props';

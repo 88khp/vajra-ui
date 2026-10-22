@@ -1,7 +1,7 @@
 import React, { forwardRef, memo } from 'react';
 import { TextInput as RNTextInput, TextInputProps, TextStyle } from 'react-native';
 
-import { composeStyle, splitStyleProps, TEXT_INPUT_STYLE_SPEC } from '@88khp/vajra-ui-core';
+import { composeStyle, splitStyleProps, TEXT_INPUT_STYLE_SPEC } from '@88khp/vajra-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
 import { getTokenResolver, TEXT_INPUT_TOKEN_SPEC } from '../../utils/token-props';
 import { TTextInputInstance, TUiTextInputProps } from './text-input-types';

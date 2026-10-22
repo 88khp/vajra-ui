@@ -1,26 +1,25 @@
 /**
- * Benchmarks the render cost of vajra-ui's Box (styled, wraps
- * @88khp/vajra-ui-core's Box) against the headless CoreBox it wraps and
- * a raw React Native View, at scale.
+ * Benchmarks the mount cost of vajra-ui's token-aware Box against
+ * @88khp/vajra-core's headless Box and a raw React Native View, at scale.
+ * Since 3.0.0 both Boxes render View directly with core's cached style
+ * builder; vajra-ui's Box also resolves theme tokens.
  *
  * Run with: npx jest --config jest.config.js --testMatch '<rootDir>/scripts/*.bench.tsx' --verbose
- * Results feed docs/PERFORMANCE.md — regenerate that table if this file or
- * the underlying Box implementations change.
+ * Results feed docs/PERFORMANCE.md and the docs site's Performance page —
+ * regenerate both if this file or either Box changes.
  */
 import React from 'react';
 import TestRenderer, { act } from 'react-test-renderer';
 import { View } from 'react-native';
 
-import { Box as CoreBox } from '@88khp/vajra-ui-core';
+import { Box as CoreBox } from '@88khp/vajra-core';
 import { Box } from '../src/ui/core/box/box';
 import { VajraProvider } from '../src/ui/vajra-theme';
 
-// Capped at 10k: a screen with 10,000 simultaneous sibling nodes is already
-// an unrealistic stress case (a long scrollable form or dense list is a few
-// hundred to low thousands). Sizes beyond this land in a GC-pressure regime
-// where a single Node process mounting/unmounting huge trees repeatedly
-// produces noisy, non-representative numbers — not a real per-node cost.
-const COUNTS = [100, 1000, 5000, 10000];
+// 20,000 simultaneous sibling nodes is far past a real screen (a long form or
+// dense list is a few hundred to low thousands); it is a stress ceiling that
+// shows whether the per-node cost grows with tree size.
+const COUNTS = [100, 1000, 5000, 10000, 20000];
 const RUNS = 20;
 
 const median = (values: number[]): number => {
@@ -116,5 +115,5 @@ describe('Box layering benchmark', () => {
     // eslint-disable-next-line no-console
     console.log('\n' + rows.join('\n') + '\n');
     expect(rows.length).toBe(COUNTS.length + 2);
-  }, 120000);
+  }, 600000);
 });

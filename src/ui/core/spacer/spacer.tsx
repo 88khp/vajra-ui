@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { View, ViewStyle } from 'react-native';
 
-import { BOX_STYLE_SPEC, splitStyleProps } from '@88khp/vajra-ui-core';
+import { BOX_STYLE_SPEC, splitStyleProps } from '@88khp/vajra-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
 import { TUiSpacerProps } from './spacer-types';
 

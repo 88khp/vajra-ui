@@ -81,7 +81,7 @@ module.exports = {
 
   overrides: [
     {
-      // Layer boundary: components must go through core, never straight to vajra-ui-core
+      // Layer boundary: components must go through core, never straight to vajra-core
       files: ['src/ui/components/**/*.{ts,tsx}'],
       rules: {
         'no-restricted-imports': [
@@ -89,8 +89,8 @@ module.exports = {
           {
             paths: [
               {
-                name: '@88khp/vajra-ui-core',
-                message: 'components/* must not import @88khp/vajra-ui-core directly — go through src/ui/core instead.',
+                name: '@88khp/vajra-core',
+                message: 'components/* must not import @88khp/vajra-core directly — go through src/ui/core instead.',
               },
             ],
           },

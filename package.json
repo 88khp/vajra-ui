@@ -54,15 +54,20 @@
   "homepage": "https://github.com/88khp/vajra-ui#readme",
   "license": "MIT",
   "peerDependencies": {
-    "@88khp/vajra-ui-core": "3.0.0",
-    "@devraj-labs/vajra-ui-icons": "0.2.0",
+    "@88khp/vajra-core": "3.0.0",
+    "@88khp/vajra-icons": ">=0.3.0",
     "react": ">=18.0.0",
     "react-native": ">=0.73.0",
     "react-native-safe-area-context": ">=4.8.0"
   },
+  "peerDependenciesMeta": {
+    "@88khp/vajra-icons": {
+      "optional": true
+    }
+  },
   "devDependencies": {
-    "@88khp/vajra-ui-core": "3.0.0",
-    "@devraj-labs/vajra-ui-icons": "0.2.0",
+    "@88khp/vajra-core": "3.0.0",
+    "@88khp/vajra-icons": "0.3.0",
     "@react-native/babel-preset": "0.84.1",
     "@testing-library/react-native": "13.3.3",
     "@types/jest": "^29.5.13",

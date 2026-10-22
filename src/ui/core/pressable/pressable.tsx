@@ -6,7 +6,7 @@ import {
   getPressableStyle,
   PRESSABLE_STYLE_SPEC,
   splitStyleProps,
-} from '@88khp/vajra-ui-core';
+} from '@88khp/vajra-core';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
 import { BOX_TOKEN_SPEC, getTokenResolver } from '../../utils/token-props';
 import { TUiPressableProps } from './pressable-types';
