@@ -8,15 +8,17 @@ The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. 
 
 ### Changed
 
-- The core peer dependency is now `@88khp/vajra-ui-core@3.0.0`.
+- **Breaking:** the core package is renamed to `@88khp/vajra-core`, and the core peer dependency is now `@88khp/vajra-core@3.0.0`. Install it and remove `@88khp/vajra-ui-core`.
+- The icons package is renamed to `@88khp/vajra-icons`, and it is now an optional peer dependency (`>=0.3.0`). Apps that don't install it build and run: `Alert` and `Toast` show text glyphs (✓ ! ⚠︎ i, and ✕ to dismiss) in place of its icons. Icons you pass yourself through `icon` or `dismissIcon` work either way.
 
 ### Fixed
 
+- Installing without the icons package no longer breaks the build. `Alert` and `Toast` imported it statically, so Metro failed to resolve it even in apps that never rendered them.
 - The package no longer ships compiled tests. `tsconfig.build.json` excludes `*.test.ts` and `*.test.tsx`, and `build` clears `dist` first, so files from earlier builds are not published either. 3.0.0-alpha.1 shipped 94 test files.
 
 ### Performance
 
-- The runtime code is the same as 3.0.0-alpha.1: every built file is byte-identical. Against other React Native styling libraries, in one run with every library rendering the same card, 3.0.0 is level with twrnc on variant switches and within 7% of hand-written `StyleSheet`, 15% faster than styled-components, 2.2–2.6× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 13–30% behind styled-components, twrnc and `StyleSheet`. Against 3.0.0-alpha.0 it is 9–11% faster on every update scenario. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md).
+- The styling code path (`Box`, `Text`, `Pressable`, `TextInput` and core's style builder) is the same as in 3.0.0-alpha.1, which the benchmark measured; only the core import name changed. Against other React Native styling libraries, in one run with every library rendering the same card, 3.0.0 is level with twrnc on variant switches and within 7% of hand-written `StyleSheet`, 15% faster than styled-components, 2.2–2.6× faster than NativeWind and 4–8× faster than Tamagui with its compiler on. Theme switching is 13–30% behind styled-components, twrnc and `StyleSheet`. Against 3.0.0-alpha.0 it is 9–11% faster on every update scenario. See [benchmarks/styling/RESULTS.md](benchmarks/styling/RESULTS.md).
 
 ### Benchmarks
 
@@ -49,8 +51,8 @@ The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. 
 
 ### Changed
 
-- **Breaking:** the package is renamed from `@devraj-labs/vajra-ui` to `@88khp/vajra-ui`. Update the dependency and every import. The repository and docs site moved to `github.com/88khp/vajra-ui` and `88khp.github.io/vajra-ui`.
-- **Breaking:** the core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.0` (renamed from `@devraj-labs/vajra-ui-core`). Install it alongside `@devraj-labs/vajra-ui` and remove the old package.
+- **Breaking:** the package moved to the `@88khp` scope as `@88khp/vajra-ui`. Update the dependency and every import. The repository and docs site moved to `github.com/88khp/vajra-ui` and `88khp.github.io/vajra-ui`.
+- **Breaking:** the core peer dependency is now `@88khp/vajra-ui-core@3.0.0-alpha.0`, which moved to the `@88khp` scope too. Install it alongside `@88khp/vajra-ui` and remove the old package.
 - **Breaking:** `Pressable` is built on React Native `Pressable` instead of `TouchableOpacity`, through core's `CorePressable`. `TouchableOpacity`-only props such as `delayPressIn` are no longer accepted. Press feedback is an instant opacity change to `activeOpacity` (default `0.2`, pass `1` to turn it off) instead of a fade.
 - `AbsoluteCenter` builds its fill from Box props instead of an inline style, so passing `top`, `left`, `right` or `bottom` now overrides the fill.
 - `Box`, `Pressable`, `Row`, `Col`, `Center`, `AbsoluteCenter`, `AbsoluteView`, `Grid.Root` and `Grid.Item` are no longer wrapped in `memo`. They take children, which are new elements on every parent render, so the comparison never skipped a render.
@@ -90,9 +92,9 @@ The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. 
 - `AlertProvider` / `useAlert()` — a global, stacked notification-list provider for `Alert`, mirroring `ToastProvider`'s API (`show()`/`hide()`, queued overflow, top/bottom anchoring). Alerts stay visible until dismissed by default (no auto-dismiss timer), unlike Toast.
 - `ToastProvider` now stacks up to `maxVisible` toasts on screen simultaneously (previously only one toast was ever visible at a time, with the rest queued behind it) — each toast animates and auto-dismisses independently.
 - `maxVisible` prop on `ToastProvider` and `AlertProvider`, and a matching `toast.maxVisible` / `alert.maxVisible` theme default (3) in `defaultVajraTheme`, overridable via `createVajraTheme({ toast: { maxVisible }, alert: { maxVisible } })`.
-- `Toast` and `Alert` now show a default icon per variant (`success`/`error`/`warning`/`info`) from `@devraj-labs/vajra-ui-icons` automatically — pass `icon` to override it, or `null` to render none.
+- `Toast` and `Alert` now show a default icon per variant (`success`/`error`/`warning`/`info`) from the Vajra icons package automatically — pass `icon` to override it, or `null` to render none.
 - `Toast` gained an optional `dismissible` flag (and `Alert`'s existing `onDismiss` dismiss button now defaults to `XIcon`) rendering a proper dismiss button with a real touch target (`hitSlop` + padding), replacing the old plain "✕" text glyph.
-- `@devraj-labs/vajra-ui-icons` added as a dependency — the first consumer of the sibling icons package.
+- The Vajra icons package added as a dependency — the first consumer of the sibling icons package.
 
 ### Fixed
 
@@ -105,7 +107,7 @@ First stable release. Two phases of work: hardening the foundation (testing, CI,
 
 ### Added — Foundation & Trust
 
-- ESLint rule enforcing the layer boundary described in the README: `src/ui/components/**` can no longer import `@devraj-labs/vajra-ui-core` directly and must go through `src/ui/core`.
+- ESLint rule enforcing the layer boundary described in the README: `src/ui/components/**` can no longer import the core package directly and must go through `src/ui/core`.
 - Two more ESLint layer-boundary rules: `src/ui/core/**` can no longer import from `src/ui/components/**` (prevents layer inversion), and nothing outside `src/ui/vajra-theme/**` may import `src/theme/**` directly (it's internal plumbing — use `useVajraTheme`/`VajraProvider` instead).
 - Jest + React Native Testing Library at the root package — the library itself had zero test coverage before this release.
 - CI (`.github/workflows/ci.yml`): typecheck/lint/test/build the library on every PR, a typecheck of `examples/app` against the local package to catch breaking API changes, and a verification that the built `dist/` output is actually importable the way a real consumer would (`scripts/verify-dist.sh` — packs the tarball, installs it fresh, typechecks a real import against it).
@@ -145,7 +147,7 @@ Fifteen new components, closing the gap with other RN component libraries on rea
 
 ### Removed
 
-- Deleted the stray, empty top-level `src/core/` directory, a leftover from when headless primitives were extracted into the separate `@devraj-labs/vajra-ui-core` package.
+- Deleted the stray, empty top-level `src/core/` directory, a leftover from when headless primitives were extracted into the separate core package.
 
 ## [0.5.3] - 2026-05-06
 
