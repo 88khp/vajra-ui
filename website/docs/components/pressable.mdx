@@ -7,7 +7,7 @@ sidebar_position: 3
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
 import { Pressable, Text, Row, Col, Avatar } from 'vajra-ui';
-import { ChevronRightIcon, HeartIcon, XIcon } from '@devraj-labs/vajra-ui-icons';
+import { ChevronRightIcon, HeartIcon, XIcon } from '@88khp/vajra-icons';
 
 # Pressable
 
@@ -36,7 +36,7 @@ A touchable Box. It accepts every Box styling prop plus touch handlers, so it ca
 </ComponentPreview>
 
 ```tsx
-import { ChevronRightIcon } from '@devraj-labs/vajra-ui-icons';
+import { ChevronRightIcon } from '@88khp/vajra-icons';
 
 <Pressable bg="surface" rounded="r-3" p="s-4" onPress={() => {}}>
   <Row justify="space-between" align="center">
@@ -71,7 +71,7 @@ Wrapping a bare icon, sized and centered, is how `IconButton` is built internall
 </ComponentPreview>
 
 ```tsx
-import { XIcon } from '@devraj-labs/vajra-ui-icons';
+import { XIcon } from '@88khp/vajra-icons';
 
 <Pressable w={40} h={40} rounded="r-2" align="center" justify="center" onPress={() => {}}>
   <XIcon size={18} />
@@ -121,7 +121,7 @@ Two independent Pressables inside one row, each with its own hit area.
 </ComponentPreview>
 
 ```tsx
-import { HeartIcon } from '@devraj-labs/vajra-ui-icons';
+import { HeartIcon } from '@88khp/vajra-icons';
 
 <Row gap="s-4" align="center">
   <Pressable onPress={() => {}}>

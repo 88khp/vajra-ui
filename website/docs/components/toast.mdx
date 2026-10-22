@@ -11,7 +11,7 @@ import React from 'react';
 
 # Toast
 
-A stacked, auto-dismissing message anchored to the top or bottom of the screen. Wrap your app in `ToastProvider`, then call `useToast().show(...)` from anywhere inside it. Each variant (`success`/`error`/`warning`/`info`) shows a default icon from `@devraj-labs/vajra-ui-icons` automatically — pass `icon` to override it, or `null` to hide it. Pass `dismissible: true` to show a close button.
+A stacked, auto-dismissing message anchored to the top or bottom of the screen. Wrap your app in `ToastProvider`, then call `useToast().show(...)` from anywhere inside it. Each variant (`success`/`error`/`warning`/`info`) shows a default icon automatically: the matching icon from `@88khp/vajra-icons` when it's installed, otherwise a text glyph (✓, !, ⚠︎, i). Pass `icon` to override it, or `null` to hide it. Pass `dismissible: true` to show a close button.
 
 Up to `maxVisible` toasts (default **3**, set via the theme's `toast.maxVisible` or the `maxVisible` prop) stack on screen at once, newest closest to the anchored edge. Extra `show()` calls stay queued and appear automatically as visible toasts are dismissed.
 

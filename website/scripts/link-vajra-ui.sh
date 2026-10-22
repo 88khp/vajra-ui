@@ -28,13 +28,13 @@ else
   echo "Linked website/node_modules/vajra-ui -> repo root"
 fi
 
-# vajra-ui-core is a separately published package, normally installed from
+# vajra-core is a separately published package, normally installed from
 # npm (see package.json). While iterating locally before a publish, link it
-# to the sibling vajra-ui-core checkout instead so fixes there are visible
+# to the sibling vajra-core checkout instead so fixes there are visible
 # in the docs site without needing a real npm publish first. Safe to symlink
-# directly (not the relative-path trick above) since vajra-ui-core lives
+# directly (not the relative-path trick above) since vajra-core lives
 # outside this repo — no self-nesting risk.
-CORE_LINK_PATH="$WEBSITE_DIR/node_modules/@88khp/vajra-ui-core"
+CORE_LINK_PATH="$WEBSITE_DIR/node_modules/@88khp/vajra-core"
 CORE_TARGET="/Users/rishavjha/Desktop/vajra-ui-core"
 
 if [ -d "$CORE_TARGET" ]; then
@@ -42,22 +42,22 @@ if [ -d "$CORE_TARGET" ]; then
   if [ ! -L "$CORE_LINK_PATH" ] || [ "$(readlink "$CORE_LINK_PATH")" != "$CORE_TARGET" ]; then
     rm -rf "$CORE_LINK_PATH"
     ln -s "$CORE_TARGET" "$CORE_LINK_PATH"
-    echo "Linked website/node_modules/@88khp/vajra-ui-core -> $CORE_TARGET"
+    echo "Linked website/node_modules/@88khp/vajra-core -> $CORE_TARGET"
   fi
 fi
 
-# Same local-iteration reasoning as vajra-ui-core above: link the sibling
-# vajra-ui-icons checkout instead of the npm-published copy so fixes there
+# Same local-iteration reasoning as vajra-core above: link the sibling
+# vajra-icons checkout instead of the npm-published copy so fixes there
 # (e.g. its package.json "exports" map) are visible here without needing a
 # real npm publish first.
-ICONS_LINK_PATH="$WEBSITE_DIR/node_modules/@devraj-labs/vajra-ui-icons"
+ICONS_LINK_PATH="$WEBSITE_DIR/node_modules/@88khp/vajra-icons"
 ICONS_TARGET="/Users/rishavjha/Desktop/vajra-ui-icons"
 
 if [ -d "$ICONS_TARGET" ]; then
-  mkdir -p "$WEBSITE_DIR/node_modules/@devraj-labs"
+  mkdir -p "$WEBSITE_DIR/node_modules/@88khp"
   if [ ! -L "$ICONS_LINK_PATH" ] || [ "$(readlink "$ICONS_LINK_PATH")" != "$ICONS_TARGET" ]; then
     rm -rf "$ICONS_LINK_PATH"
     ln -s "$ICONS_TARGET" "$ICONS_LINK_PATH"
-    echo "Linked website/node_modules/@devraj-labs/vajra-ui-icons -> $ICONS_TARGET"
+    echo "Linked website/node_modules/@88khp/vajra-icons -> $ICONS_TARGET"
   fi
 fi

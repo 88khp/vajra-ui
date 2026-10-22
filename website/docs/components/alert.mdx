@@ -7,11 +7,11 @@ sidebar_position: 24
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
 import { Alert, AlertProvider, useAlert, Col, Button } from 'vajra-ui';
-import { InfoIcon, XIcon } from '@devraj-labs/vajra-ui-icons';
+import { InfoIcon, XIcon } from '@88khp/vajra-icons';
 
 # Alert
 
-An inline banner for surfacing status messages, with five semantic variants and an optional dismiss action. Each variant (`success`/`error`/`warning`/`info`) shows a default icon from `@devraj-labs/vajra-ui-icons` automatically — pass `icon` to override it, or `null` to hide it.
+An inline banner for surfacing status messages, with five semantic variants and an optional dismiss action. Each variant (`success`/`error`/`warning`/`info`) shows a default icon automatically: the matching icon from `@88khp/vajra-icons` when it's installed, otherwise a text glyph (✓, !, ⚠︎, i). Pass `icon` to override it, or `null` to hide it.
 
 Use the bare `<Alert />` component to render a single banner inline wherever you place it. For a global, stacked notification list (e.g. showing several alerts triggered from anywhere in the app), wrap your app in `AlertProvider` and call `useAlert().show(...)` instead — see [Stacked alerts](#stacked-alerts) below.
 
@@ -76,7 +76,7 @@ Use the bare `<Alert />` component to render a single banner inline wherever you
 </ComponentPreview>
 
 ```tsx
-import { InfoIcon, XIcon } from '@devraj-labs/vajra-ui-icons';
+import { InfoIcon, XIcon } from '@88khp/vajra-icons';
 
 <Alert
   variant="info"
