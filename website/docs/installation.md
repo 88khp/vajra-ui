@@ -9,22 +9,45 @@ sidebar_position: 2
 ## Install
 
 ```sh
-npm install @88khp/vajra-ui @88khp/vajra-ui-core
+npm install @88khp/vajra-ui @88khp/vajra-core react-native-safe-area-context
+# or
+yarn add @88khp/vajra-ui @88khp/vajra-core react-native-safe-area-context
 ```
 
-`@88khp/vajra-ui-core` (formerly `@devraj-labs/vajra-ui-core`) is a required peer dependency: the headless, unstyled primitives that `@88khp/vajra-ui` builds its token-aware components on top of.
+There is no Babel plugin, Metro config or CSS file to set up.
 
-### Peer dependencies
+| Package | Version | Required | What it is |
+|---|---|---|---|
+| `@88khp/vajra-ui` | `3.0.0` | Yes | The design system: token-aware components, the theme and `VajraProvider`. |
+| `@88khp/vajra-core` | `3.0.0` | Yes | The headless, unstyled primitives `@88khp/vajra-ui` is built on. |
+| `react-native-safe-area-context` | `>=4.8.0` | Yes | Safe-area insets for screen-level components such as `AppBar.Header`. |
+| `react` | `>=18.0.0` | Yes | Already in your app. |
+| `react-native` | `>=0.73.0` | Yes | Already in your app. |
+| `@88khp/vajra-icons` | `>=0.3.0` | No | Default icons for `Alert` and `Toast`. See [Icons](#icons-optional). |
+
+## Icons (optional)
+
+Vajra UI works without an icon package. Components that show an icon you choose, such as
+`IconButton`, `Badge`, `IconBox` or `AppBar.IconButton`, accept any component that matches
+`TVajraIconComponent`, so you can use the icon set your app already has.
+
+`@88khp/vajra-icons` adds polished default icons for the two components that pick their own:
+
+| | With `@88khp/vajra-icons` | Without it |
+|---|---|---|
+| `Alert` and `Toast` variant icons | Lucide icons: check circle, alert circle, alert triangle, info | Text glyphs in the variant color: ✓ ! ⚠︎ i |
+| `Alert` and `Toast` dismiss button | Lucide `XIcon` | A ✕ glyph |
+| Everything else | Unchanged | Unchanged |
+
+To install it, add the package and its two peer dependencies:
 
 ```sh
-npm install react react-native react-native-safe-area-context
+npm install @88khp/vajra-icons lucide-react-native react-native-svg
 ```
 
-| Package | Minimum version |
-|---|---|
-| `react` | `>=18.0.0` |
-| `react-native` | `>=0.73.0` |
-| `react-native-safe-area-context` | `>=4.8.0` |
+On Expo, install `react-native-svg` with `npx expo install react-native-svg` so it matches your
+SDK. Vajra UI picks the icons up automatically, with no extra setup. Any icon you pass yourself,
+through `icon` or `dismissIcon`, is used whether the package is installed or not.
 
 ## Wrap your app
 
