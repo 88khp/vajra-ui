@@ -17,7 +17,7 @@ scenarios are the total of 12 updates. Lower is faster.
 |---|---|---|---|---|
 | StyleSheet (hand-written baseline) | 12 | 96 | 90.5 | 93 |
 | twrnc 4.16.0 | 13 | 102.5 | 96 | 99.5 |
-| **Vajra UI 3.0** | **16** | **103** | **117.5** | **134.5** |
+| **Vajra UI 3.0.0** | **16** | **103** | **117.5** | **134.5** |
 | styled-components 6.6.0 | 15 | 121 | 104 | 121 |
 | NativeWind 4.2.7 | 29 | 248.5 | 305.5 | 299 |
 | Tamagui 3.1.2, compiled | 57.5 | 432 | 643.5 | 1,051 |
@@ -32,8 +32,82 @@ scenarios are the total of 12 updates. Lower is faster.
   Every `Box`, `Text` and `Pressable` follows the theme on its own, so a theme change re-renders
   each of them. In twrnc only the card re-renders.
 
-3.0 is 9–11% faster than 3.0.0-alpha.0 on every update scenario, with both versions in the same
-run.
+> [!NOTE]
+> **In a real app**
+>
+> - **This is a stress test.** Each trial re-styles 100 cards 12 times. A real screen changes a few
+>   dozen elements per interaction, so any of the top four libraries handles one change in well
+>   under a frame.
+> - **The numbers are relative, not absolute.** They come from React's development build on a desktop
+>   CPU. A release build on a phone has different absolute times. An earlier release-build run on
+>   the iOS simulator and Android emulator ranked the libraries the same way.
+> - **The gap matters most in long lists and on low-end Android phones**, where JavaScript time per
+>   frame is scarce. That is where NativeWind's and Tamagui's 2–8× costs become visible.
+
+### Per-update latency
+
+Per single update, median / p95 ms (600 updates per library per scenario):
+
+| Library | Variant switch | Theme switch | Theme + variant |
+|---|---|---|---|
+| StyleSheet | 7 / 26 | 7 / 11 | 7 / 12 |
+| twrnc | 8 / 27 | 8 / 11 | 8 / 12 |
+| **Vajra UI 3.0.0** | **8 / 12** | **9 / 28** | **11 / 21** |
+| styled-components | 10 / 15 | 8 / 13 | 10 / 14 |
+| NativeWind | 19 / 42 | 23 / 61 | 24 / 63 |
+| Tamagui, compiled | 33 / 57 | 46 / 78 | 79.5 / 132 |
+| Tamagui, runtime only | 32 / 57 | 54 / 89 | 88 / 141 |
+
+Vajra has the steadiest variant switches: its slowest updates take 12 ms, less than half of
+StyleSheet's and twrnc's. Its theme switches have a longer tail, 28 ms against 11–13 ms.
+
+> [!NOTE]
+> **In a real app**
+>
+> - **A frame is 16.7 ms at 60 Hz, 8.3 ms at 120 Hz.** An update that takes longer drops a frame.
+> - **Variant switches are the everyday case**: a tab, a toggle, a selected item. In this test,
+>   Vajra's slow updates of a 100-card list (p95 12 ms) fit inside one 60 Hz frame, while
+>   StyleSheet's and twrnc's (26–27 ms) don't. Read it as a ratio, since device times differ.
+> - **Theme switches are rare**, usually one tap in settings. Vajra's 28 ms tail there means at most
+>   one or two dropped frames at the moment the user switches to dark mode.
+
+### Mount time and memory
+
+| Library | Median | p95 | JS heap after mount |
+|---|---|---|---|
+| StyleSheet | 12 ms | 34 ms | 4.7 MB |
+| twrnc | 13 ms | 35 ms | 4.7 MB |
+| **Vajra UI 3.0.0** | **16 ms** | **19 ms** | **5.9 MB** |
+| styled-components | 15 ms | 18 ms | 6.1 MB |
+| NativeWind | 29 ms | 31 ms | 11.8 MB |
+| Tamagui, compiled | 57.5 ms | 104 ms | 14.9 MB |
+| Tamagui, runtime only | 68 ms | 112 ms | 16.5 MB |
+
+> [!NOTE]
+> **In a real app**
+>
+> - **Mount cost is paid once, when a screen opens.** A `FlatList` renders about 10–20 rows at
+>   first, so the 4 ms gap per 100 cards to StyleSheet comes to about 1 ms on a typical screen.
+> - **Memory differences under 2 MB per 100 cards don't matter on a modern phone.** NativeWind and
+>   Tamagui use 2–3× Vajra's memory, which adds up in long lists kept mounted, such as feeds and
+>   chats.
+
+### Re-render work
+
+On a variant switch, Vajra updates 601 of the 1,001 host nodes in the list, against 1,001 for
+StyleSheet, twrnc, styled-components and NativeWind. Styles are cached by the tokens you pass, so
+an element whose style didn't change keeps the same props object and React Native has nothing to
+update. Every library commits once per update (Tamagui twice on theme changes), and a parent
+re-render that changes nothing re-renders only the changed element, in under 1 ms, in all of them.
+
+> [!NOTE]
+> **In a real app**
+>
+> - **Fewer host-node updates means less native work.** Every host node with new props goes through
+>   React Native's diff and commit on the native side, which these JavaScript timings don't include.
+>   Vajra's 40% fewer updates on variant switches save work there too.
+> - **Unrelated re-renders are free in every library** as long as components get stable props.
+>   Pass memoized callbacks and objects to keep it that way.
 
 **How it was measured.** Each library renders the same card, and a parity suite checks that the
 rendered host trees, styles, copy and accessibility labels are identical. Each library is used as
@@ -44,23 +118,51 @@ library per scenario, medians with 95% bootstrap confidence intervals.
 These are JavaScript-side timings under Jest (Apple M4, Node 24, React 19.2, React Native 0.84),
 not frame times on a phone. They include React render and commit, not native layout or drawing.
 
-## The cost of the token layer
+> [!NOTE]
+> **Important to know**
+>
+> - **Run it yourself.** The harness, every library's card, the raw samples and the statistics are in
+>   the repository. Absolute times depend on the machine. The ranking in one run is what should hold.
+> - **The Vajra team wrote every library's card.** Parity proves they all render the same thing, not
+>   that each one is the fastest way to write it. Improvements from each library's maintainers are
+>   welcome.
+> - **Not measured yet:** release builds on physical phones, `FlatList` scrolling, bundle size and
+>   Unistyles, which needs its native runtime.
 
-`Box` resolves tokens and renders React Native's `View` directly, with core's cached style
-builder. [`scripts/bench-box-layers.bench.tsx`](../scripts/bench-box-layers.bench.tsx) mounts trees
-of 100 to 10,000 sibling nodes as raw `View`, as `@88khp/vajra-ui-core`'s `Box` and as
-`vajra-ui`'s `Box`, and takes the median of 20 runs each, after a warm-up.
+## Does it scale?
 
-| Tree size | Raw View (median ms) | CoreBox (median ms) | Box (median ms) | Box vs View overhead |
+How the cost per node holds up as trees grow, measured on `@88khp/vajra-ui` 3.0.0 and
+`@88khp/vajra-core` 3.0.0. Both packages' `Box` render React Native's `View` directly with core's
+cached style builder; `vajra-ui`'s `Box` also resolves theme tokens (`p="s-2" rounded="r-1"
+bg="surface"`). [`scripts/bench-box-layers.bench.tsx`](../scripts/bench-box-layers.bench.tsx) mounts
+100 to 20,000 sibling nodes of each, plus a raw `View`, and takes the median of 20 runs after a
+warm-up.
+
+| Tree size | Raw View | vajra-core `Box` | vajra-ui `Box` | vajra-ui `Box` overhead vs View |
 |---|---|---|---|---|
-| 100 | 1.00 | 1.00 | 1.00 | +0.00 ms total, 0.00 µs/node |
-| 1,000 | 6.00 | 8.00 | 9.00 | +3.00 ms total, 3.00 µs/node |
-| 5,000 | 34.00 | 50.50 | 48.00 | +14.00 ms total, 2.80 µs/node |
-| 10,000 | 70.00 | 99.50 | 103.00 | +33.00 ms total, 3.30 µs/node |
+| 100 | 1.0 ms | 1.0 ms | 1.0 ms | +0 ms, 0 µs per node |
+| 1,000 | 6.0 ms | 8.0 ms | 8.0 ms | +2 ms, 2.0 µs per node |
+| 5,000 | 34.0 ms | 47.0 ms | 47.5 ms | +13.5 ms, 2.7 µs per node |
+| 10,000 | 69.5 ms | 98.0 ms | 99.5 ms | +30 ms, 3.0 µs per node |
+| 20,000 | 162.0 ms | 221.5 ms | 282.0 ms | +120 ms, 6.0 µs per node |
 
-A token-styled `Box` costs about **3 µs per node** over a raw `View`, and that stays flat from
-1,000 to 10,000 nodes. A dense screen with 300 styled nodes spends about 1 ms on it, once, at mount.
-Measured on 3.0. Sizes past 10,000 are left out: there, Node's garbage collection dominates.
+- **Flat from 1,000 to 10,000 nodes.** The token-aware `Box` costs 2–3 µs per node over a raw
+  `View`, the same as the headless `Box`: resolving theme tokens is effectively free once styles
+  are cached.
+- **At 20,000 nodes the overhead rises to 5–6 µs per node** (6.0 and 5.2 µs in two runs). A raw
+  `View`'s own cost per node grows there too, from 7.0 to 8.1 µs, as the heap gets large. No real
+  screen mounts 20,000 nodes at once; it is a stress ceiling.
+- **In practice:** a dense screen with 300 styled nodes spends under 1 ms on the token layer, once,
+  at mount.
+
+> [!NOTE]
+> **In a real app**
+>
+> - **Real screens mount hundreds of nodes, not tens of thousands.** `FlatList` virtualizes long
+>   lists, so even a feed of thousands of items mounts only the rows on screen.
+> - **Up to 10,000 nodes the token layer costs a flat 2–3 µs per node**, the same as the headless
+>   `Box`. A screen with 300 styled nodes spends under 1 ms on it.
+> - **20,000 nodes is a stress ceiling.** The overhead doubles there, but no real screen gets there.
 
 Reproduce it from the repository root:
 

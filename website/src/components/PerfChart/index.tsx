@@ -11,12 +11,14 @@ type TDataPoint = {
   box: number;
 };
 
-// Median mount time (ms) from scripts/bench-box-layers.bench.tsx, measured on 3.0.
+// Median mount time (ms) from scripts/bench-box-layers.bench.tsx, measured on
+// @88khp/vajra-ui 3.0.0 and @88khp/vajra-core 3.0.0.
 const ABSOLUTE_DATA: TDataPoint[] = [
   { treeSize: 100, view: 1.0, coreBox: 1.0, box: 1.0 },
-  { treeSize: 1000, view: 6.0, coreBox: 8.0, box: 9.0 },
-  { treeSize: 5000, view: 34.0, coreBox: 50.5, box: 48.0 },
-  { treeSize: 10000, view: 70.0, coreBox: 99.5, box: 103.0 },
+  { treeSize: 1000, view: 6.0, coreBox: 8.0, box: 8.0 },
+  { treeSize: 5000, view: 34.0, coreBox: 47.0, box: 47.5 },
+  { treeSize: 10000, view: 69.5, coreBox: 98.0, box: 99.5 },
+  { treeSize: 20000, view: 162.0, coreBox: 221.5, box: 282.0 },
 ];
 
 // Same runs, normalized to overhead per node (µs) vs Raw View — the number
@@ -30,8 +32,8 @@ const PER_NODE_DATA: TDataPoint[] = ABSOLUTE_DATA.map((d) => ({
 
 const SERIES: { key: TSeriesKey; label: string }[] = [
   { key: 'view', label: 'Raw View — react-native' },
-  { key: 'coreBox', label: 'CoreBox — @88khp/vajra-ui-core' },
-  { key: 'box', label: 'Box (styled) — vajra-ui' },
+  { key: 'coreBox', label: 'Box — @88khp/vajra-core 3.0.0 (headless)' },
+  { key: 'box', label: 'Box — @88khp/vajra-ui 3.0.0 (theme tokens)' },
 ];
 
 const PER_NODE_SERIES = SERIES.filter((s) => s.key !== 'view');
@@ -158,10 +160,10 @@ export default function PerfChart(): React.ReactElement {
       <BarChart
         data={ABSOLUTE_DATA}
         series={SERIES}
-        maxValue={120}
-        yTicks={[0, 30, 60, 90, 120]}
+        maxValue={300}
+        yTicks={[0, 75, 150, 225, 300]}
         valueSuffix="ms"
-        ariaLabel="Bar chart comparing median total mount time in milliseconds for Raw View, CoreBox, and styled Box across tree sizes of 100, 1000, 5000, and 10000 nodes. Values are listed in the table below the chart."
+        ariaLabel="Bar chart comparing median total mount time in milliseconds for a raw View, vajra-core's Box and vajra-ui's Box across tree sizes of 100, 1000, 5000, 10000 and 20000 nodes. Values are listed in the table below the chart."
       />
       <p className={styles.caption}>
         Median total mount time (ms) — grows with tree size because there's more work overall.
@@ -172,13 +174,14 @@ export default function PerfChart(): React.ReactElement {
       <BarChart
         data={PER_NODE_DATA}
         series={PER_NODE_SERIES}
-        maxValue={4}
-        yTicks={[0, 1, 2, 3, 4]}
+        maxValue={8}
+        yTicks={[0, 2, 4, 6, 8]}
         valueSuffix="µs"
-        ariaLabel="Bar chart comparing per-node overhead in microseconds for CoreBox and styled Box relative to Raw View, across tree sizes of 100, 1000, 5000, and 10000 nodes. The overhead stays at or below about 3 microseconds per node regardless of tree size. Values are listed in the table below the chart."
+        ariaLabel="Bar chart comparing per-node overhead in microseconds for vajra-core's Box and vajra-ui's Box relative to a raw View, across tree sizes of 100, 1000, 5000, 10000 and 20000 nodes. The overhead stays at 2 to 3 microseconds per node up to 10000 nodes and rises to 6 for vajra-ui's Box at 20000. Values are listed in the table below the chart."
       />
       <p className={styles.caption}>
-        This is the number that actually answers "does the wrapper cost scale?" — it doesn't.
+        Flat at 2–3 µs per node up to 10,000 nodes. At 20,000 it rises to 6 µs for the token-aware
+        Box, where a raw View's own cost per node grows too.
       </p>
 
       <p className={styles.caption}>
