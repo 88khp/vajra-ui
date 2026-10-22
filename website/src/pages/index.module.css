@@ -24,8 +24,15 @@
   -webkit-text-fill-color: transparent;
 }
 
+.heroLead {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 auto 0.75rem;
+}
+
 .heroBanner :global(.hero__subtitle) {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   max-width: 640px;
   margin: 0 auto;
   opacity: 0.85;
@@ -37,6 +44,9 @@
   }
   .heroBanner :global(.hero__title) {
     font-size: 2.25rem;
+  }
+  .heroLead {
+    font-size: 1.35rem;
   }
 }
 

@@ -6,7 +6,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 
 const config: Config = {
   title: 'Vajra UI',
-  tagline: 'A minimal, token-driven React Native component library',
+  tagline: 'Design tokens, not class strings. A typed React Native design system with 40+ components, free and MIT.',
   favicon: 'img/favicon.ico',
 
   // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
@@ -128,7 +128,7 @@ const config: Config = {
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} Devraj Labs. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} 88khp. Built with Docusaurus.`,
     },
     prism: {
       theme: prismThemes.github,

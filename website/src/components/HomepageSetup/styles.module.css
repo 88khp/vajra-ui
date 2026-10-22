@@ -1,0 +1,73 @@
+.section {
+  padding: 4rem 0 5rem;
+}
+
+.intro {
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.title {
+  font-size: 2rem;
+  letter-spacing: -0.01em;
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  font-size: 1.05rem;
+  opacity: 0.85;
+  margin: 0;
+}
+
+.steps {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.step {
+  padding: 1.25rem;
+  border-radius: 14px;
+  border: 1px solid var(--ifm-toc-border-color);
+  background: var(--ifm-background-surface-color, var(--ifm-color-emphasis-0));
+}
+
+.step :global(.theme-code-block) {
+  margin-bottom: 0;
+}
+
+.stepNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--ifm-background-color);
+  background: var(--ifm-color-primary);
+}
+
+.stepTitle {
+  margin: 0.75rem 0;
+}
+
+.more {
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 3rem 0 4rem;
+  }
+
+  .title {
+    font-size: 1.6rem;
+  }
+}

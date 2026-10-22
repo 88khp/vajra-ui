@@ -34,8 +34,8 @@ export default function HomepagePerformance(): ReactNode {
             Runtime tokens at hand-written speed
           </Heading>
           <p className={styles.lead}>
-            No compiler, no build step, live theme switching. Benchmarked against six React
-            Native styling libraries in one run, every one rendering the same card.
+            Benchmarked against six React Native styling libraries in one run, every one
+            rendering the same card with identical output.
           </p>
         </div>
 

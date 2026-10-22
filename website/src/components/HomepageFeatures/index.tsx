@@ -1,4 +1,5 @@
 import type {ReactNode} from 'react';
+import Link from '@docusaurus/Link';
 import Heading from '@theme/Heading';
 import styles from './styles.module.css';
 
@@ -10,24 +11,70 @@ type FeatureItem = {
 
 const FeatureList: FeatureItem[] = [
   {
-    icon: '🎯',
-    title: 'Token-first',
+    icon: '🧠',
+    title: 'Nothing new to learn',
     description: (
       <>
-        Every prop (<code>bg</code>, <code>p</code>, <code>rounded</code>,{' '}
-        <code>color</code>) maps to a design token, never a raw value — no magic
-        hex codes or pixel values scattered through your app.
+        Style with props: <code>bg="primary"</code>, <code>p="s-4"</code>,{' '}
+        <code>rounded="r-3"</code>. No class vocabulary to memorise, and every
+        prop maps to a React Native style, so what you write is what renders on
+        iOS and Android.
+      </>
+    ),
+  },
+  {
+    icon: '📦',
+    title: 'Components included',
+    description: (
+      <>
+        40+ components for real screens: Button, Input, Select, Modal, Sheet,
+        Toast, Tabs, Accordion and more. Build each one once, with{' '}
+        <code>createRecipe</code> for your own variants, instead of rebuilding
+        the same button from class strings on every screen.
+      </>
+    ),
+  },
+  {
+    icon: '🔌',
+    title: 'No build step',
+    description: (
+      <>
+        No Babel plugin, no Metro config, no CSS file, no compiler. Install
+        the package, wrap your app in <code>VajraProvider</code>, and start
+        building.
+      </>
+    ),
+  },
+  {
+    icon: '⚡',
+    title: 'Fast, with proof',
+    description: (
+      <>
+        Level with twrnc on variant switches, 2.2–2.6× faster than NativeWind
+        and 4–8× faster than Tamagui, in an open benchmark you can run
+        yourself. <Link to="/docs/performance">See the numbers</Link>.
+      </>
+    ),
+  },
+  {
+    icon: '🎯',
+    title: 'Typed end to end',
+    description: (
+      <>
+        Every token is a typed union, so <code>bg="primry"</code> fails at
+        compile time with <em>Did you mean "primary"?</em> Your own tokens get
+        the same autocomplete through module augmentation.
       </>
     ),
   },
   {
     icon: '🎨',
-    title: 'Themeable',
+    title: 'Your brand, live theming',
     description: (
       <>
-        Override colors, spacing, and border radii via{' '}
-        <code>createVajraTheme</code>, add your own tokens through TypeScript
-        module augmentation, and switch themes at runtime.
+        Override colors, spacing, radii and fonts with{' '}
+        <code>createVajraTheme</code>, and switch light and dark at runtime.
+        Every component follows the theme, with nothing passed down by hand.
       </>
     ),
   },
@@ -36,42 +83,29 @@ const FeatureList: FeatureItem[] = [
     title: 'Headless core',
     description: (
       <>
-        Opinionated components are built on top of unstyled, headless
-        primitives in <code>@88khp/vajra-ui-core</code> — use the
-        styled layer, or drop down for full control.
-      </>
-    ),
-  },
-  {
-    icon: '📦',
-    title: '40+ components',
-    description: (
-      <>
-        Layout, forms, navigation, overlays, and feedback — Modal, Sheet,
-        Toast, Select, Tabs, Accordion, and more, covering what a real app
-        screen actually needs.
-      </>
-    ),
-  },
-  {
-    icon: '⚡',
-    title: 'Live previews',
-    description: (
-      <>
-        Every component in these docs renders for real, in the browser, via
-        react-native-web — not a static screenshot or a code snippet you have
-        to imagine.
+        Every styled component sits on unstyled primitives in{' '}
+        <code>@88khp/vajra-core</code>. Use the design system, or drop down
+        a level for full control.
       </>
     ),
   },
   {
     icon: '✅',
-    title: 'Tested & typed',
+    title: 'Tested and previewed',
     description: (
       <>
-        Full test coverage with Jest and React Native Testing Library, typed
-        end-to-end token unions, and CI that verifies the published package
-        is actually importable.
+        Covered by Jest and React Native Testing Library, and every component
+        in these docs renders live in your browser through react-native-web.
+      </>
+    ),
+  },
+  {
+    icon: '🆓',
+    title: 'Free and MIT',
+    description: (
+      <>
+        Every component is MIT licensed and free to use in any project. There
+        is no Pro tier and nothing behind a paywall.
       </>
     ),
   },
@@ -95,6 +129,15 @@ export default function HomepageFeatures(): ReactNode {
   return (
     <section className={styles.features}>
       <div className="container">
+        <div className={styles.intro}>
+          <Heading as="h2" className={styles.title}>
+            A design system, not a styling dialect
+          </Heading>
+          <p className={styles.lead}>
+            Utility classes give you a vocabulary. Vajra gives you the components,
+            the tokens and the theme, typed and ready to ship.
+          </p>
+        </div>
         <div className="row">
           {FeatureList.map((props, idx) => (
             <Feature key={idx} {...props} />
