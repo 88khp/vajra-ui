@@ -30,6 +30,32 @@
 
 ---
 
+## Is it for you?
+
+### Why use it
+
+- You want a typed design system for React Native with components already built.
+- You want theming (colors, radii, fonts, light and dark) without a build step or a compiler.
+- You want token typos to fail at compile time, not show up as a wrong color on a device.
+
+### The problem it solves
+
+React Native styling usually means one of two things. Either you hand-write a `StyleSheet` per component and repeat the same spacing and color decisions everywhere, or you adopt a class-string or compiler-based setup that adds a build step and runtime cost. Vajra gives you tokens, components and theming as typed props, with nothing to configure first.
+
+### Who it's not for
+
+- Web projects. The package targets iOS and Android only.
+- Teams that want a fully custom look and no default components. Use `@88khp/vajra-core` for unstyled primitives instead.
+- Apps that want Tailwind-style class strings.
+
+### What it doesn't do
+
+- It doesn't ship navigation. It works with any navigation library.
+- It doesn't bundle icons. Use [`@88khp/vajra-icons`](https://github.com/88khp/vajra-icons) or your own icon components.
+- It doesn't fetch data or manage app state.
+
+---
+
 ## Why Vajra UI
 
 A design system, not a styling dialect. Utility classes give you a vocabulary; Vajra gives you the
