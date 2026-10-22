@@ -37,6 +37,7 @@
 - You want a typed design system for React Native with components already built.
 - You want theming (colors, radii, fonts, light and dark) without a build step or a compiler.
 - You want token typos to fail at compile time, not show up as a wrong color on a device.
+- You want styling through typed props: `bg`, `p` and `rounded` take token names, and each component declares which props it accepts. Styles resolve at runtime and are cached per prop set, with no build step or compiler.
 
 ### The problem it solves
 
