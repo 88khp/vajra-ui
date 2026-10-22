@@ -474,9 +474,9 @@ if (meta) {
     ['Node', meta.host.node],
     ['react / react-native / test-renderer', `${meta.versions.react} / ${meta.versions.reactNative} / ${meta.versions.reactTestRenderer}`],
     ['@88khp/vajra-ui', `${meta.versions.vajraUi}${src[0]?.resolved ? ' · ' + src[0].resolved : meta.vajraTarball ? ' · sha256 ' + meta.vajraTarball.sha256 : ''}`],
-    ['@88khp/vajra-ui-core', `${meta.versions.vajraUiCore}${src[1]?.resolved ? ' · ' + src[1].resolved : ''}`],
+    ['@88khp/vajra-core', `${meta.versions.vajraUiCore}${src[1]?.resolved ? ' · ' + src[1].resolved : ''}`],
     ...(src[2]?.resolved ? [['Previous @88khp/vajra-ui (as vajra-ui-prev)', `${meta.versions.vajraUiPrevious} · ${src[2].resolved}${src[2].integrity ? ' · ' + src[2].integrity : ''}`]] : []),
-    ...(src[3]?.resolved ? [['Previous @88khp/vajra-ui-core (as vajra-ui-core-prev)', `${meta.versions.vajraUiCorePrevious} · ${src[3].resolved}${src[3].integrity ? ' · ' + src[3].integrity : ''}`]] : []),
+    ...(src[3]?.resolved ? [['Previous @88khp/vajra-core (as vajra-core-prev)', `${meta.versions.vajraUiCorePrevious} · ${src[3].resolved}${src[3].integrity ? ' · ' + src[3].integrity : ''}`]] : []),
     ['styled-components / tamagui / nativewind / twrnc', `${meta.versions.styledComponents} / ${meta.versions.tamagui} / ${meta.versions.nativewind} / ${meta.versions.twrnc}`],
     ['Repository commit', `${meta.repo.commit} (${meta.repo.uncommittedPaths} uncommitted paths at run time)`],
   ];

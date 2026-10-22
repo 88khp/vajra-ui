@@ -30,8 +30,7 @@ project's dependencies, config, and tests are not changed.
 | styled-components 6.6.0 | yes | passes (6 of 6) | yes | `styled.View` / `$variant` transient props |
 | Unistyles 3.5.3 | yes | **skipped** | **not run** | Needs its Nitro and Reanimated native runtime. Requires a simulator or device build |
 
-Parity result at the time of writing: `55 passed, 1 skipped` (the skip is Unistyles), both
-with and without `BENCH_IMPL=vajra-prev`.
+Parity result at the time of writing: `55 passed, 1 skipped` (the skip is Unistyles).
 
 ## Setup
 
@@ -42,13 +41,13 @@ cd /path/to/vajra-ui/benchmarks/styling
 yarn install
 ```
 
-Vajra is installed as `@88khp/vajra-ui` and `@88khp/vajra-ui-core`, pinned to exact sources in
+Vajra is installed as `@88khp/vajra-ui` and `@88khp/vajra-core`, pinned to exact sources in
 `package.json`:
 
 - A **published** version is pinned to its npm version, with its integrity hash in `yarn.lock`.
 - A version that is **not published yet** is installed from a tarball made with `npm pack` in
   each repository and copied to `vendor/`. The file name carries the first 8 characters of the
-  tarball's SHA-1 (for example `88khp-vajra-ui-3.0.0-alpha.1-7b3a116e.tgz`), and `yarn.lock`
+  tarball's SHA-1 (for example `88khp-vajra-ui-3.1.0-7b3a116e.tgz`), and `yarn.lock`
   records the full SHA-1, so the tested build is identifiable. Yarn caches `file:` tarballs by
   path, so a rebuilt tarball must get a new file name, or Yarn installs the old one.
 
@@ -77,7 +76,7 @@ All commands run from `benchmarks/styling/`.
 | `yarn benchmark:report -- --smoke --platform ios` | Builds the report for a simulator or emulator run. `--platform` is `ios` or `android`. Drop `--smoke` for a full run. |
 | `yarn benchmark:report-card` | Builds the report-card dashboard, `results/report-card.html`, from the Jest, iOS, and Android full-run summaries, with a platform switch and each library's multiple of StyleSheet per platform. Run `benchmark:report` for each platform first. |
 | `yarn benchmark:smoke-card` | The same card for the smoke runs: `results/smoke/smoke-test.html`. |
-| `node scripts/run-benchmark.js --smoke --rounds 5 --trials 10 --warmup 3 --steps 12 --impls stylesheet,vajra,vajra-prev,twrnc,styled-components,nativewind,tamagui,tamagui-compiled` | The release comparison: two Vajra versions and every other library in the same run. Writes `results/smoke/`. Then run `yarn benchmark:report -- --smoke`. |
+| `node scripts/run-benchmark.js --smoke --rounds 5 --trials 10 --warmup 3 --steps 12 --impls stylesheet,vajra,twrnc,styled-components,nativewind,tamagui,tamagui-compiled` | The release comparison: every library in the same run. Add `vajra-prev` to compare two Vajra versions (see [Comparing two Vajra versions](#comparing-two-vajra-versions)). Writes `results/smoke/`. Then run `yarn benchmark:report -- --smoke`. |
 | `node scripts/compile-tamagui.js` | Rebuilds `implementations/tamagui-compiled/` with Tamagui's compiler. Run it after changing the Tamagui card or config. |
 | `node scripts/snapshot-tamagui-theme.js` | Rewrites `implementations/tamagui/theme-values.json` from Vajra's default theme. Run it after changing the Vajra version. |
 | `yarn tsc --noEmit -p tsconfig.json` | Type-checks all six implementations, the shared spec, and both harnesses. |
@@ -204,11 +203,12 @@ into the result: between two runs on the same day, StyleSheet's variant-switch t
 113 ms to 93 ms with no code change.
 
 - The earlier version is installed under aliases, for example
-  `yarn add "@88khp/vajra-ui-prev@npm:@88khp/vajra-ui@3.0.0-alpha.0" "@88khp/vajra-ui-core-prev@npm:@88khp/vajra-ui-core@3.0.0-alpha.0"`.
+  `yarn add "@88khp/vajra-ui-prev@npm:@88khp/vajra-ui@3.0.0" "@88khp/vajra-core-prev@npm:@88khp/vajra-core@3.0.0"`.
+  No earlier version is installed by default; add the aliases for an A/B run.
 - The `vajra-prev` implementation renders the **same card file** as `vajra`
   (`implementations/vajra/benchmark-card.tsx`). Only the package it imports differs.
 - Each implementation runs in its own Jest process. When `BENCH_IMPL=vajra-prev`,
-  `jest.config.js` maps `@88khp/vajra-ui` and `@88khp/vajra-ui-core` to the aliases, so the
+  `jest.config.js` maps `@88khp/vajra-ui` and `@88khp/vajra-core` to the aliases, so the
   earlier vajra-ui loads its own core and not the hoisted current one. Mixing the two would
   measure neither version.
 - The report adds `vsPrevious` to the `vajra` rows: the same bootstrap CI and verdict rule as

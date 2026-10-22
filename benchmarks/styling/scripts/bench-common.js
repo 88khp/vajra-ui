@@ -15,7 +15,7 @@ const ALL_IMPLS = ['stylesheet', 'vajra', 'nativewind', 'tamagui', 'tamagui-comp
 
 // The Vajra packages under test, installed from npm.
 const VAJRA_PKG = '@88khp/vajra-ui';
-const VAJRA_CORE_PKG = '@88khp/vajra-ui-core';
+const VAJRA_CORE_PKG = '@88khp/vajra-core';
 
 /** Parses `--key value` pairs. `--smoke` switches to the smoke defaults. `extra` adds string options. */
 const parseArgs = (argv, extra = {}) => {
@@ -121,7 +121,7 @@ const collectMeta = (opts, device) => ({
     vajraUiCore: readVersion(VAJRA_CORE_PKG),
     // The earlier version run as `vajra-prev`, when that alias is installed.
     vajraUiPrevious: readVersion('@88khp/vajra-ui-prev'),
-    vajraUiCorePrevious: readVersion('@88khp/vajra-ui-core-prev'),
+    vajraUiCorePrevious: readVersion('@88khp/vajra-core-prev'),
     styledComponents: readVersion('styled-components'),
     tamagui: readVersion('tamagui'),
     nativewind: readVersion('nativewind'),

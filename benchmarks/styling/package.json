@@ -15,11 +15,8 @@
     "benchmark:report-card": "node scripts/generate-report-card.js"
   },
   "dependencies": {
-    "@88khp/vajra-ui": "3.0.0-alpha.1",
-    "@88khp/vajra-ui-core": "3.0.0-alpha.1",
-    "@88khp/vajra-ui-core-prev": "npm:@88khp/vajra-ui-core@3.0.0-alpha.0",
-    "@88khp/vajra-ui-prev": "npm:@88khp/vajra-ui@3.0.0-alpha.0",
-    "@devraj-labs/vajra-ui-icons": "0.2.0",
+    "@88khp/vajra-core": "3.0.0",
+    "@88khp/vajra-ui": "3.0.0",
     "css-to-react-native": "3.2.0",
     "lucide-react-native": "^1.28.0",
     "nativewind": "4.2.7",
