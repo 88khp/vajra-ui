@@ -2,10 +2,15 @@
 # yarn lockfile v1
 
 
-"@88khp/vajra-ui-core@3.0.0":
+"@88khp/vajra-core@3.0.0":
   version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@88khp/vajra-ui-core/-/vajra-ui-core-3.0.0.tgz#9d086ee2e57fa68c3ac2cfe94c4833a5226917f1"
-  integrity sha512-VSf2HJzyr4+4Ur530IKNa95utIgZ5Kg4CBQsLsztt0guP9ssT/gPhrwC/PyTzny+Hii16iTBDz7sUqteV9jx4w==
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-core/-/vajra-core-3.0.0.tgz#35a9ffa9c00be5c2f229e53895720846846a1cc2"
+  integrity sha512-ZHIOPSz+1wjsumkOzwfniELwIPa7CSlpuQhkfowMcI8IY/ja2EEXLBU0oRGNrkVStmZgHsUUomyXNMAJMRmcqg==
+
+"@88khp/vajra-icons@0.3.0":
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/@88khp/vajra-icons/-/vajra-icons-0.3.0.tgz#f5d8310c20c47bb2f473a9f60dd4934f346357da"
+  integrity sha512-OAvgdhkNIxvGixt7BqGTzsQDUepFsJwcSulhX2y9+L8RpJmWL7kBrw3SVGkz/qJZ+QXZTAQchm2PsBpP3ryv/Q==
 
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13", "@babel/code-frame@^7.29.0", "@babel/code-frame@^7.29.7":
   version "7.29.7"
@@ -591,11 +596,6 @@
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
-
-"@devraj-labs/vajra-ui-icons@0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@devraj-labs/vajra-ui-icons/-/vajra-ui-icons-0.2.0.tgz#8bb20f7a48413ef7a0a79edc1d806fd29306f140"
-  integrity sha512-ct4skMW2bZd7g2SneHLAPiL9/GSxPp48KyYvvmfYL/cfQ0TjId8pszLGdNmROrjKdY6SG06h1zt4q3KF76q3aA==
 
 "@emnapi/core@^1.4.3":
   version "1.9.2"
