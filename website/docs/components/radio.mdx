@@ -79,6 +79,24 @@ function RadioExample() {
 ```
 </PreviewPair>
 
+## Sizes
+
+`size` on `Radio.Root` scales every item's indicator and dot.
+
+<PreviewPair>
+<ComponentPreview>
+  <Radio.Root value="lg" onChange={() => {}} size="lg">
+    <Radio.Item value="lg" label="Large" />
+  </Radio.Root>
+</ComponentPreview>
+
+```tsx
+<Radio.Root value={value} onChange={setValue} size="lg">
+  <Radio.Item value="a" label="Large" />
+</Radio.Root>
+```
+</PreviewPair>
+
 ## Props
 
 ### Radio.Root Props
@@ -89,6 +107,7 @@ function RadioExample() {
 | `onChange` | `(value: string) => void` | | Required. Called with the pressed item's value. |
 | `color` | `TVajraColors` | `'primary'` | Selected dot/border color token, applied to every item's indicator. |
 | `isDisabled` | `boolean` | `false` | Disables all items unless individually overridden. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Indicator and dot size, applied to every item. |
 | `children` | `ReactNode` | | Required. `Radio.Item` elements. |
 
 ### Radio.Item Props

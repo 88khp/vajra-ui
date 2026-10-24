@@ -1,0 +1,60 @@
+---
+id: pagination
+title: Pagination
+sidebar_position: 50
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Pagination } from 'vajra-ui';
+
+# Pagination
+
+A page-number control with previous/next buttons and a windowed page range (with ellipses) for large page counts.
+
+## Playground
+
+<Playground
+  controls={{
+    page: { type: 'select', label: 'Current page', options: ['1', '5', '10', '15', '20'], default: '10' },
+    pageCount: { type: 'select', label: 'Page count', options: ['5', '10', '20'], default: '20' },
+    siblingCount: { type: 'select', label: 'Siblings', options: ['0', '1', '2'], default: '1' },
+  }}
+  render={values => (
+    <Pagination
+      page={Number(values.page)}
+      pageCount={Number(values.pageCount)}
+      siblingCount={Number(values.siblingCount)}
+      onChange={() => {}}
+    />
+  )}
+  code={values =>
+    `<Pagination\n  page={${values.page}}\n  pageCount={${values.pageCount}}\n  siblingCount={${values.siblingCount}}\n  onChange={setPage}\n/>`
+  }
+/>
+
+## Small page count
+
+<PreviewPair>
+<ComponentPreview>
+  <Pagination page={2} pageCount={5} onChange={() => {}} />
+</ComponentPreview>
+
+```tsx
+<Pagination page={page} pageCount={5} onChange={setPage} />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `page` | `number` | | Required. Current page (1-indexed). |
+| `pageCount` | `number` | | Required. Total number of pages. |
+| `onChange` | `(page: number) => void` | | Required. Called with the pressed page number. |
+| `siblingCount` | `number` | `1` | How many page numbers to show around the current page. |
+| `activeColor` | `TVajraColors` | `'primary'` | Background of the current page's cell. |
+| `inactiveColor` | `TVajraColors` | `'text'` | Text/icon color of other cells and controls. |
+| `prevIcon` | `TVajraIconComponent` | | Previous-page icon. Defaults to a plain ‹ glyph. |
+| `nextIcon` | `TVajraIconComponent` | | Next-page icon. Defaults to a plain › glyph. |

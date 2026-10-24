@@ -80,6 +80,24 @@ function CheckboxExample() {
 ```
 </PreviewPair>
 
+## Sizes
+
+`size` on `Checkbox.Root` scales every item's indicator and check icon.
+
+<PreviewPair>
+<ComponentPreview>
+  <Checkbox.Root values={['xs', 'sm', 'md', 'lg']} onChange={() => {}} size="sm">
+    <Checkbox.Item value="xs" label="Small" />
+  </Checkbox.Root>
+</ComponentPreview>
+
+```tsx
+<Checkbox.Root values={values} onChange={setValues} size="lg">
+  <Checkbox.Item value="a" label="Large" />
+</Checkbox.Root>
+```
+</PreviewPair>
+
 ## Custom icon
 
 By default a selected checkbox shows a plain ✓ glyph. Pass `icon` on `Checkbox.Root` to use a real icon instead: any component matching `TVajraIconComponent`, applied to every item.
@@ -110,6 +128,7 @@ import { CheckIcon } from '@88khp/vajra-icons';
 | `onChange` | `(values: string[]) => void` | | Required. Called with the next selected values when an item is pressed. |
 | `color` | `TVajraColors` | `'primary'` | Selected fill/border color token, applied to every item's indicator. |
 | `isDisabled` | `boolean` | `false` | Disables all items unless individually overridden. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Indicator and check icon size, applied to every item. |
 | `icon` | `TVajraIconComponent` | | Icon shown in a selected checkbox. Defaults to a plain ✓ glyph. |
 | `children` | `ReactNode` | | Required. `Checkbox.Item` elements. |
 

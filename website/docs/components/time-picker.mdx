@@ -1,0 +1,92 @@
+---
+id: time-picker
+title: TimePicker
+sidebar_position: 52
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { TimePicker } from 'vajra-ui';
+import React, { useState } from 'react';
+
+# TimePicker
+
+A pressable field that opens a bottom sheet with hour/minute steppers and an AM/PM toggle. Fully controlled via `value` (`{ hour, minute }` in 24-hour form) and `onChange`.
+
+## Playground
+
+<Playground
+  controls={{
+    label: { type: 'text', label: 'Label', default: 'Time' },
+    minuteStep: { type: 'select', label: 'Minute step', options: ['1', '5', '15'], default: '5' },
+  }}
+  render={values => (
+    <TimePicker label={values.label} minuteStep={Number(values.minuteStep)} onChange={() => {}} />
+  )}
+  code={values => `<TimePicker\n  label="${values.label}"\n  minuteStep={${values.minuteStep}}\n  value={value}\n  onChange={setValue}\n/>`}
+/>
+
+## Basic usage
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    function TimePickerDemo() {
+      const [value, setValue] = useState(undefined);
+
+      return <TimePicker label="Reminder time" value={value} onChange={setValue} />;
+    }
+
+    return <TimePickerDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+function TimePickerDemo() {
+  const [value, setValue] = useState<{ hour: number; minute: number } | undefined>(undefined);
+
+  return <TimePicker label="Reminder time" value={value} onChange={setValue} />;
+}
+```
+</PreviewPair>
+
+## Minute step
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    function MinuteStepDemo() {
+      const [value, setValue] = useState({ hour: 9, minute: 0 });
+
+      return <TimePicker label="Meeting start" value={value} onChange={setValue} minuteStep={15} />;
+    }
+
+    return <MinuteStepDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+<TimePicker label="Meeting start" value={value} onChange={setValue} minuteStep={15} />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `{ hour: number; minute: number }` | | Currently selected time, 24-hour `hour` (0–23). |
+| `onChange` | `(value: { hour: number; minute: number }) => void` | | Required. Called when the hour, minute, or AM/PM changes. |
+| `minuteStep` | `number` | `1` | Minute increment the stepper moves by. |
+| `placeholder` | `string` | `'Select a time…'` | Text shown when nothing is selected. |
+| `label` | `string` | | Label rendered above the field. |
+| `errorText` | `string` | | Helper text shown below the field when `isInvalid`. |
+| `isInvalid` | `boolean` | `false` | Renders the field with an error border and shows `errorText`. |
+| `isDisabled` | `boolean` | `false` | Disables interaction and dims opacity. |
+| `formatValue` | `(value) => string` | `"1:30 PM"` format | Formats the selected time for the trigger field. |
+| `buttonBg` | `TVajraColors` | | Background color for the stepper +/− buttons. |
+| `buttonColor` | `TVajraColors` | | Icon color for the stepper +/− buttons. |
+| `icon` | `TVajraIconComponent` | | Icon shown at the trailing edge of the trigger. Defaults to a plain 🕐 glyph. |
+| `testID` | `string` | | Test identifier. |
+
+Exports `formatTime`, `timeFromDate`, and `timeToDate` helpers for converting between `{ hour, minute }` and `Date`.

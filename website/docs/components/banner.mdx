@@ -1,0 +1,85 @@
+---
+id: banner
+title: Banner
+sidebar_position: 44
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Banner } from 'vajra-ui';
+
+# Banner
+
+A persistent, full-width, page-level message bar — distinct from `Alert` (inline, rounded, sits within content) and `Toast` (ephemeral, floating).
+
+## Playground
+
+<Playground
+  controls={{
+    variant: { type: 'select', label: 'Variant', options: ['default', 'success', 'error', 'warning', 'info'], default: 'info' },
+    message: { type: 'text', label: 'Message', default: 'A new version is available.' },
+    withAction: { type: 'boolean', label: 'With action', default: true },
+    dismissible: { type: 'boolean', label: 'Dismissible', default: true },
+  }}
+  render={values => (
+    <Banner
+      variant={values.variant}
+      message={values.message}
+      action={values.withAction ? { label: 'Update now', onPress: () => {} } : undefined}
+      onDismiss={values.dismissible ? () => {} : undefined}
+    />
+  )}
+  code={values =>
+    `<Banner\n  variant="${values.variant}"\n  message="${values.message}"${values.withAction ? '\n  action={{ label: \'Update now\', onPress: () => {} }}' : ''}${values.dismissible ? '\n  onDismiss={() => {}}' : ''}\n/>`
+  }
+/>
+
+## Variants
+
+<PreviewPair>
+<ComponentPreview tall>
+  <Banner variant="success" message="Changes saved." onDismiss={() => {}} />
+  <Banner variant="error" message="Something went wrong." onDismiss={() => {}} />
+  <Banner variant="warning" message="Your session will expire soon." onDismiss={() => {}} />
+</ComponentPreview>
+
+```tsx
+<Banner variant="success" message="Changes saved." onDismiss={() => {}} />
+<Banner variant="error" message="Something went wrong." onDismiss={() => {}} />
+```
+</PreviewPair>
+
+## With an action
+
+<PreviewPair>
+<ComponentPreview>
+  <Banner
+    variant="info"
+    message="A new version is available."
+    action={{ label: 'Update now', onPress: () => {} }}
+    onDismiss={() => {}}
+  />
+</ComponentPreview>
+
+```tsx
+<Banner
+  variant="info"
+  message="A new version is available."
+  action={{ label: 'Update now', onPress: () => {} }}
+  onDismiss={() => {}}
+/>
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `message` | `string` | | Required. Banner text. |
+| `title` | `string` | | Optional heading above the message. |
+| `variant` | `'default' \| 'success' \| 'error' \| 'warning' \| 'info'` | `'default'` | Visual style (shares Alert's tone system). |
+| `onDismiss` | `() => void` | | When provided, renders a dismiss button. |
+| `icon` | `ReactNode` | | Overrides the variant's default icon. Pass `null` for no icon. |
+| `dismissIcon` | `TVajraIconComponent` | | Icon shown in the dismiss button. Defaults to a plain ✕ glyph. |
+| `action` | `{ label: string; onPress: () => void }` | | Optional inline action (e.g. "Retry", "Update now"). |

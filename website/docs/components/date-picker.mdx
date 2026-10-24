@@ -1,0 +1,122 @@
+---
+id: date-picker
+title: DatePicker
+sidebar_position: 51
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { DatePicker } from 'vajra-ui';
+import React, { useState } from 'react';
+
+# DatePicker
+
+A pressable field that opens a bottom sheet with a month calendar. Fully controlled via `value` and `onChange`, with plain `Date` objects — no date library dependency.
+
+## Playground
+
+<Playground
+  controls={{
+    label: { type: 'text', label: 'Label', default: 'Date' },
+    isInvalid: { type: 'boolean', label: 'Invalid', default: false },
+    isDisabled: { type: 'boolean', label: 'Disabled', default: false },
+  }}
+  render={values => (
+    <DatePicker
+      label={values.label}
+      isInvalid={values.isInvalid}
+      isDisabled={values.isDisabled}
+      errorText={values.isInvalid ? 'This field is required' : undefined}
+      onChange={() => {}}
+    />
+  )}
+  code={values =>
+    `<DatePicker\n  label="${values.label}"${values.isInvalid ? "\n  isInvalid\n  errorText=\"This field is required\"" : ''}${values.isDisabled ? '\n  isDisabled' : ''}\n  value={value}\n  onChange={setValue}\n/>`
+  }
+/>
+
+## Basic usage
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    function DatePickerDemo() {
+      const [value, setValue] = useState(undefined);
+
+      return (
+        <DatePicker label="Date of birth" placeholder="Select a date…" value={value} onChange={setValue} />
+      );
+    }
+
+    return <DatePickerDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+function DatePickerDemo() {
+  const [value, setValue] = useState<Date | undefined>(undefined);
+
+  return <DatePicker label="Date of birth" value={value} onChange={setValue} />;
+}
+```
+</PreviewPair>
+
+## Min / max date
+
+Pass `minDate`/`maxDate` to disable dates outside a range.
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    function RangeDemo() {
+      const [value, setValue] = useState(undefined);
+      const today = new Date();
+      const maxDate = new Date();
+      maxDate.setDate(today.getDate() + 14);
+
+      return (
+        <DatePicker
+          label="Appointment"
+          value={value}
+          onChange={setValue}
+          minDate={today}
+          maxDate={maxDate}
+        />
+      );
+    }
+
+    return <RangeDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+<DatePicker
+  label="Appointment"
+  value={value}
+  onChange={setValue}
+  minDate={new Date()}
+  maxDate={twoWeeksFromNow}
+/>
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `Date` | | Currently selected date. |
+| `onChange` | `(date: Date) => void` | | Required. Called when a day is pressed. |
+| `minDate` | `Date` | | Disables days before this date. |
+| `maxDate` | `Date` | | Disables days after this date. |
+| `placeholder` | `string` | `'Select a date…'` | Text shown when nothing is selected. |
+| `label` | `string` | | Label rendered above the field. |
+| `errorText` | `string` | | Helper text shown below the field when `isInvalid`. |
+| `isInvalid` | `boolean` | `false` | Renders the field with an error border and shows `errorText`. |
+| `isDisabled` | `boolean` | `false` | Disables interaction and dims opacity. |
+| `formatValue` | `(date: Date) => string` | `"Jan 1, 2026"` format | Formats the selected date for the trigger field. |
+| `selectedColor` | `TVajraColors` | `'primary'` | Fill color for the selected day and today's label. |
+| `icon` | `TVajraIconComponent` | | Icon shown at the trailing edge of the trigger. Defaults to a plain 📅 glyph. |
+| `prevIcon` | `TVajraIconComponent` | | Previous-month icon. Defaults to a plain ‹ glyph. |
+| `nextIcon` | `TVajraIconComponent` | | Next-month icon. Defaults to a plain › glyph. |
+| `testID` | `string` | | Test identifier. |

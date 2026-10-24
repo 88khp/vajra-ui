@@ -1,0 +1,63 @@
+---
+id: popover
+title: Popover
+sidebar_position: 45
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import { Popover, Button, Box, Text, Col } from 'vajra-ui';
+import { useState } from 'react';
+
+# Popover
+
+A floating content box anchored to a trigger element — for menus of custom content, filter panels, or info callouts that aren't a flat action list (see [Menu](./menu) for that).
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    const [isVisible, setIsVisible] = useState(false);
+    return (
+      <Popover
+        isVisible={isVisible}
+        onClose={() => setIsVisible(false)}
+        content={
+          <Box p="s-2" style={{ width: 200 }}>
+            <Text variant="bodyMedium">Popover content</Text>
+            <Text variant="bodySmall" color="textMuted">Any custom content can go here.</Text>
+          </Box>
+        }
+      >
+        <Button label="Toggle popover" onPress={() => setIsVisible(v => !v)} />
+      </Popover>
+    );
+  })()}
+</ComponentPreview>
+
+```tsx
+const [isVisible, setIsVisible] = useState(false);
+
+<Popover
+  isVisible={isVisible}
+  onClose={() => setIsVisible(false)}
+  content={<Box p="s-2"><Text>Popover content</Text></Box>}
+>
+  <Button label="Toggle popover" onPress={() => setIsVisible(v => !v)} />
+</Popover>
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `children` | `ReactNode` | | Required. The trigger element the popover is anchored to. |
+| `content` | `ReactNode` | | Required. The popover body content. |
+| `isVisible` | `boolean` | | Required. Controls visibility. |
+| `onClose` | `() => void` | | Required. Called on outside-tap or `onRequestClose`. |
+| `placement` | `'top' \| 'bottom'` | `'bottom'` | Which side of the trigger the content opens toward. |
+| `align` | `'start' \| 'end'` | `'start'` | Horizontal alignment relative to the trigger. |
+| `bg` | `TVajraColors` | `'surfaceRaised'` | Content background color. |
+| `rounded` | `TRoundedToken` | `'r-2'` | Content corner radius. |
+| `closeOnOutsidePress` | `boolean` | `true` | Closes when tapping outside the content. |
+| `testID` | `string` | | Test identifier forwarded to the content container. |

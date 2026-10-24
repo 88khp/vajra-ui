@@ -1,0 +1,65 @@
+---
+id: rating
+title: Rating
+sidebar_position: 47
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Rating } from 'vajra-ui';
+import { StarIcon } from '@88khp/vajra-icons';
+
+# Rating
+
+A star (or custom icon) rating input or display.
+
+## Playground
+
+<Playground
+  controls={{
+    value: { type: 'select', label: 'Value', options: ['0', '1', '2', '3', '4', '5'], default: '3' },
+    max: { type: 'select', label: 'Max', options: ['3', '5', '10'], default: '5' },
+    isReadOnly: { type: 'boolean', label: 'Read only', default: false },
+  }}
+  render={values => (
+    <Rating
+      value={Number(values.value)}
+      max={Number(values.max)}
+      isReadOnly={values.isReadOnly}
+      onChange={() => {}}
+    />
+  )}
+  code={values =>
+    `<Rating\n  value={${values.value}}\n  max={${values.max}}${values.isReadOnly ? '\n  isReadOnly' : ''}\n  onChange={setValue}\n/>`
+  }
+/>
+
+## Custom icon
+
+<PreviewPair>
+<ComponentPreview>
+  <Rating value={4} icon={StarIcon} onChange={() => {}} />
+</ComponentPreview>
+
+```tsx
+import { StarIcon } from '@88khp/vajra-icons';
+
+<Rating value={4} icon={StarIcon} onChange={setValue} />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `number` | | Required. Current rating. |
+| `onChange` | `(value: number) => void` | | Called with the pressed cell's value. Omit (or set `isReadOnly`) for a display-only rating. |
+| `max` | `number` | `5` | Number of icon cells. |
+| `isReadOnly` | `boolean` | `false` | Display-only; taps are ignored. |
+| `isDisabled` | `boolean` | `false` | Dims opacity and ignores taps. |
+| `size` | `number` | `24` | Icon size in px. |
+| `color` | `TVajraColors` | `'warning'` | Filled-cell color. |
+| `emptyColor` | `TVajraColors` | `'border'` | Empty-cell color. |
+| `icon` | `TVajraIconComponent` | | Filled-cell icon. Defaults to a plain ★ glyph. |
+| `emptyIcon` | `TVajraIconComponent` | | Empty-cell icon. Defaults to a plain ☆ glyph. |

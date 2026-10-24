@@ -1,0 +1,85 @@
+---
+id: drawer
+title: Drawer
+sidebar_position: 48
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import { Drawer, Button, Col, Row, Text } from 'vajra-ui';
+import { HomeIcon, SettingsIcon, UserIcon } from '@88khp/vajra-icons';
+import { useState } from 'react';
+
+# Drawer
+
+A slide-in side panel — same backdrop/dismiss behavior as [Sheet](./sheet), anchored to the left or right edge instead of the bottom.
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    const [isVisible, setIsVisible] = useState(false);
+    return (
+      <>
+        <Button label="Open drawer" onPress={() => setIsVisible(true)} />
+        <Drawer isVisible={isVisible} onClose={() => setIsVisible(false)}>
+          <Col gap="s-4">
+            <Text variant="subheading">Menu</Text>
+            <Row gap="s-2" align="center"><HomeIcon size={18} width={18} height={18} color="#0d9488" /><Text variant="body">Home</Text></Row>
+            <Row gap="s-2" align="center"><UserIcon size={18} width={18} height={18} color="#0d9488" /><Text variant="body">Profile</Text></Row>
+            <Row gap="s-2" align="center"><SettingsIcon size={18} width={18} height={18} color="#0d9488" /><Text variant="body">Settings</Text></Row>
+          </Col>
+        </Drawer>
+      </>
+    );
+  })()}
+</ComponentPreview>
+
+```tsx
+const [isVisible, setIsVisible] = useState(false);
+
+<Button label="Open drawer" onPress={() => setIsVisible(true)} />
+<Drawer isVisible={isVisible} onClose={() => setIsVisible(false)}>
+  <MenuContent />
+</Drawer>
+```
+</PreviewPair>
+
+## From the right
+
+<PreviewPair>
+<ComponentPreview tall>
+  {(() => {
+    const [isVisible, setIsVisible] = useState(false);
+    return (
+      <>
+        <Button label="Open right drawer" onPress={() => setIsVisible(true)} />
+        <Drawer isVisible={isVisible} onClose={() => setIsVisible(false)} edge="right">
+          <Text variant="subheading">Filters</Text>
+        </Drawer>
+      </>
+    );
+  })()}
+</ComponentPreview>
+
+```tsx
+<Drawer isVisible={isVisible} onClose={() => setIsVisible(false)} edge="right">
+  <FiltersPanel />
+</Drawer>
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `isVisible` | `boolean` | | Required. Controls visibility. |
+| `onClose` | `() => void` | | Required. Called on backdrop press, drag-dismiss, or `onRequestClose`. |
+| `edge` | `'left' \| 'right'` | `'left'` | Which edge the drawer slides in from. |
+| `closeOnBackdropPress` | `boolean` | `true` | Closes when tapping outside the drawer. |
+| `animation` | `'fade' \| 'slide' \| 'scale'` | `'slide'` | How the drawer enters/exits. |
+| `dismissOnDrag` | `boolean` | `true` | Drag the drawer toward its edge to dismiss it. |
+| `width` | `number` | `300` | Width of the drawer panel. |
+| `bg` | `TVajraColors` | `'surface'` | Panel background color. |
+| `rounded` | `TRoundedToken` | | Corner radius on the panel's open edge. |
+| `p` | `TSpacingToken` | `'s-4'` | Panel padding. |
+| `backdropColor` | `TVajraColors` | `'overlay'` | Backdrop color. |

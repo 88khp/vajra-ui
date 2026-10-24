@@ -4,6 +4,7 @@ title: Input
 sidebar_position: 19
 ---
 
+import React, { useState } from 'react';
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
 import { Input, Col } from 'vajra-ui';
@@ -70,6 +71,43 @@ A labeled text field with four visual variants (`Input.Outline`, `Input.Filled`,
 ```
 </PreviewPair>
 
+## Clearable
+
+Pass `isClearable` to show a clear ("✕") button whenever the field has a value; pressing it calls `onChangeText` with `''`. Works across all four variants. The clear button's visibility tracks the controlled `value` prop, so pass `value`/`onChangeText` (not `defaultValue`) to get the auto show/hide behavior.
+
+<PreviewPair>
+<ComponentPreview>
+  {(() => {
+    function ClearableDemo() {
+      const [value, setValue] = useState('react native');
+
+      return (
+        <Input.Outline
+          label="Search filter"
+          placeholder="Type to see the clear button"
+          value={value}
+          onChangeText={setValue}
+          isClearable
+        />
+      );
+    }
+
+    return <ClearableDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+const [value, setValue] = useState('react native');
+
+<Input.Outline
+  label="Search filter"
+  value={value}
+  onChangeText={setValue}
+  isClearable
+/>
+```
+</PreviewPair>
+
 ## Props
 
 All four variants (`Input.Outline`, `Input.Filled`, `Input.Flushed`, `Input.Floating`) share this prop set.
@@ -85,7 +123,9 @@ All four variants (`Input.Outline`, `Input.Filled`, `Input.Flushed`, `Input.Floa
 | `isDisabled` | `boolean` | | Disables the field and dims it. |
 | `isReadOnly` | `boolean` | | Marks the field as read-only. |
 | `startElement` | `ReactNode` | | Content rendered before the text input (e.g. an icon). |
-| `endElement` | `ReactNode` | | Content rendered after the text input (e.g. an icon). |
+| `endElement` | `ReactNode` | | Content rendered after the text input (e.g. an icon). Replaced by the clear button while it's showing. |
+| `isClearable` | `boolean` | `false` | Shows a clear ("✕") button when `value` is non-empty; calls `onChangeText('')` on press. |
+| `clearIcon` | `TVajraIconComponent` | | Icon used by the clear button. Defaults to a plain ✕ glyph. |
 | `ref` | `React.Ref<TextInput>` | | Ref forwarded to the underlying `TextInput`. |
 
 Also accepts the standard React Native `TextInput` props (`value`, `defaultValue`, `onChangeText`, `placeholder`, `keyboardType`, etc.) except `bg`, `borderColor`, `rounded`, `p`, `px`, `py`, which are reserved for the variant's own layout.

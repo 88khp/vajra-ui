@@ -1,0 +1,71 @@
+---
+id: divider
+title: Divider
+sidebar_position: 43
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Divider, Col, Text } from 'vajra-ui';
+
+# Divider
+
+A styled `Separator` with two extra affordances: an inset margin and a centered label (e.g. "OR").
+
+## Playground
+
+<Playground
+  controls={{
+    label: { type: 'text', label: 'Label', default: 'OR' },
+  }}
+  render={values => (
+    <Col gap="s-3" style={{ width: '100%' }}>
+      <Text variant="body">Above</Text>
+      <Divider label={values.label || undefined} />
+      <Text variant="body">Below</Text>
+    </Col>
+  )}
+  code={values => `<Divider${values.label ? ` label="${values.label}"` : ''} />`}
+/>
+
+## Plain
+
+<PreviewPair>
+<ComponentPreview>
+  <Col gap="s-3">
+    <Text variant="body">Above</Text>
+    <Divider />
+    <Text variant="body">Below</Text>
+  </Col>
+</ComponentPreview>
+
+```tsx
+<Text variant="body">Above</Text>
+<Divider />
+<Text variant="body">Below</Text>
+```
+</PreviewPair>
+
+## With a label
+
+<PreviewPair>
+<ComponentPreview>
+  <Divider label="OR" />
+</ComponentPreview>
+
+```tsx
+<Divider label="OR" />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Direction of the line. `label` and `inset` only apply when horizontal. |
+| `thickness` | `number` | | Line thickness in px. |
+| `color` | `TVajraColors` | `'border'` | Line color token. |
+| `variant` | `'solid' \| 'dashed' \| 'dotted'` | | Line style. |
+| `inset` | `TSpacingToken` | | Margin pulled in from both ends of the line. |
+| `label` | `string` | | Text centered on the line. |

@@ -6,11 +6,33 @@ sidebar_position: 25
 
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
-import { Avatar, Row } from 'vajra-ui';
+import Playground from '@site/src/components/Playground';
+import { Avatar, AvatarGroup, Row } from 'vajra-ui';
 
 # Avatar
 
 A circular user image with automatic fallback to colored initials when no `src` is given or the image fails to load.
+
+## Playground
+
+<Playground
+  controls={{
+    initials: { type: 'text', label: 'Initials', default: 'JD' },
+    status: { type: 'select', label: 'Status', options: ['none', 'online', 'offline', 'away', 'busy'], default: 'online' },
+    size: { type: 'select', label: 'Size', options: ['24', '40', '56', '72'], default: '40' },
+  }}
+  render={values => (
+    <Avatar
+      initials={values.initials}
+      width={Number(values.size)}
+      height={Number(values.size)}
+      status={values.status === 'none' ? undefined : values.status}
+    />
+  )}
+  code={values =>
+    `<Avatar\n  initials="${values.initials}"\n  width={${values.size}}\n  height={${values.size}}${values.status !== 'none' ? `\n  status="${values.status}"` : ''}\n/>`
+  }
+/>
 
 ## Initials
 
@@ -64,7 +86,55 @@ A circular user image with automatic fallback to colored initials when no `src` 
 ```
 </PreviewPair>
 
+## Status indicator
+
+A small presence dot, positioned at the bottom-right corner.
+
+<PreviewPair>
+<ComponentPreview>
+  <Row gap="s-3" align="center">
+    <Avatar initials="ON" status="online" />
+    <Avatar initials="OF" status="offline" />
+    <Avatar initials="AW" status="away" />
+    <Avatar initials="BU" status="busy" />
+  </Row>
+</ComponentPreview>
+
+```tsx
+<Avatar initials="ON" status="online" />
+<Avatar initials="BU" status="busy" />
+```
+</PreviewPair>
+
+## Grouped avatars
+
+`AvatarGroup` stacks and overlaps its `Avatar` children, sizing them consistently, with an optional `max` to cap how many show before a "+N" overflow avatar.
+
+<PreviewPair>
+<ComponentPreview>
+  <AvatarGroup max={3}>
+    <Avatar initials="JD" />
+    <Avatar initials="AK" />
+    <Avatar initials="RS" />
+    <Avatar initials="MP" />
+    <Avatar initials="TL" />
+  </AvatarGroup>
+</ComponentPreview>
+
+```tsx
+<AvatarGroup max={3}>
+  <Avatar initials="JD" />
+  <Avatar initials="AK" />
+  <Avatar initials="RS" />
+  <Avatar initials="MP" />
+  <Avatar initials="TL" />
+</AvatarGroup>
+```
+</PreviewPair>
+
 ## Props
+
+### Avatar
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
@@ -73,3 +143,14 @@ A circular user image with automatic fallback to colored initials when no `src` 
 | `width` | `number` | `40` | Width of the avatar in pixels. |
 | `height` | `number` | `40` | Height of the avatar in pixels. |
 | `imageProps` | `Omit<ImageProps, 'source' \| 'style'>` | | Additional props forwarded to the underlying `Image`. |
+| `status` | `'online' \| 'offline' \| 'away' \| 'busy'` | | Renders a presence dot at the bottom-right corner. |
+| `statusColor` | `TVajraColors` | | Overrides the status dot's color token instead of the default status→tone mapping. |
+
+### AvatarGroup
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `children` | `ReactNode` | | Required. `Avatar` elements to stack. |
+| `size` | `number` | `40` | Diameter (px) used to size each `Avatar` child consistently. |
+| `overlap` | `number` | `size * 0.3` | How much each avatar overlaps its neighbor, in px. |
+| `max` | `number` | | Caps the number of avatars shown, rendering a "+N" overflow avatar for the rest. |

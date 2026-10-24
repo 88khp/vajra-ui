@@ -1,0 +1,54 @@
+---
+id: searchbar
+title: Searchbar
+sidebar_position: 42
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Searchbar } from 'vajra-ui';
+
+# Searchbar
+
+A text input preconfigured for search — leading search icon, always-clearable, and optional debounced `onChangeText`.
+
+## Playground
+
+<Playground
+  controls={{
+    placeholder: { type: 'text', label: 'Placeholder', default: 'Search…' },
+    debounceMs: { type: 'select', label: 'Debounce', options: ['0', '150', '300', '500'], default: '0' },
+  }}
+  render={values => (
+    <Searchbar
+      placeholder={values.placeholder}
+      debounceMs={Number(values.debounceMs)}
+      onChangeText={() => {}}
+    />
+  )}
+  code={values =>
+    `<Searchbar\n  placeholder="${values.placeholder}"${Number(values.debounceMs) > 0 ? `\n  debounceMs={${values.debounceMs}}` : ''}\n  onChangeText={setQuery}\n/>`
+  }
+/>
+
+## Basic usage
+
+<PreviewPair>
+<ComponentPreview>
+  <Searchbar placeholder="Search components…" onChangeText={() => {}} />
+</ComponentPreview>
+
+```tsx
+<Searchbar placeholder="Search components…" onChangeText={setQuery} />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `icon` | `TVajraIconComponent` | | Leading icon. Defaults to a plain 🔍 glyph. |
+| `debounceMs` | `number` | `0` | Delay before `onChangeText` fires after typing stops. `0` disables debouncing. |
+
+Also accepts all `Input.Outline` props (`value`, `onChangeText`, `label`, `size`, etc.) except `startElement` and `isClearable`, which Searchbar sets internally.

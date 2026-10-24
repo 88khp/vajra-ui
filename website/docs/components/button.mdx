@@ -6,11 +6,41 @@ sidebar_position: 12
 
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
 import { Button, Row } from 'vajra-ui';
 
 # Button
 
 A pressable button with six visual variants and five sizes, all token-driven.
+
+## Playground
+
+<Playground
+  controls={{
+    variant: { type: 'select', label: 'Variant', options: ['solid', 'subtle', 'surface', 'outline', 'ghost', 'plain'], default: 'solid' },
+    size: { type: 'select', label: 'Size', options: ['xs', 'sm', 'md', 'lg', 'xl'], default: 'md' },
+    tone: { type: 'select', label: 'Tone', options: ['primary', 'secondary', 'success', 'warning', 'error', 'info'], default: 'primary' },
+    label: { type: 'text', label: 'Label', default: 'Get started' },
+    isPill: { type: 'boolean', label: 'Pill', default: false },
+    isLoading: { type: 'boolean', label: 'Loading', default: false },
+    isDisabled: { type: 'boolean', label: 'Disabled', default: false },
+  }}
+  render={values => (
+    <Button
+      variant={values.variant}
+      size={values.size}
+      tone={values.tone}
+      label={values.label}
+      isPill={values.isPill}
+      isLoading={values.isLoading}
+      isDisabled={values.isDisabled}
+      onPress={() => {}}
+    />
+  )}
+  code={values =>
+    `<Button\n  variant="${values.variant}"\n  size="${values.size}"\n  tone="${values.tone}"\n  label="${values.label}"${values.isPill ? '\n  isPill' : ''}${values.isLoading ? '\n  isLoading' : ''}${values.isDisabled ? '\n  isDisabled' : ''}\n  onPress={() => {}}\n/>`
+  }
+/>
 
 ## Variants
 
@@ -76,5 +106,7 @@ A pressable button with six visual variants and five sizes, all token-driven.
 | `isPill` | `boolean` | `false` | Forces fully rounded corners regardless of size. |
 | `loading` | `{ position?: 'start' \| 'end'; label?: string; loader?: ReactNode }` | | Customize the loading state. |
 | `labelProps` | `Omit<TTextProps, 'color' \| 'variant'>` | | Extra props passed to the internal label `Text`. |
+| `leftIcon` | `TVajraIconComponent` | | Icon rendered before the label. |
+| `rightIcon` | `TVajraIconComponent` | | Icon rendered after the label. |
 
 Also accepts all `Pressable` props (`bg`, `borderColor`, spacing, etc.) except `disabled`; use `isDisabled` instead.

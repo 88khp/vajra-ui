@@ -77,11 +77,37 @@
   flex-wrap: wrap;
 }
 
-.codePreview {
-  max-width: 640px;
+.heroPreview {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 1.5rem;
+  max-width: 920px;
   margin: 3rem auto 0;
   text-align: left;
+}
+
+.codePreview {
+  flex: 1 1 420px;
+  min-width: 0;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+}
+
+.livePreview {
+  flex: 1 1 280px;
+  min-width: 0;
+  display: flex;
+}
+
+.livePreview > * {
+  width: 100%;
+}
+
+@media screen and (max-width: 900px) {
+  .heroPreview {
+    flex-direction: column;
+    align-items: stretch;
+  }
 }

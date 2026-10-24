@@ -91,3 +91,63 @@ div[class^='codeBlockContainer'] {
 .footer--dark {
   --ifm-footer-background-color: #0b0f0f;
 }
+
+/* Typography rhythm: a bit more breathing room than Infima's defaults, and
+   a readable measure for prose paragraphs/lists in doc content. */
+.markdown {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+}
+
+.markdown > p,
+.markdown > ul,
+.markdown > ol {
+  max-width: 72ch;
+}
+
+.markdown h2 {
+  margin-top: 2.5rem;
+  padding-top: 0.5rem;
+}
+
+.markdown h3 {
+  margin-top: 2rem;
+}
+
+/* Inline code: a touch of depth so it reads as "code" at a glance, distinct
+   from the flat text around it, without competing with full code blocks. */
+.markdown code:not(pre code) {
+  padding: 0.15em 0.4em;
+  border: 1px solid var(--ifm-color-emphasis-300);
+  border-radius: 5px;
+  font-size: 0.85em;
+  background: var(--ifm-color-emphasis-100);
+}
+
+[data-theme='dark'] .markdown code:not(pre code) {
+  background: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+/* Prev/Next pagination cards */
+.pagination-nav__link {
+  border-radius: 10px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  transform: translateY(-1px);
+}
+
+/* Sidebar link hover affordance */
+.theme-doc-sidebar-item-link > .menu__link,
+.theme-doc-sidebar-item-category > .menu__link {
+  border-radius: 6px;
+  transition: background-color 0.1s ease;
+}
+
+/* Table of contents active link */
+.table-of-contents__link--active {
+  font-weight: 600;
+}

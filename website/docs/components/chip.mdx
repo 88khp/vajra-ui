@@ -6,12 +6,36 @@ sidebar_position: 28
 
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
 import { Chip, Row } from 'vajra-ui';
 import { XIcon } from '@88khp/vajra-icons';
 
 # Chip
 
 A compact, pressable label used for selection, filtering, or tagging, with optional selected state and remove action.
+
+## Playground
+
+<Playground
+  controls={{
+    label: { type: 'text', label: 'Label', default: 'React' },
+    isSelected: { type: 'boolean', label: 'Selected', default: true },
+    isDisabled: { type: 'boolean', label: 'Disabled', default: false },
+    removable: { type: 'boolean', label: 'Removable', default: false },
+  }}
+  render={values => (
+    <Chip
+      label={values.label}
+      isSelected={values.isSelected}
+      isDisabled={values.isDisabled}
+      onPress={() => {}}
+      onRemove={values.removable ? () => {} : undefined}
+    />
+  )}
+  code={values =>
+    `<Chip\n  label="${values.label}"${values.isSelected ? '\n  isSelected' : ''}${values.isDisabled ? '\n  isDisabled' : ''}\n  onPress={() => {}}${values.removable ? '\n  onRemove={() => {}}' : ''}\n/>`
+  }
+/>
 
 ## Selectable
 
@@ -65,6 +89,22 @@ import { XIcon } from '@88khp/vajra-icons';
 ```
 </PreviewPair>
 
+## With icon
+
+Pass `icon` for a leading icon, or `avatar` for any custom leading element (e.g. an `Avatar`).
+
+<PreviewPair>
+<ComponentPreview>
+  <Row gap="s-2" wrap="wrap">
+    <Chip label="TypeScript" icon={XIcon} onPress={() => {}} />
+  </Row>
+</ComponentPreview>
+
+```tsx
+<Chip label="TypeScript" icon={SomeIcon} onPress={() => {}} />
+```
+</PreviewPair>
+
 ## Custom colors
 
 <PreviewPair>
@@ -100,6 +140,8 @@ import { XIcon } from '@88khp/vajra-icons';
 | `onPress` | `() => void` | | When provided, makes the chip pressable. |
 | `onRemove` | `() => void` | | When provided, renders a remove (✕) button. |
 | `removeIcon` | `TVajraIconComponent` | | Icon shown in the remove button, when `onRemove` is set. Defaults to a plain ✕ glyph. |
+| `icon` | `TVajraIconComponent` | | Leading icon shown before the label. |
+| `avatar` | `ReactNode` | | Leading element (e.g. an `Avatar`) shown before the label, instead of `icon`. |
 | `isDisabled` | `boolean` | `false` | Disables press interactions and dims opacity. |
 | `selectedBg` | `TVajraColors` | `'primary'` | Background color when selected. |
 | `selectedColor` | `TVajraColors` | `'textInverse'` | Text/icon color when selected. |

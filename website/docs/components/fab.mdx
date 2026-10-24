@@ -1,0 +1,84 @@
+---
+id: fab
+title: FAB
+sidebar_position: 41
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
+import { Fab } from 'vajra-ui';
+import { PlusIcon } from '@88khp/vajra-icons';
+
+# FAB
+
+A floating action button — an elevated, prominent circular (or extended, icon+label) button for a screen's primary action.
+
+## Playground
+
+<Playground
+  controls={{
+    variant: { type: 'select', label: 'Variant', options: ['solid', 'subtle', 'surface', 'outline', 'ghost', 'plain'], default: 'solid' },
+    size: { type: 'select', label: 'Size', options: ['xs', 'sm', 'md', 'lg', 'xl'], default: 'lg' },
+    label: { type: 'text', label: 'Label (extended)', default: '' },
+  }}
+  render={values => (
+    <Fab
+      icon={PlusIcon}
+      variant={values.variant}
+      size={values.size}
+      label={values.label || undefined}
+      onPress={() => {}}
+    />
+  )}
+  code={values =>
+    `<Fab\n  icon={PlusIcon}\n  variant="${values.variant}"\n  size="${values.size}"${values.label ? `\n  label="${values.label}"` : ''}\n  onPress={() => {}}\n/>`
+  }
+/>
+
+## Icon-only and extended
+
+<PreviewPair>
+<ComponentPreview>
+  <Fab icon={PlusIcon} onPress={() => {}} />
+</ComponentPreview>
+
+```tsx
+<Fab icon={PlusIcon} onPress={() => {}} />
+```
+</PreviewPair>
+
+<PreviewPair>
+<ComponentPreview>
+  <Fab icon={PlusIcon} label="Create" onPress={() => {}} />
+</ComponentPreview>
+
+```tsx
+<Fab icon={PlusIcon} label="Create" onPress={() => {}} />
+```
+</PreviewPair>
+
+## Docked to a corner
+
+Pass `position` to absolutely-position the FAB over its parent (the parent needs `position: 'relative'`).
+
+```tsx
+<Box style={{ position: 'relative', flex: 1 }}>
+  {/* screen content */}
+  <Fab icon={PlusIcon} position="bottomRight" onPress={() => {}} />
+</Box>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `icon` | `TVajraIconComponent` | | Required. The FAB's icon. |
+| `label` | `string` | | Renders an extended FAB (icon + label) instead of an icon-only circle. |
+| `variant` | `'solid' \| 'subtle' \| 'surface' \| 'outline' \| 'ghost' \| 'plain'` | `'solid'` | Visual style (shares IconButton's recipe). |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'xl'` | `'lg'` | Button and icon size. |
+| `isDisabled` | `boolean` | `false` | Disables interaction and dims opacity. |
+| `position` | `'bottomRight' \| 'bottomLeft' \| 'topRight' \| 'topLeft'` | | Docks the FAB to a corner of its (relatively-positioned) parent. |
+| `offset` | `number` | `16` | Distance (px) from the two edges implied by `position`. |
+
+Also accepts all `Pressable` props (`bg`, spacing, etc.) except `disabled` and `position` (used for docking above); use `isDisabled` instead.

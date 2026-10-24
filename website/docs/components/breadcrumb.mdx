@@ -1,0 +1,63 @@
+---
+id: breadcrumb
+title: Breadcrumb
+sidebar_position: 49
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import { Breadcrumb } from 'vajra-ui';
+
+# Breadcrumb
+
+A horizontal trail of navigable items, scrollable when it overflows.
+
+<PreviewPair>
+<ComponentPreview>
+  <Breadcrumb
+    items={[
+      { label: 'Home', onPress: () => {} },
+      { label: 'Settings', onPress: () => {} },
+      { label: 'Profile' },
+    ]}
+  />
+</ComponentPreview>
+
+```tsx
+<Breadcrumb
+  items={[
+    { label: 'Home', onPress: () => navigate('/') },
+    { label: 'Settings', onPress: () => navigate('/settings') },
+    { label: 'Profile' },
+  ]}
+/>
+```
+</PreviewPair>
+
+## Custom separator
+
+<PreviewPair>
+<ComponentPreview>
+  <Breadcrumb
+    separator="›"
+    items={[
+      { label: 'Home', onPress: () => {} },
+      { label: 'Profile' },
+    ]}
+  />
+</ComponentPreview>
+
+```tsx
+<Breadcrumb separator="›" items={items} />
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `{ label: string; onPress?: () => void }[]` | | Required. Trail items; omit `onPress` on the last one for the current, non-interactive page. |
+| `separator` | `string` | `'/'` | Separator rendered between items. |
+| `activeColor` | `TVajraColors` | `'text'` | Color of the last (current) item. |
+| `inactiveColor` | `TVajraColors` | `'textMuted'` | Color of interactive items. |
+| `separatorColor` | `TVajraColors` | `'textMuted'` | Separator color. |

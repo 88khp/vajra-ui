@@ -1,0 +1,50 @@
+---
+id: carousel
+title: Carousel
+sidebar_position: 46
+---
+
+import ComponentPreview from '@site/src/components/ComponentPreview';
+import PreviewPair from '@site/src/components/PreviewPair';
+import { Carousel, Box, Text, Center } from 'vajra-ui';
+
+# Carousel
+
+A horizontally paged scroll view with a dot-page indicator.
+
+<PreviewPair>
+<ComponentPreview tall>
+  <Box style={{ width: '100%' }}>
+    <Carousel
+      data={['#0d9488', '#e5193a', '#2563eb']}
+      renderItem={color => (
+        <Center style={{ height: 160 }}>
+          <Center rounded="r-3" style={{ width: '90%', height: '100%', backgroundColor: color }}>
+            <Text variant="bodyMedium" color="textInverse">{color}</Text>
+          </Center>
+        </Center>
+      )}
+    />
+  </Box>
+</ComponentPreview>
+
+```tsx
+<Carousel
+  data={slides}
+  renderItem={(slide) => <SlideCard slide={slide} />}
+/>
+```
+</PreviewPair>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `data` | `TItem[]` | | Required. Items to page through. |
+| `renderItem` | `(item: TItem, index: number) => ReactNode` | | Required. Renders each page. |
+| `keyExtractor` | `(item: TItem, index: number) => string` | | Keys each page; defaults to its index. |
+| `itemWidth` | `number` | | Width of each page. Defaults to the carousel's own measured width (full-bleed paging). |
+| `showIndicator` | `boolean` | `true` | Shows the dot-page indicator below the carousel. |
+| `activeDotColor` | `TVajraColors` | `'primary'` | Color of the active page's dot. |
+| `inactiveDotColor` | `TVajraColors` | `'border'` | Color of inactive dots. |
+| `onIndexChange` | `(index: number) => void` | | Called when the active page changes. |

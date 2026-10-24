@@ -7,11 +7,41 @@ sidebar_position: 39
 import React, { useState } from 'react';
 import ComponentPreview from '@site/src/components/ComponentPreview';
 import PreviewPair from '@site/src/components/PreviewPair';
+import Playground from '@site/src/components/Playground';
 import { TabBar, Box } from 'vajra-ui';
 
 # Tab Bar
 
 A segmented-control style tab bar with an animated sliding indicator. Fully controlled via `value` and `onChange`, and driven by a `tabs` array of `{ value, label }` pairs. Tabs split the available width equally unless `scrollable` is set, so give it a container with real width to fill: a flex parent, or an explicit `w`.
+
+## Playground
+
+export function TabBarPlaygroundDemo({ variant }) {
+  const [value, setValue] = useState('day');
+
+  return (
+    <Box w={280}>
+      <TabBar
+        variant={variant}
+        tabs={[
+          { value: 'day', label: 'Day' },
+          { value: 'week', label: 'Week' },
+          { value: 'month', label: 'Month' },
+        ]}
+        value={value}
+        onChange={setValue}
+      />
+    </Box>
+  );
+}
+
+<Playground
+  controls={{
+    variant: { type: 'select', label: 'Variant', options: ['pills', 'segmented', 'underline'], default: 'pills' },
+  }}
+  render={values => <TabBarPlaygroundDemo variant={values.variant} />}
+  code={values => `<TabBar\n  variant="${values.variant}"\n  tabs={tabs}\n  value={value}\n  onChange={setValue}\n/>`}
+/>
 
 ## Basic usage
 
@@ -112,11 +142,13 @@ With `scrollable`, tabs render at their natural width in a horizontal scroll vie
 | `tabs` | `{ value: string; label: string }[]` | | Required. Tabs to render. |
 | `value` | `string` | | Required. Value of the active tab. |
 | `onChange` | `(value: string) => void` | | Required. Called when a tab is pressed. |
-| `trackBg` | `TVajraColors` | `'surfaceRaised'` | Background color of the outer track. |
-| `trackRounded` | `TRoundedToken` | `'r-full'` | Corner radius of the outer track. |
+| `variant` | `'pills' \| 'segmented' \| 'underline'` | `'pills'` | Indicator style. `pills`/`segmented` fill a pill behind the active tab; `underline` draws a thin line beneath it instead. |
+| `trackBg` | `TVajraColors` | Resolved per `variant` | Background color of the outer track. |
+| `trackRounded` | `TRoundedToken` | Resolved per `variant` | Corner radius of the outer track. |
 | `trackPadding` | `TSpacingToken` | `'s-1'` | Padding around tabs inside the track. |
-| `indicatorBg` | `TVajraColors` | `'surface'` | Background color of the sliding active indicator. |
-| `indicatorRounded` | `TRoundedToken` | `'r-full'` | Corner radius of the sliding indicator. |
+| `indicatorBg` | `TVajraColors` | Resolved per `variant` | Background color of the sliding active indicator. |
+| `indicatorRounded` | `TRoundedToken` | Resolved per `variant` | Corner radius of the sliding indicator. |
+| `underlineHeight` | `number` | `2` | Thickness (px) of the underline indicator, when `variant="underline"`. |
 | `activeColor` | `TVajraColors` | `'text'` | Label color for the active tab. |
 | `inactiveColor` | `TVajraColors` | `'textMuted'` | Label color for inactive tabs. |
 | `labelProps` | `Omit<TTextProps, 'color'>` | | Extra props passed to each tab's `Text` label. |

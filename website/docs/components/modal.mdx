@@ -11,7 +11,7 @@ import React from 'react';
 
 # Modal
 
-A centered (or bottom-anchored) dialog rendered in a React Native `Modal`, with a fading backdrop. Sheet is built on top of this component using `contentAlign="bottom"`.
+A centered (or edge-anchored) dialog rendered in a React Native `Modal`, with a fading backdrop. [Sheet](./sheet) is built on top of this component using `contentAlign="bottom"`, and [Drawer](./drawer) using `contentAlign="left"`/`"right"`.
 
 export const ModalDemo = () => {
   const [isVisible, setIsVisible] = React.useState(false);
@@ -105,6 +105,36 @@ function ConfirmModal() {
 ```
 </PreviewPair>
 
+## Animation
+
+<PreviewPair>
+<ComponentPreview>
+  {(() => {
+    const ScaleModalDemo = () => {
+      const [isVisible, setIsVisible] = React.useState(false);
+
+      return (
+        <>
+          <Button label="Open (scale)" onPress={() => setIsVisible(true)} />
+          <Modal isVisible={isVisible} onClose={() => setIsVisible(false)} animation="scale">
+            <Text variant="subheading" mb="s-2">Scales in</Text>
+            <Button label="Close" onPress={() => setIsVisible(false)} />
+          </Modal>
+        </>
+      );
+    };
+
+    return <ScaleModalDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+<Modal isVisible={isVisible} onClose={() => setIsVisible(false)} animation="scale">
+  {/* ... */}
+</Modal>
+```
+</PreviewPair>
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -113,10 +143,13 @@ function ConfirmModal() {
 | `onClose` | `() => void` | | Required. Called on backdrop press and Android hardware back. |
 | `children` | `ReactNode` | | Required. Modal content. |
 | `closeOnBackdropPress` | `boolean` | `true` | Whether tapping the backdrop calls `onClose`. |
-| `contentAlign` | `'center' \| 'bottom'` | `'center'` | Where the content sits within the backdrop. |
+| `animation` | `'fade' \| 'slide' \| 'scale'` | `'fade'` | How the content enters/exits. `scale` fades + scales the content; `slide` uses React Native's native slide. |
+| `contentAlign` | `'center' \| 'bottom' \| 'left' \| 'right'` | `'center'` | Where the content sits within the backdrop. |
 | `bg` | `TVajraColors` | `'surface'` | Background color token. |
-| `rounded` | `TRoundedToken` | `'r-4'` | Uniform corner radius; ignored if `roundedT` is set. |
+| `rounded` | `TRoundedToken` | `'r-4'` | Uniform corner radius; ignored if `roundedT`/`roundedL`/`roundedR` is set. |
 | `roundedT` | `TRoundedToken` | | Top-corners-only radius, useful for bottom-anchored content. |
+| `roundedL` | `TRoundedToken` | | Left-corners-only radius, useful for right-anchored content. |
+| `roundedR` | `TRoundedToken` | | Right-corners-only radius, useful for left-anchored content. |
 | `p` | `TSpacingToken` | `'s-4'` | Padding token applied to the content container. |
 | `backdropColor` | `TVajraColors` | `'overlay'` | Backdrop color token. |
 | `testID` | `string` | | Base test ID; also applied to the backdrop and content as `` `${testID}-backdrop` `` / `` `${testID}-content` ``. |

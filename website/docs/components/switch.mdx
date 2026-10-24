@@ -30,6 +30,19 @@ function NotificationsToggle() {
 | `label` | `string` | | Optional text rendered to the left of the track. The whole row is pressable. |
 | `color` | `TVajraColors` | `'primary'` | "On" track color. |
 | `isDisabled` | `boolean` | `false` | Disables the toggle and dims it. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Track and thumb size. |
+
+## Sizes
+
+<PreviewPair>
+<ComponentPreview>
+  <Switch value size="lg" onChange={() => {}} label="Large" />
+</ComponentPreview>
+
+```tsx
+<Switch value={value} onChange={setValue} size="lg" label="Large" />
+```
+</PreviewPair>
 
 ## Basic usage
 
@@ -107,6 +120,7 @@ function SwitchExample() {
 | `onChange` | `(value: string) => void` | | Required. Called with the pressed item's value. |
 | `color` | `TVajraColors` | `'primary'` | Track color token when an item is "on", applied to every item's indicator. |
 | `isDisabled` | `boolean` | `false` | Disables all items unless individually overridden. |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Track and thumb size, applied to every item. |
 | `children` | `ReactNode` | | Required. `Switch.Item` elements. |
 
 ### Switch.Item Props

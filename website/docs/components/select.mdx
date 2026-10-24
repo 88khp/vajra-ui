@@ -149,19 +149,95 @@ import { ChevronDownIcon, CheckIcon } from '@88khp/vajra-icons';
 ```
 </PreviewPair>
 
+## Multiple selection
+
+Pass `multiple` to select more than one option; `value` becomes an array and `onChange` receives the full updated array on each toggle.
+
+<PreviewPair>
+<ComponentPreview>
+  {(() => {
+    function SelectMultipleDemo() {
+      const [value, setValue] = useState(['apple']);
+
+      return (
+        <Select
+          multiple
+          label="Fruits"
+          placeholder="Choose fruits…"
+          value={value}
+          onChange={setValue}
+          options={[
+            { label: 'Apple', value: 'apple' },
+            { label: 'Banana', value: 'banana' },
+            { label: 'Cherry', value: 'cherry' },
+          ]}
+        />
+      );
+    }
+
+    return <SelectMultipleDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+const [value, setValue] = useState<string[]>(['apple']);
+
+<Select multiple label="Fruits" value={value} onChange={setValue} options={options} />
+```
+</PreviewPair>
+
+## Searchable
+
+Pass `isSearchable` to show a filter field above the options list, filtering by label.
+
+<PreviewPair>
+<ComponentPreview>
+  {(() => {
+    function SelectSearchableDemo() {
+      const [value, setValue] = useState(undefined);
+
+      return (
+        <Select
+          isSearchable
+          label="Country"
+          placeholder="Select a country…"
+          value={value}
+          onChange={setValue}
+          options={[
+            { label: 'India', value: 'in' },
+            { label: 'United States', value: 'us' },
+            { label: 'United Kingdom', value: 'uk' },
+          ]}
+        />
+      );
+    }
+
+    return <SelectSearchableDemo />;
+  })()}
+</ComponentPreview>
+
+```tsx
+<Select isSearchable label="Country" value={value} onChange={setValue} options={options} />
+```
+</PreviewPair>
+
 ## Props
 
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `options` | `{ label: string; value: TValue }[]` | | Required. List of selectable options. |
-| `value` | `TValue` | | Currently selected value. |
-| `onChange` | `(value: TValue) => void` | | Required. Called when an option is selected. |
+| `multiple` | `boolean` | `false` | Switches to multi-select mode — `value` becomes `TValue[]` and `onChange` receives `TValue[]`. |
+| `value` | `TValue \| TValue[]` | | Currently selected value(s); an array when `multiple`. |
+| `onChange` | `(value: TValue) => void \| (value: TValue[]) => void` | | Required. Called when selection changes. |
 | `placeholder` | `string` | `'Select…'` | Text shown when nothing is selected. |
 | `label` | `string` | | Label rendered above the field. |
 | `errorText` | `string` | | Helper text shown below the field when `isInvalid`. |
 | `isInvalid` | `boolean` | `false` | Renders the field with an error border and shows `errorText`. |
 | `isDisabled` | `boolean` | `false` | Disables interaction and dims opacity. |
-| `selectedColor` | `TVajraColors` | `'primary'` | Highlight color for the selected option in the sheet. |
+| `selectedColor` | `TVajraColors` | `'primary'` | Highlight color for the selected option(s) in the sheet. |
 | `icon` | `TVajraIconComponent` | | Icon shown at the trailing edge of the trigger, rotated between open/closed state. Defaults to a plain ▲/▼ glyph. |
-| `checkIcon` | `TVajraIconComponent` | | Icon shown next to the selected option in the sheet. Defaults to a plain ✓ glyph. |
+| `checkIcon` | `TVajraIconComponent` | | Icon shown next to selected option(s) in the sheet. Defaults to a plain ✓ glyph. |
+| `isSearchable` | `boolean` | `false` | Shows a filter field above the options list, filtering by label. |
+| `searchPlaceholder` | `string` | `'Search…'` | Placeholder for the search field. |
+| `searchIcon` | `TVajraIconComponent` | | Icon shown at the start of the search field. |
 | `testID` | `string` | | Test identifier. |

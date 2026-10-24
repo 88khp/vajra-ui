@@ -154,11 +154,12 @@ function TabsExample() {
 | Prop | Type | Default | Description |
 |---|---|---|---|
 | `tabs` | `{ value: string; label: string }[]` | | Required. Ordered list of tabs to render. |
-| `trackBg` | `TVajraColors` | `'surfaceRaised'` | Background color of the tab track. |
-| `trackRounded` | `TRoundedToken` | `'r-full'` | Corner radius of the tab track. |
+| `variant` | `'pills' \| 'segmented' \| 'underline'` | `'pills'` | Indicator style. See [Tab Bar](./tab-bar) for a visual comparison. |
+| `trackBg` | `TVajraColors` | Resolved per `variant` | Background color of the tab track. |
+| `trackRounded` | `TRoundedToken` | Resolved per `variant` | Corner radius of the tab track. |
 | `trackPadding` | `TSpacingToken` | `'s-1'` | Inner padding of the tab track. |
-| `indicatorBg` | `TVajraColors` | `'surface'` | Background color of the sliding active indicator. |
-| `indicatorRounded` | `TRoundedToken` | `'r-full'` | Corner radius of the sliding active indicator. |
+| `indicatorBg` | `TVajraColors` | Resolved per `variant` | Background color of the sliding active indicator. |
+| `indicatorRounded` | `TRoundedToken` | Resolved per `variant` | Corner radius of the sliding active indicator. |
 | `activeColor` | `TVajraColors` | `'text'` | Label color for the active tab. |
 | `inactiveColor` | `TVajraColors` | `'textMuted'` | Label color for inactive tabs. |
 | `labelProps` | `Omit<TTextProps, 'color'>` | | Extra props passed to each tab's label `Text`. |
