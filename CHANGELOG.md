@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2026-10-24
+
+A minor release adding 12 components and several prop APIs to existing ones. Nothing is removed or renamed, and existing code keeps its behavior.
+
+### Added
+
+- **New components:** `Fab` (floating action button, with corner docking), `Searchbar` (search input with optional debounce), `Divider` (line with inset and centered label), `Banner` (page-level message bar with an optional action), `Popover` (content anchored to a trigger), `Carousel` (paged horizontal scroll with dot indicator), `Rating` (star or custom-icon rating), `Drawer` (left or right side panel), `Breadcrumb`, `Pagination`, `DatePicker` (calendar in a bottom sheet, min/max dates) and `TimePicker` (hour, minute and AM/PM in a bottom sheet). `DatePicker` and `TimePicker` use plain `Date` objects and need no date library.
+- `Button`: `leftIcon` and `rightIcon`.
+- `Tabs` and `TabBar`: `variant` of `pills` (default), `segmented` or `underline`.
+- `Avatar`: `status` dot (`online`, `offline`, `away`, `busy`) and `statusColor`. New `AvatarGroup` for stacked avatars, with `max` and a "+N" overflow.
+- `Chip`: `icon` and `avatar` leading slots.
+- `Input` (all four variants): `isClearable` and `clearIcon`.
+- `Checkbox`, `Radio` and `Switch`: `size` (`xs`, `sm`, `md`, `lg`) on the root and on the standalone `Switch`.
+- `Select`: `multiple` (value and `onChange` become arrays), `isSearchable` with `searchPlaceholder` and `searchIcon`.
+- `Modal` and `Sheet`: `animation` (`fade`, `slide`, `scale`). `Modal` also accepts `contentAlign` of `left` or `right`, with `roundedL` and `roundedR`.
+
+### Fixed
+
+- `TabBar` no longer updates state from inside `onLayout` during another component's render, which triggered React's "Cannot update a component while rendering a different component" warning when two tab bars mounted close together.
+
+### Docs
+
+- Docs site: a live prop playground on the component pages, a component showcase at `/showcase`, a redesigned home page hero, and pages for every new component.
+
 ## [3.0.0] - 2026-10-22
 
 The stable 3.0 release, with every change from 3.0.0-alpha.0 and 3.0.0-alpha.1. Coming from 2.x, read the breaking changes under [3.0.0-alpha.0](#300-alpha0---2026-10-21): the package is renamed to `@88khp/vajra-ui`, and `Pressable` is built on React Native `Pressable`.
