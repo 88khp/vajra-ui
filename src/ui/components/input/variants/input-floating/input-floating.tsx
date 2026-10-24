@@ -10,6 +10,7 @@ import { InputHelper } from '../../components/input-helper/input-helper';
 import { InputRoot } from '../../components/input-root/input-root';
 import { useInputContext } from '../../input-context';
 import { getInputSizeStyle } from '../../input-utils';
+import { useInputClearable } from '../../use-input-clearable';
 import { TInputFloatingProps } from './input-floating-types';
 import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
@@ -34,6 +35,8 @@ const FloatingLabelField = ({
   inputRef,
   startElement,
   endElement,
+  isClearable,
+  clearIcon,
   ...fieldProps
 }: TFloatingFieldProps) => {
   const { colors, rounded: roundedTokens } = useVajraTheme();
@@ -66,6 +69,14 @@ const FloatingLabelField = ({
   );
   const handleFocus = useCallback(() => setIsFocused(true), [setIsFocused]);
   const handleBlur = useCallback(() => setIsFocused(false), [setIsFocused]);
+
+  const resolvedEndElement = useInputClearable({
+    isClearable,
+    clearIcon,
+    endElement,
+    displayValue,
+    onClear: () => handleChangeText(''),
+  });
 
   const anim = useRef(new Animated.Value(isFloating ? 1 : 0)).current;
 
@@ -164,7 +175,7 @@ const FloatingLabelField = ({
           onBlur={handleBlur}
           {...fieldProps}
         />
-        {endElement}
+        {resolvedEndElement}
       </Row>
     </View>
   );

@@ -1,35 +1,74 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useMemo, useState } from 'react';
 
 import { Box } from '../../core/box';
 import { Pressable } from '../../core/pressable';
 import { Row } from '../../core/row';
 import { Text } from '../../core/text';
 import { useVajraTheme } from '../../vajra-theme/use-vajra-theme';
+import { Input } from '../input';
 import { Sheet } from '../sheet';
 import { SelectOption } from './components/select-option';
 import { TSelectOption, TSelectProps } from './select-types';
 
-const SelectComponent = <TValue extends string = string>({
-  options,
-  value,
-  onChange,
-  placeholder = 'Select…',
-  label,
-  errorText,
-  isInvalid = false,
-  isDisabled = false,
-  selectedColor = 'primary',
-  icon: Icon,
-  checkIcon,
-  testID,
-}: TSelectProps<TValue>) => {
+const SelectComponent = <TValue extends string = string>(props: TSelectProps<TValue>) => {
+  const {
+    options,
+    placeholder = 'Select…',
+    label,
+    errorText,
+    isInvalid = false,
+    isDisabled = false,
+    selectedColor = 'primary',
+    icon: Icon,
+    checkIcon,
+    isSearchable = false,
+    searchPlaceholder = 'Search…',
+    searchIcon: SearchIcon,
+    testID,
+  } = props;
+
   const { colors } = useVajraTheme();
   const [isOpen, setIsOpen] = useState(false);
-  const selected = options.find(option => option.value === value);
+  const [query, setQuery] = useState('');
+
+  const selectedValues: TValue[] = props.multiple
+    ? (props.value ?? [])
+    : props.value
+      ? [props.value]
+      : [];
+  const selectedOptions = options.filter(option => selectedValues.includes(option.value));
+  const displayLabel = props.multiple
+    ? selectedOptions.length > 0
+      ? selectedOptions.map(option => option.label).join(', ')
+      : placeholder
+    : (selectedOptions[0]?.label ?? placeholder);
+
+  const filteredOptions = useMemo(
+    () =>
+      isSearchable && query.trim().length > 0
+        ? options.filter(option => option.label.toLowerCase().includes(query.trim().toLowerCase()))
+        : options,
+    [options, isSearchable, query],
+  );
 
   const handleSelect = (option: TSelectOption<TValue>) => {
-    onChange(option.value);
+    if (props.multiple) {
+      const next = selectedValues.includes(option.value)
+        ? selectedValues.filter(v => v !== option.value)
+        : [...selectedValues, option.value];
+
+      props.onChange(next);
+
+      return;
+    }
+
+    props.onChange(option.value);
     setIsOpen(false);
+  };
+
+  const handleClose = () => {
+    setIsOpen(false);
+    setQuery('');
   };
 
   return (
@@ -54,8 +93,8 @@ const SelectComponent = <TValue extends string = string>({
         accessibilityState={{ disabled: isDisabled, expanded: isOpen }}
       >
         <Row align="center" justify="space-between">
-          <Text variant="body" color={selected ? 'text' : 'textMuted'}>
-            {selected?.label ?? placeholder}
+          <Text variant="body" color={selectedOptions.length > 0 ? 'text' : 'textMuted'}>
+            {displayLabel}
           </Text>
           {Icon ? (
             <Row style={{ transform: [{ rotate: isOpen ? '180deg' : '0deg' }] }}>
@@ -77,14 +116,31 @@ const SelectComponent = <TValue extends string = string>({
 
       <Sheet
         isVisible={isOpen}
-        onClose={() => setIsOpen(false)}
+        onClose={handleClose}
         testID={testID ? `${testID}-sheet` : undefined}
       >
-        {options.map(option => (
+        {isSearchable && (
+          <Box pb="s-3">
+            <Input.Outline
+              value={query}
+              onChangeText={setQuery}
+              placeholder={searchPlaceholder}
+              startElement={
+                SearchIcon ? (
+                  <SearchIcon size={16} width={16} height={16} color={colors.textMuted} />
+                ) : undefined
+              }
+              isClearable
+              autoFocus
+            />
+          </Box>
+        )}
+
+        {filteredOptions.map(option => (
           <SelectOption
             key={option.value}
             label={option.label}
-            isSelected={option.value === value}
+            isSelected={selectedValues.includes(option.value)}
             onPress={() => handleSelect(option)}
             selectedColor={selectedColor}
             checkIcon={checkIcon}

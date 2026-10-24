@@ -34,8 +34,14 @@ const flattenStyle = (style: unknown): Record<string, unknown> => {
   return (style as Record<string, unknown>) ?? {};
 };
 
-const ControlledSelect = (props: Partial<React.ComponentProps<typeof Select>> = {}) => {
-  const [value, setValue] = useState<string | undefined>(undefined);
+type TControlledSelectProps = Partial<
+  Omit<React.ComponentProps<typeof Select>, 'multiple' | 'value' | 'onChange'>
+> & {
+  initialValue?: string;
+};
+
+const ControlledSelect = ({ initialValue, ...props }: TControlledSelectProps = {}) => {
+  const [value, setValue] = useState<string | undefined>(initialValue);
 
   return (
     <Select options={options} value={value} onChange={setValue} testID="color-select" {...props} />
@@ -113,7 +119,7 @@ describe('Select', () => {
 
     render(
       <VajraProvider>
-        <ControlledSelect value="green" checkIcon={CheckIcon} />
+        <ControlledSelect initialValue="green" checkIcon={CheckIcon} />
       </VajraProvider>,
     );
 

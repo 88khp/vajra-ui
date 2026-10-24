@@ -16,6 +16,8 @@ const ChipComponent: React.FC<TChipProps> = ({
   selectedColor = 'textInverse',
   unselectedBg = 'surfaceRaised',
   unselectedColor = 'text',
+  icon: Icon,
+  avatar,
   removeIcon: RemoveIcon,
   testID,
 }) => {
@@ -35,6 +37,8 @@ const ChipComponent: React.FC<TChipProps> = ({
       style={{ opacity: isDisabled ? 0.5 : 1 }}
       testID={testID}
     >
+      {avatar}
+      {!avatar && Icon && <Icon size={14} width={14} height={14} color={colors[color]} />}
       <Text variant="label" color={color}>
         {label}
       </Text>

@@ -9,6 +9,7 @@ const CheckboxRootComponent: React.FC<TCheckboxRootProps> = ({
   onChange,
   color,
   isDisabled = false,
+  size = 'md',
   icon,
   children,
 }) => {
@@ -25,7 +26,7 @@ const CheckboxRootComponent: React.FC<TCheckboxRootProps> = ({
 
   return (
     <CheckboxContextProvider
-      value={{ selectedValues: values, onChange: toggle, color, isDisabled, icon }}
+      value={{ selectedValues: values, onChange: toggle, color, isDisabled, size, icon }}
     >
       <Col gap="s-2">{children}</Col>
     </CheckboxContextProvider>

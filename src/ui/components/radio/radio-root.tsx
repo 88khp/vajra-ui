@@ -9,10 +9,11 @@ const RadioRootComponent: React.FC<TRadioRootProps> = ({
   onChange,
   color,
   isDisabled = false,
+  size = 'md',
   children,
 }) => {
   return (
-    <RadioContextProvider value={{ selectedValue: value, onChange, color, isDisabled }}>
+    <RadioContextProvider value={{ selectedValue: value, onChange, color, isDisabled, size }}>
       <Col gap="s-2">{children}</Col>
     </RadioContextProvider>
   );

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { TModalAnimation } from '../modal/modal-types';
 import { TVajraColors } from '../../vajra-theme/colors';
 import { TRoundedToken } from '../../vajra-theme/tokens/rounded-tokens';
 import { TSpacingToken } from '../../vajra-theme/tokens/spacing-tokens';
@@ -10,6 +11,9 @@ export type TSheetProps = {
   children: React.ReactNode;
 
   closeOnBackdropPress?: boolean;
+
+  /** How the sheet enters/exits. Defaults to 'slide'. */
+  animation?: TModalAnimation;
 
   /** Drag the sheet down to dismiss it. Defaults to true. */
   dismissOnDrag?: boolean;

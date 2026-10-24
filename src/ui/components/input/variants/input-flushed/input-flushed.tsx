@@ -7,6 +7,7 @@ import { InputHelper } from '../../components/input-helper/input-helper';
 import { InputLabel } from '../../components/input-label/input-label';
 import { InputRoot } from '../../components/input-root/input-root';
 import { TInputProps } from '../../input-types';
+import { useInputClearable } from '../../use-input-clearable';
 import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
 const FLUSHED_BORDER = { borderBottomWidth: 1 };
@@ -23,37 +24,57 @@ const InputFlushedComponent = forwardRef<TTextInputInstance, TInputProps>(
       size,
       startElement,
       endElement,
+      isClearable,
+      clearIcon,
+      value,
+      onChangeText,
       ...fieldProps
     },
     ref,
-  ) => (
-    <InputRoot
-      isInvalid={isInvalid}
-      isDisabled={isDisabled}
-      isReadOnly={isReadOnly}
-      errorText={errorText}
-      size={size}
-    >
-      {label !== undefined && <InputLabel>{label}</InputLabel>}
+  ) => {
+    const resolvedEndElement = useInputClearable({
+      isClearable,
+      clearIcon,
+      endElement,
+      displayValue: value,
+      onClear: () => onChangeText?.(''),
+    });
 
-      <InputContainer
-        borderColor="transparent"
-        borderWidth={0}
-        focusBorderColor="borderFocus"
-        errorBorderColor="error"
-        style={FLUSHED_BORDER}
-        px="s-3"
-        py="s-2"
+    return (
+      <InputRoot
+        isInvalid={isInvalid}
+        isDisabled={isDisabled}
+        isReadOnly={isReadOnly}
+        errorText={errorText}
+        size={size}
       >
-        {startElement}
-        <InputField ref={ref} size={size} {...fieldProps} />
-        {endElement}
-      </InputContainer>
+        {label !== undefined && <InputLabel>{label}</InputLabel>}
 
-      {errorText !== undefined && <InputError>{errorText}</InputError>}
-      {helperText !== undefined && <InputHelper>{helperText}</InputHelper>}
-    </InputRoot>
-  ),
+        <InputContainer
+          borderColor="transparent"
+          borderWidth={0}
+          focusBorderColor="borderFocus"
+          errorBorderColor="error"
+          style={FLUSHED_BORDER}
+          px="s-3"
+          py="s-2"
+        >
+          {startElement}
+          <InputField
+            ref={ref}
+            size={size}
+            value={value}
+            onChangeText={onChangeText}
+            {...fieldProps}
+          />
+          {resolvedEndElement}
+        </InputContainer>
+
+        {errorText !== undefined && <InputError>{errorText}</InputError>}
+        {helperText !== undefined && <InputHelper>{helperText}</InputHelper>}
+      </InputRoot>
+    );
+  },
 );
 
 InputFlushedComponent.displayName = 'Input.Flushed';

@@ -10,16 +10,20 @@ const ModalComponent: React.FC<TModalProps> = ({
   onClose,
   children,
   closeOnBackdropPress = true,
+  animation = 'fade',
   contentAlign = 'center',
   bg = 'surface',
   rounded = 'r-4',
   roundedT,
+  roundedL,
+  roundedR,
   p = 's-4',
   backdropColor = 'overlay',
   testID,
 }) => {
   const { colors } = useVajraTheme();
   const backdropOpacity = useRef(new Animated.Value(0)).current;
+  const contentScale = useRef(new Animated.Value(animation === 'scale' ? 0.9 : 1)).current;
 
   useEffect(() => {
     Animated.timing(backdropOpacity, {
@@ -27,13 +31,25 @@ const ModalComponent: React.FC<TModalProps> = ({
       duration: 150,
       useNativeDriver: true,
     }).start();
-  }, [isVisible, backdropOpacity]);
+
+    if (animation === 'scale') {
+      Animated.spring(contentScale, {
+        toValue: isVisible ? 1 : 0.9,
+        useNativeDriver: true,
+        bounciness: 6,
+      }).start();
+    }
+  }, [isVisible, backdropOpacity, contentScale, animation]);
+
+  // RN's native animationType handles 'fade' and 'slide'; 'scale' rides on 'fade'
+  // and layers its own Animated.View scale transform on the content.
+  const nativeAnimationType = animation === 'scale' ? 'fade' : animation;
 
   return (
     <RNModal
       visible={isVisible}
       transparent
-      animationType="fade"
+      animationType={nativeAnimationType}
       onRequestClose={onClose}
       testID={testID}
     >
@@ -42,7 +58,12 @@ const ModalComponent: React.FC<TModalProps> = ({
           flex: 1,
           backgroundColor: colors[backdropColor],
           opacity: backdropOpacity,
-          alignItems: 'center',
+          alignItems:
+            contentAlign === 'left'
+              ? 'flex-start'
+              : contentAlign === 'right'
+                ? 'flex-end'
+                : 'center',
           justifyContent: contentAlign === 'bottom' ? 'flex-end' : 'center',
         }}
       >
@@ -52,16 +73,33 @@ const ModalComponent: React.FC<TModalProps> = ({
           accessibilityLabel="Close"
           testID={testID ? `${testID}-backdrop` : undefined}
         />
-        <Box
-          bg={bg}
-          rounded={roundedT === undefined ? rounded : undefined}
-          roundedT={roundedT}
-          p={p}
-          style={contentAlign === 'bottom' ? { width: '100%' } : undefined}
-          testID={testID ? `${testID}-content` : undefined}
+        <Animated.View
+          style={[
+            contentAlign === 'bottom'
+              ? { width: '100%' }
+              : contentAlign === 'left' || contentAlign === 'right'
+                ? { height: '100%' }
+                : {},
+            animation === 'scale' ? { transform: [{ scale: contentScale }] } : {},
+          ]}
         >
-          {children}
-        </Box>
+          <Box
+            bg={bg}
+            rounded={
+              roundedT === undefined && roundedL === undefined && roundedR === undefined
+                ? rounded
+                : undefined
+            }
+            roundedT={roundedT}
+            roundedL={roundedL}
+            roundedR={roundedR}
+            p={p}
+            style={contentAlign === 'left' || contentAlign === 'right' ? { flex: 1 } : undefined}
+            testID={testID ? `${testID}-content` : undefined}
+          >
+            {children}
+          </Box>
+        </Animated.View>
       </Animated.View>
     </RNModal>
   );

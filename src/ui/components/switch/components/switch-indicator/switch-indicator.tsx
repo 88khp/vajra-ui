@@ -3,25 +3,25 @@ import { Animated } from 'react-native';
 
 import { TVajraColors } from '../../../../vajra-theme/colors';
 import { useVajraTheme } from '../../../../vajra-theme';
-
-const TRACK_W = 44;
-const TRACK_H = 24;
-const THUMB_SIZE = 18;
-const THUMB_OFF = 3;
-const THUMB_ON = TRACK_W - THUMB_SIZE - THUMB_OFF;
+import { SWITCH_SIZE_STYLES } from '../../switch-constants';
+import { TSwitchSize } from '../../switch-types';
 
 type TSwitchIndicatorProps = {
   isSelected: boolean;
   isDisabled: boolean;
   color?: TVajraColors;
+  size?: TSwitchSize;
 };
 
 const SwitchIndicatorComponent: React.FC<TSwitchIndicatorProps> = ({
   isSelected,
   isDisabled,
   color = 'primary',
+  size = 'md',
 }) => {
   const { colors } = useVajraTheme();
+  const { trackW, trackH, thumb, thumbOffset } = SWITCH_SIZE_STYLES[size];
+  const thumbOn = trackW - thumb - thumbOffset;
   const anim = useRef(new Animated.Value(isSelected ? 1 : 0)).current;
 
   useEffect(() => {
@@ -32,7 +32,7 @@ const SwitchIndicatorComponent: React.FC<TSwitchIndicatorProps> = ({
     }).start();
   }, [isSelected, anim]);
 
-  const translateX = anim.interpolate({ inputRange: [0, 1], outputRange: [THUMB_OFF, THUMB_ON] });
+  const translateX = anim.interpolate({ inputRange: [0, 1], outputRange: [thumbOffset, thumbOn] });
   const trackColor = anim.interpolate({
     inputRange: [0, 1],
     outputRange: [colors.border, colors[color]],
@@ -41,9 +41,9 @@ const SwitchIndicatorComponent: React.FC<TSwitchIndicatorProps> = ({
   return (
     <Animated.View
       style={{
-        width: TRACK_W,
-        height: TRACK_H,
-        borderRadius: TRACK_H / 2,
+        width: trackW,
+        height: trackH,
+        borderRadius: trackH / 2,
         backgroundColor: trackColor,
         justifyContent: 'center',
         opacity: isDisabled ? 0.4 : 1,
@@ -51,9 +51,9 @@ const SwitchIndicatorComponent: React.FC<TSwitchIndicatorProps> = ({
     >
       <Animated.View
         style={{
-          width: THUMB_SIZE,
-          height: THUMB_SIZE,
-          borderRadius: THUMB_SIZE / 2,
+          width: thumb,
+          height: thumb,
+          borderRadius: thumb / 2,
           backgroundColor: colors.surface,
           transform: [{ translateX }],
         }}

@@ -10,18 +10,28 @@ const TabBarComponent: React.FC<TTabBarProps> = ({
   tabs,
   value,
   onChange,
-  trackBg = 'surfaceRaised',
-  trackRounded = 'r-full',
+  variant = 'pills',
+  trackBg,
+  trackRounded,
   trackPadding = 's-1',
-  indicatorBg = 'surface',
-  indicatorRounded = 'r-full',
+  indicatorBg,
+  indicatorRounded,
+  underlineHeight = 2,
   activeColor = 'text',
   inactiveColor = 'textMuted',
   labelProps,
   scrollable = false,
 }) => {
+  const isUnderline = variant === 'underline';
+  const isSegmented = variant === 'segmented';
+  const resolvedTrackBg = trackBg ?? (isUnderline ? 'transparent' : 'surfaceRaised');
+  const resolvedTrackRounded =
+    trackRounded ?? (isSegmented ? 'r-2' : isUnderline ? 'r-0' : 'r-full');
+  const resolvedIndicatorBg = indicatorBg ?? (isUnderline ? 'primary' : 'surface');
+  const resolvedIndicatorRounded = indicatorRounded ?? (isSegmented ? 'r-2' : 'r-full');
+
   const { colors, rounded: r, spacing: spacingTokens } = useVajraTheme();
-  const { p: pad } = resolveSpacing({ p: trackPadding }, spacingTokens);
+  const { p: pad } = resolveSpacing({ p: isUnderline ? undefined : trackPadding }, spacingTokens);
   const padding = pad ?? 0;
 
   const [tabLayouts, setTabLayouts] = useState<Record<string, { x: number; width: number }>>({});
@@ -29,42 +39,17 @@ const TabBarComponent: React.FC<TTabBarProps> = ({
   const indicatorW = useRef(new Animated.Value(0)).current;
   const prevValue = useRef<string | null>(null);
 
-  const handleLayout = useCallback(
-    (tabValue: string, e: LayoutChangeEvent) => {
-      const { x, width } = e.nativeEvent.layout;
+  const handleLayout = useCallback((tabValue: string, e: LayoutChangeEvent) => {
+    const { x, width } = e.nativeEvent.layout;
 
-      setTabLayouts(prev => {
-        const next = { ...prev, [tabValue]: { x, width } };
-
-        if (tabValue === value) {
-          const layout = next[tabValue];
-
-          if (prevValue.current === null) {
-            indicatorX.setValue(layout.x);
-            indicatorW.setValue(layout.width);
-          } else {
-            Animated.parallel([
-              Animated.spring(indicatorX, {
-                toValue: layout.x,
-                useNativeDriver: false,
-                bounciness: 0,
-              }),
-              Animated.spring(indicatorW, {
-                toValue: layout.width,
-                useNativeDriver: false,
-                bounciness: 0,
-              }),
-            ]).start();
-          }
-
-          prevValue.current = tabValue;
-        }
-
-        return next;
-      });
-    },
-    [value, indicatorX, indicatorW],
-  );
+    // onLayout can fire while a sibling/ancestor is still committing (e.g. two
+    // TabBar instances mounting close together), which trips React's
+    // "setState while rendering a different component" warning. Deferring to
+    // the next frame guarantees this update always lands after commit.
+    requestAnimationFrame(() => {
+      setTabLayouts(prev => ({ ...prev, [tabValue]: { x, width } }));
+    });
+  }, []);
 
   useEffect(() => {
     const layout = tabLayouts[value];
@@ -93,8 +78,8 @@ const TabBarComponent: React.FC<TTabBarProps> = ({
     <View
       style={{
         flex: 1,
-        backgroundColor: colors[trackBg],
-        borderRadius: r[trackRounded],
+        backgroundColor: colors[resolvedTrackBg],
+        borderRadius: r[resolvedTrackRounded],
         padding,
         flexDirection: 'row',
         position: 'relative',
@@ -102,16 +87,29 @@ const TabBarComponent: React.FC<TTabBarProps> = ({
     >
       {/* Sliding indicator */}
       <Animated.View
-        style={{
-          position: 'absolute',
-          top: padding,
-          left: 0,
-          bottom: padding,
-          width: indicatorW,
-          transform: [{ translateX: indicatorX }],
-          backgroundColor: colors[indicatorBg],
-          borderRadius: r[indicatorRounded],
-        }}
+        style={
+          isUnderline
+            ? {
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                height: underlineHeight,
+                width: indicatorW,
+                transform: [{ translateX: indicatorX }],
+                backgroundColor: colors[resolvedIndicatorBg],
+                borderRadius: r[resolvedIndicatorRounded],
+              }
+            : {
+                position: 'absolute',
+                top: padding,
+                left: 0,
+                bottom: padding,
+                width: indicatorW,
+                transform: [{ translateX: indicatorX }],
+                backgroundColor: colors[resolvedIndicatorBg],
+                borderRadius: r[resolvedIndicatorRounded],
+              }
+        }
       />
 
       {tabs.map(tab => {

@@ -9,10 +9,11 @@ const SwitchRootComponent: React.FC<TSwitchRootProps> = ({
   onChange,
   color,
   isDisabled = false,
+  size = 'md',
   children,
 }) => {
   return (
-    <SwitchContextProvider value={{ selectedValue: value, onChange, color, isDisabled }}>
+    <SwitchContextProvider value={{ selectedValue: value, onChange, color, isDisabled, size }}>
       <Col gap="s-2">{children}</Col>
     </SwitchContextProvider>
   );

@@ -7,6 +7,7 @@ import { InputHelper } from '../../components/input-helper/input-helper';
 import { InputLabel } from '../../components/input-label/input-label';
 import { InputRoot } from '../../components/input-root/input-root';
 import { TInputProps } from '../../input-types';
+import { useInputClearable } from '../../use-input-clearable';
 import { TTextInputInstance } from '../../../../core/text-input/text-input-types';
 
 const InputOutlineComponent = forwardRef<TTextInputInstance, TInputProps>(
@@ -22,37 +23,57 @@ const InputOutlineComponent = forwardRef<TTextInputInstance, TInputProps>(
       rounded,
       startElement,
       endElement,
+      isClearable,
+      clearIcon,
+      value,
+      onChangeText,
       ...fieldProps
     },
     ref,
-  ) => (
-    <InputRoot
-      isInvalid={isInvalid}
-      isDisabled={isDisabled}
-      isReadOnly={isReadOnly}
-      errorText={errorText}
-      size={size}
-    >
-      {label !== undefined && <InputLabel>{label}</InputLabel>}
+  ) => {
+    const resolvedEndElement = useInputClearable({
+      isClearable,
+      clearIcon,
+      endElement,
+      displayValue: value,
+      onClear: () => onChangeText?.(''),
+    });
 
-      <InputContainer
-        bg="background"
-        borderColor="border"
-        focusBorderColor="borderFocus"
-        errorBorderColor="error"
-        rounded={rounded ? 'r-full' : 'r-2'}
-        px={rounded ? 's-5' : 's-3'}
-        py="s-2"
+    return (
+      <InputRoot
+        isInvalid={isInvalid}
+        isDisabled={isDisabled}
+        isReadOnly={isReadOnly}
+        errorText={errorText}
+        size={size}
       >
-        {startElement}
-        <InputField ref={ref} size={size} {...fieldProps} />
-        {endElement}
-      </InputContainer>
+        {label !== undefined && <InputLabel>{label}</InputLabel>}
 
-      {errorText !== undefined && <InputError>{errorText}</InputError>}
-      {helperText !== undefined && <InputHelper>{helperText}</InputHelper>}
-    </InputRoot>
-  ),
+        <InputContainer
+          bg="background"
+          borderColor="border"
+          focusBorderColor="borderFocus"
+          errorBorderColor="error"
+          rounded={rounded ? 'r-full' : 'r-2'}
+          px={rounded ? 's-5' : 's-3'}
+          py="s-2"
+        >
+          {startElement}
+          <InputField
+            ref={ref}
+            size={size}
+            value={value}
+            onChangeText={onChangeText}
+            {...fieldProps}
+          />
+          {resolvedEndElement}
+        </InputContainer>
+
+        {errorText !== undefined && <InputError>{errorText}</InputError>}
+        {helperText !== undefined && <InputHelper>{helperText}</InputHelper>}
+      </InputRoot>
+    );
+  },
 );
 
 InputOutlineComponent.displayName = 'Input.Outline';

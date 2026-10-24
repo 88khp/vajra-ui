@@ -8,19 +8,27 @@ export type TTabBarTab = {
   label: string;
 };
 
+export type TTabBarVariant = 'pills' | 'underline' | 'segmented';
+
 export type TTabBarProps = {
   tabs: TTabBarTab[];
   value: string;
   onChange: (value: string) => void;
+
+  // 'pills' (default): filled sliding pill over a rounded track.
+  // 'segmented': same pill indicator, square-ish track (alias with different default roundedness).
+  // 'underline': classic thin bottom-border indicator, no track background.
+  variant?: TTabBarVariant;
 
   // track (container)
   trackBg?: TVajraColors;
   trackRounded?: TRoundedToken;
   trackPadding?: TSpacingToken;
 
-  // active indicator pill
+  // active indicator pill / underline
   indicatorBg?: TVajraColors;
   indicatorRounded?: TRoundedToken;
+  underlineHeight?: number;
 
   // label colors
   activeColor?: TVajraColors;

@@ -7,7 +7,7 @@ import { RadioLabel } from '../radio-label';
 import { TRadioItemProps } from './radio-item-types';
 
 const RadioItemComponent: React.FC<TRadioItemProps> = ({ value, label, isDisabled }) => {
-  const { selectedValue, onChange, color, isDisabled: rootDisabled } = useRadioContext();
+  const { selectedValue, onChange, color, isDisabled: rootDisabled, size } = useRadioContext();
   const disabled = isDisabled ?? rootDisabled;
   const isSelected = selectedValue === value;
 
@@ -19,7 +19,7 @@ const RadioItemComponent: React.FC<TRadioItemProps> = ({ value, label, isDisable
       align="center"
       gap="s-2"
     >
-      <RadioIndicator isSelected={isSelected} isDisabled={disabled} color={color} />
+      <RadioIndicator isSelected={isSelected} isDisabled={disabled} color={color} size={size} />
       {label && <RadioLabel label={label} isDisabled={disabled} />}
     </Pressable>
   );

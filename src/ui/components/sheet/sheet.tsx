@@ -11,6 +11,7 @@ const SheetComponent: React.FC<TSheetProps> = ({
   onClose,
   children,
   closeOnBackdropPress = true,
+  animation = 'slide',
   dismissOnDrag = true,
   bg = 'surface',
   roundedT = 'r-4',
@@ -41,6 +42,7 @@ const SheetComponent: React.FC<TSheetProps> = ({
       isVisible={isVisible}
       onClose={onClose}
       closeOnBackdropPress={closeOnBackdropPress}
+      animation={animation}
       contentAlign="bottom"
       bg={bg}
       roundedT={roundedT}

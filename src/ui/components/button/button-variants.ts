@@ -37,22 +37,27 @@ export const buttonRecipe = createRecipe({
       xs: {
         container: vajraStyle({ px: 's-2', py: 's-1', rounded: 'r-1' }),
         label: vajraTextStyle({ fontVariant: 'label' }),
+        icon: { size: 12 },
       },
       sm: {
         container: vajraStyle({ px: 's-3', py: 's-2', rounded: 'r-1' }),
         label: vajraTextStyle({ fontVariant: 'label' }),
+        icon: { size: 14 },
       },
       md: {
         container: vajraStyle({ px: 's-4', py: 's-3', rounded: 'r-2' }),
         label: vajraTextStyle({ fontVariant: 'button' }),
+        icon: { size: 16 },
       },
       lg: {
         container: vajraStyle({ px: 's-5', py: 's-3', rounded: 'r-2' }),
         label: vajraTextStyle({ fontVariant: 'button' }),
+        icon: { size: 18 },
       },
       xl: {
         container: vajraStyle({ px: 's-6', py: 's-4', rounded: 'r-3' }),
         label: vajraTextStyle({ fontVariant: 'button' }),
+        icon: { size: 20 },
       },
     },
   },

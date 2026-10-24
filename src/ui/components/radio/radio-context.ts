@@ -1,12 +1,14 @@
 import { createContext, useContext } from 'react';
 
 import { TVajraColors } from '../../vajra-theme/colors';
+import { TRadioSize } from './radio-types';
 
 type TRadioContext = {
   selectedValue: string;
   onChange: (value: string) => void;
   color?: TVajraColors;
   isDisabled: boolean;
+  size: TRadioSize;
 };
 
 const RadioContext = createContext<TRadioContext | null>(null);

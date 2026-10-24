@@ -7,7 +7,7 @@ import { SwitchLabel } from '../switch-label';
 import { TSwitchItemProps } from './switch-item-types';
 
 const SwitchItemComponent: React.FC<TSwitchItemProps> = ({ value, label, isDisabled }) => {
-  const { selectedValue, onChange, color, isDisabled: rootDisabled } = useSwitchContext();
+  const { selectedValue, onChange, color, isDisabled: rootDisabled, size } = useSwitchContext();
   const disabled = isDisabled ?? rootDisabled;
   const isSelected = selectedValue === value;
 
@@ -21,7 +21,7 @@ const SwitchItemComponent: React.FC<TSwitchItemProps> = ({ value, label, isDisab
       gap="s-2"
     >
       {label && <SwitchLabel label={label} isDisabled={disabled} />}
-      <SwitchIndicator isSelected={isSelected} isDisabled={disabled} color={color} />
+      <SwitchIndicator isSelected={isSelected} isDisabled={disabled} color={color} size={size} />
     </Pressable>
   );
 };
